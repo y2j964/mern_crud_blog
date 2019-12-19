@@ -1,0 +1,13 @@
+.hamburger-toggle {
+  @apply ml-auto;
+  /* opacity: 0.5;
+  transition: opacity 200ms ease-in-out; */
+
+  @media (--md) {
+    display: none;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}

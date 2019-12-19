@@ -1,0 +1,24 @@
+.navbar {
+  @apply py-3 px-4 flex flex-wrap items-center overflow-hidden;
+
+  @media (--md) {
+    @apply flex-no-wrap px-5 py-6;
+  }
+
+  &__link {
+    @apply my-3 block uppercase opacity-100 font-medium;
+    transition: opacity 300ms ease-in-out;
+
+    &--is-active {
+      @apply font-bold;
+    }
+
+    &:hover {
+      @apply opacity-75;
+    }
+
+    @media (--md) {
+      @apply my-0 mr-8;
+    }
+  }
+}
