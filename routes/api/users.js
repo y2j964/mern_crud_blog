@@ -4,13 +4,23 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 require('dotenv').config();
 
+// encrypts password(hash) with additional layer of complexity added(salt)
+const getEncryptedPassword = async password => {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    return bcrypt.hash(password, salt);
+  } catch (err) {
+    throw err;
+  }
+};
+
 // User Model
 const User = require('../../models/User');
 
-// @route Post api/Users
+// @route Post api/users
 // @desc Register new Users
 // @access Public
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { name, email, password } = req.body;
 
   // simple validation
@@ -19,49 +29,82 @@ router.post('/', (req, res) => {
   }
 
   // check for existing user
-  User.findOne({ email }).then(user => {
-    if (user) {
-      return res
-        .status(400)
-        .json({ msg: 'Email address is already registered' });
-    }
-    const newUser = new User({
-      name,
-      email,
-      password,
-    });
-
-    // create salt & hash
-    // encrypts password(hash) with additional layer of complexity added(salt)
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, (err, hash) => {
-        if (err) {
-          throw err;
-        }
-        newUser.password = hash;
-        newUser.save().then(user => {
-          jwt.sign(
-            { id: user.id },
-            process.env.JWT_SECRET,
-            { expiresIn: 3600 },
-            (err, token) => {
-              if (err) {
-                throw err;
-              }
-              res.json({
-                token,
-                user: {
-                  id: user.id,
-                  name: user.name,
-                  email: user.email,
-                },
-              });
-            }
-          );
-        });
-      });
-    });
+  const user = await User.findOne({ email });
+  if (user) {
+    return res.status(400).json({ msg: 'Email address is already registered' });
+  }
+  const newUser = new User({
+    name,
+    email,
+    password,
   });
+
+  newUser.password = await getEncryptedPassword(newUser.password);
+  const savedUser = await newUser.save();
+
+  jwt.sign(
+    { id: savedUser.id },
+    process.env.JWT_SECRET,
+    { expiresIn: 3600 },
+    (err, token) => {
+      if (err) {
+        throw err;
+      }
+      res.status(201).json({
+        token,
+        savedUser: {
+          id: savedUser.id,
+          name: savedUser.name,
+          email: savedUser.email,
+        },
+      });
+    }
+  );
+});
+
+// @route Get api/user
+// @desc Get user data
+// @access Private
+router.get('/', (req, res) => {
+  User.find()
+    .select('-password')
+    .then(user => res.json(user));
+});
+
+// @route Get api/user/:id
+// @desc Get individual user data
+// @access Private
+router.get('/:id', (req, res) => {
+  User.findById(req.params.id, '-password')
+    .then(user => res.json(user))
+    .catch(() =>
+      res.status(404).json({ msg: "Can't find user matching that id" })
+    );
+});
+
+// @route Delete api/user
+// @desc Delete user
+// @access Private
+router.delete('/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    user.remove().then(() => res.status(204).send());
+  } catch (err) {
+    res.status(404).json({ msg: "Can't find user matching that id" });
+  }
+});
+
+// @route patch api/user
+// @desc Modify user data
+// @access Private
+router.patch('/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id, '-password');
+    user.set(req.body);
+    user.save().then(() => res.send({ data: user }));
+  } catch (err) {
+    res.status(404).json({ msg: "Can't find user matching that id" });
+  }
 });
 
 module.exports = router;

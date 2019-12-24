@@ -22,8 +22,9 @@ db.once('open', () =>
 );
 
 // set up routes
-app.use('/api/items', require('./routes/api/items'));
+app.use('/api/articles', require('./routes/api/articles'));
 app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
 
 // serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
