@@ -2,9 +2,11 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'miscellaneous.css';
+@import 'components/Card/card.css';
 @import 'components/HamburgerToggle/hamburger-toggle.css';
 @import 'components/Navbar/navbar.css';
 @import 'components/Navbar/collapsible-group.css';
+@import 'components/Navbar/accent-btn.css';
 /* purgecss end ignore */
 @import 'tailwindcss/utilities';
 

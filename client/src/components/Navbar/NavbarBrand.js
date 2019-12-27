@@ -6,10 +6,10 @@ export default function NavbarBrand() {
     <NavLink
       to={'/'}
       exact
-      className={`navbar__link font-logo`}
+      className={`navbar__link pseudo-underline font-logo`}
       activeClassName={`navbar__link--is-active`}
     >
-      SITENAME
+      Crud Blog
     </NavLink>
   );
 }

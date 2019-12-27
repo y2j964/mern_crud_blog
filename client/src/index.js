@@ -5,7 +5,7 @@ import './tailwind.css';
 import App from './App';
 
 ReactDOM.render(
-  <Router basename="/siteName">
+  <Router basename="/mernCrudBlog">
     <App />
   </Router>,
   document.getElementById('root')

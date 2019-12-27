@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import NavbarBrand from './NavbarBrand';
 import HamburgerToggle from '../HamburgerToggle/HamburgerToggle';
 import NavbarPrimaryItems from './NavbarPrimaryItems';
-import SignUpTrigger from '../SignUpTrigger';
+import LoginTrigger from '../LoginTrigger';
 
 export default function Navbar({
   collapsibleNavIsExpanded,
@@ -22,8 +22,13 @@ export default function Navbar({
         }}
       />
       <NavbarPrimaryItems collapsibleNavIsExpanded={collapsibleNavIsExpanded} />
-      <div className="ml-auto hidden md:flex">
-        <SignUpTrigger />
+      <div className="ml-auto hidden md:flex items-center">
+        <LoginTrigger additionalClasses="pseudo-underline mr-5">
+          Log In
+        </LoginTrigger>
+        <LoginTrigger additionalClasses="accent-btn accent-btn--is-glowing mr-0">
+          Register
+        </LoginTrigger>
       </div>
     </nav>
   );

@@ -11,7 +11,8 @@ export default function NavbarPrimaryItem({
     <li>
       <NavLink
         to={`/${slug}`}
-        className={`navbar__link collapsible-group__item ${additionalClasses}`}
+        className={`navbar__link collapsible-group__item pseudo-underline ${additionalClasses ||
+          ''}`}
         activeClassName={'navbar__link--is-active'}
       >
         {children}

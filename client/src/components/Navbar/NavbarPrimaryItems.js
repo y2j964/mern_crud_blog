@@ -5,18 +5,18 @@ import NavbarPrimaryItem from './NavbarPrimaryItem';
 
 const navbarPrimaryItemsData = [
   {
-    text: 'Link 1',
-    slug: 'link-1',
+    text: 'Add Post',
+    slug: 'add-post',
     id: uuid.v4(),
   },
   {
-    text: 'Link 2',
-    slug: 'link-2',
+    text: 'Edit Post',
+    slug: 'edit-post',
     id: uuid.v4(),
   },
   {
-    text: 'Link 3',
-    slug: 'link-3',
+    text: 'About',
+    slug: 'about',
     id: uuid.v4(),
   },
 ];

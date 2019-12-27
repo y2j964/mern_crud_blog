@@ -15,6 +15,7 @@ body {
 }
 
 main {
+  @apply w-full max-w-5xl mx-auto px-4;
   flex: 1 1 auto;
   /* ensure that footer doesn't creep up the page if there isn't much content within main */
 }
@@ -157,6 +158,22 @@ h1:focus {
   }
 }
 
+.pseudo-underline {
+  &:after {
+    @apply absolute bottom-0 mx-auto block bg-black w-full;
+    content: '';
+    height: 2px;
+    transform: scale(0, 1);
+    transition: transform 200ms ease-in-out;
+  }
+
+  &:hover {
+    &:after {
+      transform: scale(1, 1);
+    }
+  }
+}
+
 .input-stripped {
   -webkit-appearance: none;
   border: none;
@@ -184,4 +201,21 @@ h1:focus {
 
 .placeholder-color:-moz-placeholder {
   color: #9b9b9b;
+}
+
+.text-accent {
+  color: #7300e6;
+}
+
+.bg-alpha {
+  background: rgba(37, 37, 37, 0.6);
+}
+
+.form-input {
+  @apply py-2 px-1 border border-gray-400 w-full appearance-none leading-tight;
+  transition: border-color 0.15s ease-in-out;
+  &:focus {
+    outline: none;
+    border: 1px solid #7300e6;
+  }
 }

@@ -1,5 +1,5 @@
 .collapsible-group {
-  @apply invisible flex flex-col w-full;
+  @apply invisible flex flex-col h-0 w-full;
   /* h-0 */
   /* visibility is used so that it is removed from tab-index, but still works as transition */
   /* transition: height 300ms ease-in-out, visibility 300ms ease-in-out; */
@@ -8,7 +8,7 @@
     @apply visible;
     /* height is hard coded here, so if you want to add or subtract any nav links,
     you will have to adjust this value to whatever the new collapsible-group height is */
-    /* height: 144px; */
+    height: 144px;
   }
 
   @media (--md) {
