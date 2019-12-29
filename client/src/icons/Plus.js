@@ -5,8 +5,8 @@ export default function Plus({ width, height, fill, additionalClasses }) {
   return (
     <svg
       viewBox="0 0 24 24"
-      width={width || '12'}
-      height={height || '12'}
+      width={width || '24'}
+      height={height || '24'}
       fill={fill || 'white'}
       aria-hidden="true"
       className={additionalClasses || ''}

@@ -10,8 +10,8 @@ const navbarPrimaryItemsData = [
     id: uuid.v4(),
   },
   {
-    text: 'Edit Post',
-    slug: 'edit-post',
+    text: 'Edit Posts',
+    slug: 'edit-posts',
     id: uuid.v4(),
   },
   {
