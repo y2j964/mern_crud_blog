@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import AllPosts from '../components/AllPosts';
 import CardGroup from '../components/Card/CardGroup';
 
 export default function Error404() {
@@ -17,7 +18,9 @@ export default function Error404() {
       >
         My Posts
       </h1>
-      <CardGroup />
+      <AllPosts>
+        <CardGroup isEditable />
+      </AllPosts>
     </main>
   );
 }

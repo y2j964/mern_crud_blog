@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import AllPosts from '../components/AllPosts';
 import CardGroup from '../components/Card/CardGroup';
 
 export default function Home() {
@@ -17,7 +18,9 @@ export default function Home() {
           Blog Posts
         </h1>
       </header>
-      <CardGroup />
+      <AllPosts>
+        <CardGroup />
+      </AllPosts>
     </main>
   );
 }
