@@ -28,6 +28,7 @@ export default function Login() {
             name="loginName"
             id="loginName"
             className="form-input"
+            value={nameValue}
             onChange={e => setNameValue(e.target.value)}
           />
         </div>
@@ -43,6 +44,7 @@ export default function Login() {
             name="loginEmail"
             id="loginEmail"
             className="form-input"
+            value={emailValue}
             onChange={e => setEmailValue(e.target.value)}
           />
         </div>
@@ -60,6 +62,7 @@ export default function Login() {
             id="loginPassword"
             className="form-input"
             aria-describedby="passwordDetails"
+            value={passwordValue}
             onChange={e => setPasswordValue(e.target.value)}
           />
           <small
