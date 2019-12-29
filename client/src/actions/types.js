@@ -1,7 +1,7 @@
-export const GET_ARTICLES = 'GET_ARTICLES';
-export const ADD_ARTICLE = 'ADD_ARTICLE';
-export const DELETE_ARTICLE = 'DELETE_ARTICLE';
-export const MODIFY_ARTICLE = 'MODIFY_ARTICLE';
+export const GET_POSTS = 'GET_POSTS';
+export const ADD_POST = 'ADD_POST';
+export const DELETE_POST = 'DELETE_POST';
+export const MODIFY_POST = 'MODIFY_POST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';

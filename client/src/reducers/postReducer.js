@@ -30,12 +30,12 @@ export default function(state = initialState, action) {
     case ADD_POST:
       return {
         ...state,
-        posts: [action.payload, ...state.posts],
+        items: [action.payload, ...state.items],
       };
     case DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter(item => item._id !== action.payload),
+        items: state.items.filter(item => item._id !== action.payload),
       };
     default:
       return state;

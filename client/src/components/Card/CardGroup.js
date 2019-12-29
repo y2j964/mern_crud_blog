@@ -1,28 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from './Card';
+import { getPosts } from '../../actions/postActions';
+import { connect } from 'react-redux';
+import WithLoadingIndicator from '../WithLoadingIndicator';
 
-export default function CardGroup(props) {
-  const [CardData, setCardData] = useState([
-    {
-      title: 'Welcome to MERN Crud Blog!',
-      description: 'This is a bunch of apocryphal rhubarb',
-      author: 'Dougie Jones',
-      date: 'Thursday 3:30PM',
-    },
-    {
-      title: 'Me and My Tulpas',
-      description: 'A guide to living in the world of David Lynch',
-      author: 'Special Agent Dale Cooper',
-      date: 'Friday 3:30PM',
-    },
-  ]);
-  const CardGroup = CardData.map(({ title, author, description, date }) => (
-    <Card
-      title={title}
-      description={description}
-      author={author}
-      date={date}
-    />
-  ));
-  return <div className="flex flex-col items-center">{CardGroup}</div>;
+function CardGroup({ posts, getPosts }) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getPosts();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  }, [getPosts]);
+
+  const postFrags = posts.items.map(
+    ({ title, author, description, date, authorSlug, postSlug }) => (
+      <Card
+        title={title}
+        description={description}
+        author={author}
+        date={date}
+        authorSlug={authorSlug}
+        postSlug={postSlug}
+      />
+    )
+  );
+  return (
+    <div className="flex flex-col items-center">
+      <WithLoadingIndicator isLoading={isLoading} render={() => postFrags} />
+    </div>
+  );
 }
+
+const mapStateToProps = state => ({
+  posts: state.posts,
+});
+
+export default connect(mapStateToProps, { getPosts })(CardGroup);
