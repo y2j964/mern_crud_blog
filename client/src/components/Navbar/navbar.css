@@ -6,7 +6,7 @@
   }
 
   &__link {
-    @apply my-3 py-2 block uppercase font-medium relative;
+    @apply my-3 block uppercase font-medium relative;
     transition: opacity 300ms ease-in-out;
 
     &--is-active {
@@ -14,7 +14,9 @@
     }
 
     @media (--md) {
-      @apply my-0 mr-8;
+      @apply my-0 mr-8 py-2;
+      /* only want vertical padding on md screen b/c otherwise
+      there is no separation between items in collapsible menu */
     }
   }
 }

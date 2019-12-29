@@ -6,9 +6,9 @@
 
   &--is-expanded {
     @apply visible;
+    height: 144px;
     /* height is hard coded here, so if you want to add or subtract any nav links,
     you will have to adjust this value to whatever the new collapsible-group height is */
-    height: 144px;
   }
 
   @media (--md) {
@@ -16,6 +16,9 @@
   }
 
   &__item {
-    @apply block;
+    @apply inline-block;
+    /* on smaller screens, you don't want the hoverable area to be 100%
+    of parent; that doesn't jibe with pseudo-underline transition */
+    ;
   }
 }
