@@ -4,6 +4,12 @@
     "commonjs": true,
     "es6": true
   },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
   "extends": [
     "airbnb-base",
     "plugin:react/recommended",
