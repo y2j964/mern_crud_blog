@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import uuid from 'uuid';
 import { connect } from 'react-redux';
 import { addPost } from '../actions/postActions';
+import { generateSlug } from '../utilityFunctions/generateSlug';
+import { InputText } from '../components/Input';
+import TextArea from '../components/TextArea';
 
-const generateSlug = str =>
-  str
-    .toLowerCase()
-    .split(' ')
-    .join('-');
-
-function AddPost({ addPost }) {
+// eslint-disable-next-line no-shadow
+function AddPost({ addPost, history }) {
   const ref = useRef();
   useEffect(() => {
     document.title = 'Add Post - MERN Crud Blog';
@@ -20,6 +20,15 @@ function AddPost({ addPost }) {
   const [postTitleValue, setPostTitleValue] = useState('');
   const [postDescriptionValue, setPostDescriptionValue] = useState('');
   const [postBodyValue, setPostBodyValue] = useState('');
+  const [submissionSuccess, setSubmissionSuccess] = useState();
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (submissionSuccess) {
+        history.push('/');
+      }
+    }, 1000);
+  }, [submissionSuccess, history]);
 
   const onSubmit = e => {
     const name = 'Mark Twain';
@@ -30,13 +39,14 @@ function AddPost({ addPost }) {
       description: postDescriptionValue,
       author: name,
       date: 'Friday 3:30PM',
+      id: uuid.v4(),
       authorSlug: generateSlug(name),
       postSlug: generateSlug(postTitleValue),
     };
 
-    console.log(post);
-    console.log(addPost);
     addPost(post);
+    setSubmissionSuccess(true);
+    // redirect back to home
   };
 
   return (
@@ -48,61 +58,49 @@ function AddPost({ addPost }) {
       >
         Add Post
       </h1>
-      <form action="" onSubmit={onSubmit}>
-        <div className="mb-4">
-          <label className="font-bold block" htmlFor="postTitle">
-            Title:
-          </label>
-          <input
-            type="text"
-            aria-required={true}
-            required={true}
+      {!submissionSuccess ? (
+        <form action="" onSubmit={onSubmit}>
+          <InputText
+            labelText={'Title: '}
             name="postTitle"
-            id="postTitle"
-            className="form-input"
+            isRequired={true}
             value={postTitleValue}
-            onChange={e => setPostTitleValue(e.target.value)}
+            handleChange={e => setPostTitleValue(e.target.value)}
           />
-        </div>
-        <div className="mb-4">
-          <label className="font-bold block" htmlFor="postDescription">
-            Description:
-          </label>
-          <input
-            type="text"
-            aria-required={true}
-            required={true}
+          <InputText
+            labelText={'Description: '}
             name="postDescription"
-            id="postDescription"
-            className="form-input"
+            isRequired={true}
             value={postDescriptionValue}
-            onChange={e => setPostDescriptionValue(e.target.value)}
+            handleChange={e => setPostDescriptionValue(e.target.value)}
           />
-        </div>
-        <div className="mb-4">
-          <label className="font-bold block" htmlFor="postBody">
-            Body:
-          </label>
-          <textarea
-            aria-required={true}
-            required={true}
-            rows={5}
+          <TextArea
+            labelText={'Body: '}
             name="postBody"
-            id="postBody"
-            className="form-input"
+            isRequired={true}
+            rows={5}
             value={postBodyValue}
-            onChange={e => setPostBodyValue(e.target.value)}
-          ></textarea>
-        </div>
-        <button
-          type="submit"
-          className="accent-btn accent-btn--is-glowing w-full mt-2"
-        >
-          Submit
-        </button>
-      </form>
+            handleChange={e => setPostBodyValue(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="accent-btn accent-btn--is-glowing w-full mt-2"
+          >
+            Submit
+          </button>
+        </form>
+      ) : (
+        <p className="text-center">
+          Post Added! Navigating back to posts . . .{' '}
+        </p>
+      )}
     </main>
   );
 }
 
-export default connect(null, { addPost })(AddPost);
+AddPost.propTypes = {
+  addPost: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+};
+
+export default connect(null, { addPost })(withRouter(AddPost));
