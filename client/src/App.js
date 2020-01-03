@@ -37,8 +37,8 @@ function App({ location, history }) {
       />
       <Switch location={location}>
         <Route exact path="/" component={Home} />
-        <Route path="/posts/:slug" component={Post} />
-        <Route path="/authors/:slug" component={Author} />
+        <Route path="/posts/:postSlug" component={Post} />
+        <Route path="/authors/:authorSlug" component={Author} />
         <Route exact path="/add-post" component={AddPost} />
         <Route exact path="/edit-posts" component={EditPosts} />
         <Route path="/edit-posts/:postSlug" component={EditPost} />

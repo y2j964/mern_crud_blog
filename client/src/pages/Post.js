@@ -1,14 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getPost } from '../selectors/postSelectors';
+import { postType } from '../components/Card/types';
 
-function Post({ title, description, author, time, body }) {
+function Post({ post }) {
   const ref = useRef();
   useEffect(() => {
     document.title = 'Blog Post - MERN Crud Blog';
     // focus h1 on route change to let screen reader know we changed route
     ref.current.focus();
   }, []);
+
+  const { title, description, author, date, body, authorSlug } = post;
   return (
     <main className="max-w-3xl mx-auto">
       <header className="text-center pb-4">
@@ -17,33 +22,19 @@ function Post({ title, description, author, time, body }) {
           tabIndex="-1"
           ref={ref}
         >
-          Really Cool Blog Post Title
+          {title}
         </h1>
-        <p className="mb-2">Some apocryphal rhubarb of a description</p>
-        <Link to="/authors/23904ujfmqej" className="text-sm text-accent">
-          Justin Mooney
+        <p className="mb-2">{description}</p>
+        <Link to={`/authors/${authorSlug}`} className="text-sm text-accent">
+          {author}
         </Link>
         <span className="text-sm"> | </span>
-        <span className="text-sm">January 1, 2020</span>
+        <span className="text-sm">{date}</span>
         {/* img placeholder */}
         <div className="w-full h-64 mt-3 bg-gray-200"></div>
       </header>
       <article>
-        <p className="mb-4">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Metus
-          dictum at tempor commodo ullamcorper a. Mattis ullamcorper velit sed
-          ullamcorper morbi tincidunt ornare massa eget. Magna sit amet purus
-          gravida. Quam lacus suspendisse faucibus interdum posuere lorem.
-          Integer vitae justo eget magna fermentum iaculis eu non. Vel pharetra
-          vel turpis nunc. Ipsum faucibus vitae aliquet nec ullamcorper sit
-          amet. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris.
-          In pellentesque massa placerat duis. Turpis massa tincidunt dui ut
-          ornare. Sit amet commodo nulla facilisi nullam vehicula ipsum a.
-          Elementum sagittis vitae et leo duis ut. Nisi vitae suscipit tellus
-          mauris. Nulla facilisi etiam dignissim diam quis enim lobortis.
-        </p>
-
+        <p className="mb-4">{body}</p>
         <p className="mb-4">
           A iaculis at erat pellentesque adipiscing commodo elit at. Imperdiet
           nulla malesuada pellentesque elit eget gravida cum. Eu lobortis
@@ -99,6 +90,12 @@ function Post({ title, description, author, time, body }) {
   );
 }
 
-Post.propTypes = {};
+Post.propTypes = {
+  post: postType,
+};
 
-export default Post;
+const mapStateToProps = (state, props) => ({
+  post: getPost(state, props.match.params),
+});
+
+export default connect(mapStateToProps)(Post);
