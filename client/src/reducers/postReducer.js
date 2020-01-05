@@ -4,6 +4,7 @@ import {
   ADD_POST,
   UPDATE_POST,
   DELETE_POST,
+  LOADING_POSTS,
 } from '../actions/types';
 
 const initialState = {
@@ -31,6 +32,7 @@ const initialState = {
       postSlug: 'me-and-my-tulpas',
     },
   ],
+  isLoading: false,
 };
 
 export default function(state = initialState, action) {
@@ -38,6 +40,12 @@ export default function(state = initialState, action) {
     case GET_POSTS:
       return {
         ...state,
+        isLoading: false,
+      };
+    case LOADING_POSTS:
+      return {
+        ...state,
+        isLoading: true,
       };
     case ADD_POST:
       return {
@@ -47,7 +55,9 @@ export default function(state = initialState, action) {
     case UPDATE_POST:
       return {
         ...state,
-        items: state.items.map(post => post.id === action.payload.id ? action.payload : post)
+        items: state.items.map(post =>
+          post.id === action.payload.id ? action.payload : post
+        ),
       };
     case DELETE_POST:
       return {

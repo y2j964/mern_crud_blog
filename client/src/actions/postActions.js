@@ -1,9 +1,19 @@
 import axios from 'axios';
-import { ADD_POST, DELETE_POST, UPDATE_POST, GET_POSTS } from './types';
+import {
+  ADD_POST,
+  DELETE_POST,
+  UPDATE_POST,
+  GET_POSTS,
+  LOADING_POSTS,
+} from './types';
 // import { returnErrors } from './errorActions';
 
 export const getPosts = () => dispatch => {
   dispatch({ type: GET_POSTS });
+};
+
+export const loadingPosts = () => dispatch => {
+  dispatch({ type: LOADING_POSTS });
 };
 
 export const deletePost = postSlug => (dispatch, getState) => {

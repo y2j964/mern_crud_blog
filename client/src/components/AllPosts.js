@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPosts } from '../actions/postActions';
+import { getPosts, loadingPosts } from '../actions/postActions';
 import WithLoadingIndicator from './WithLoadingIndicator';
 import { postsType } from './Card/types';
 
-function AllPosts({ posts, getPosts, children }) {
-  const [isLoading, setIsLoading] = useState(false);
-
+// eslint-disable-next-line no-shadow
+function AllPosts({ posts, isLoading, getPosts, loadingPosts, children }) {
   useEffect(() => {
-    setIsLoading(true);
-    getPosts();
+    loadingPosts();
     setTimeout(() => {
-      setIsLoading(false);
+      getPosts();
     }, 500);
   }, [getPosts, posts]);
 
@@ -26,15 +24,17 @@ function AllPosts({ posts, getPosts, children }) {
 
 AllPosts.propTypes = {
   posts: postsType,
+  isLoading: PropTypes.bool.isRequired,
   getPosts: PropTypes.func.isRequired,
   children: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   posts: state.posts.items,
+  isLoading: state.posts.isLoading,
 });
 
-export default connect(mapStateToProps, { getPosts })(AllPosts);
+export default connect(mapStateToProps, { getPosts, loadingPosts })(AllPosts);
 
 // import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
