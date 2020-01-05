@@ -1,7 +1,12 @@
+/* eslint-disable react/display-name */
+// this is for confirmAlert; I follow the implementation laid out by the docs
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert';
 import { connect } from 'react-redux';
+import Modal from '../Modal';
 import Close from '../../icons/Close';
 import Edit from '../../icons/Edit';
 import { deletePost } from '../../actions/postActions';
@@ -18,12 +23,52 @@ function Card({
   deletePost,
 }) {
   const handleDelete = () => {
-    if (
-      window.confirm('Deleting posts is irreversible. Do you wish to proceed?')
-    ) {
-      deletePost(postSlug);
-    }
+    confirmAlert({
+      // eslint-disable-next-line react/prop-types
+      customUI: ({ onClose }) => {
+        return (
+          <Modal handleClose={onClose}>
+            <div className="mt-6 z-10">
+              <h2
+                className="font-bold text-2xl text-center mb-5"
+                id="modalHeading"
+              >
+                Confirm Delete
+              </h2>
+              <p className="mb-5 text-center">
+                This action is irreversible. Are you sure you want to delete
+                this post?
+              </p>
+              <div className="flex justify-around">
+                <button
+                  className="accent-btn w-24 bg-gray-500"
+                  onClick={onClose}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="accent-btn w-24 bg-red-600"
+                  onClick={() => {
+                    deletePost(postSlug);
+                    onClose();
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </Modal>
+        );
+      },
+    });
   };
+  // const handleDelete = () => {
+  //   if (
+  //     window.confirm('Deleting posts is irreversible. Do you wish to proceed?')
+  //   ) {
+  //     deletePost(postSlug);
+  //   }
+  // };
 
   return (
     <article className="card">

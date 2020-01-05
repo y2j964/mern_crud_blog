@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import AllPosts from '../components/AllPosts';
 import CardGroup from '../components/Card/CardGroup';
-import Modal from '../components/Modal';
-import ConfirmationAlert from '../components/ConfirmationAlert';
 
 export default function EditPosts() {
   const ref = useRef();
@@ -11,8 +9,6 @@ export default function EditPosts() {
     // focus h1 on route change to let screen reader know we changed route
     ref.current.focus();
   }, []);
-
-  const [isConfirmationAlertOpen, setIsConfirmationAlertOpen] = useState();
 
   return (
     <main>
@@ -23,20 +19,7 @@ export default function EditPosts() {
       >
         My Posts
       </h1>
-      <AllPosts>
-        {posts => (
-          <CardGroup
-            posts={posts}
-            isEditable
-            setIsConfirmationAlertOpen={setIsConfirmationAlertOpen}
-          />
-        )}
-      </AllPosts>
-      {isConfirmationAlertOpen && (
-        <Modal handleClose={() => setIsConfirmationAlertOpen(false)}>
-          <ConfirmationAlert />
-        </Modal>
-      )}
+      <AllPosts>{posts => <CardGroup posts={posts} isEditable />}</AllPosts>
     </main>
   );
 }
