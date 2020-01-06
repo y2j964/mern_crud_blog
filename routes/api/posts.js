@@ -25,7 +25,7 @@ router.get('/:id', (req, res) => {
 // @desc Create a Post
 // @access Private
 router.post('/', verifyToken, async (req, res) => {
-  const { title, description, post } = req.body;
+  const { title, description, body, author } = req.body;
 
   const postDuplicate = await Post.findOne({ title });
   if (postDuplicate) {
@@ -38,8 +38,10 @@ router.post('/', verifyToken, async (req, res) => {
   const newPost = new Post({
     title,
     description,
-    post,
+    body,
+    author,
   });
+  console.log(newPost);
 
   newPost
     .save()

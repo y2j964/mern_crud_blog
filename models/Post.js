@@ -9,7 +9,11 @@ const PostSchema = new Schema({
   description: {
     type: String,
   },
-  post: {
+  body: {
+    type: String,
+    required: true,
+  },
+  author: {
     type: String,
     required: true,
   },
