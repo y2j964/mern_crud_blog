@@ -2,6 +2,12 @@ const express = require('express');
 const verifyToken = require('../../middleware/verifyToken');
 const router = express.Router();
 
+const generateSlug = str =>
+  str
+    .toLowerCase()
+    .split(' ')
+    .join('-');
+
 // Post Model
 const Post = require('../../models/Post');
 
@@ -40,6 +46,8 @@ router.post('/', verifyToken, async (req, res) => {
     description,
     body,
     author,
+    postSlug: generateSlug(title),
+    authorSlug: generateSlug(author),
   });
   console.log(newPost);
 

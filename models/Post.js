@@ -17,6 +17,14 @@ const PostSchema = new Schema({
     type: String,
     required: true,
   },
+  authorSlug: {
+    type: String,
+    required: true,
+  },
+  postSlug: {
+    type: String,
+    required: true,
+  },
   img: {
     type: String,
   },
