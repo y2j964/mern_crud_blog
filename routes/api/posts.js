@@ -49,7 +49,6 @@ router.post('/', verifyToken, async (req, res) => {
     postSlug: generateSlug(title),
     authorSlug: generateSlug(author),
   });
-  console.log(newPost);
 
   newPost
     .save()

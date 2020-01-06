@@ -7,7 +7,6 @@ export default function Login() {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log('submit');
   };
 
   return (
