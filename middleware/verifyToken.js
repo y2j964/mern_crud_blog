@@ -6,7 +6,6 @@ const verifyToken = (req, res, next) => {
 
   // check for token
   if (!token) {
-    // 401 = unauthorized
     return res.status(401).json({ msg: "No token, authorization denied" });
   }
 

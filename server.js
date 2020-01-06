@@ -22,7 +22,7 @@ db.once('open', () =>
 );
 
 // set up routes
-app.use('/api/articles', require('./routes/api/articles'));
+app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 

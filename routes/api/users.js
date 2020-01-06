@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const verifyToken = require('../../middleware/verifyToken');
 const router = express.Router();
 require('dotenv').config();
 
@@ -18,7 +19,7 @@ const getEncryptedPassword = async password => {
 const User = require('../../models/User');
 
 // @route Post api/users
-// @desc Register new Users
+// @desc Register/add new Users
 // @access Public
 router.post('/', async (req, res) => {
   const { name, email, password } = req.body;
@@ -63,9 +64,9 @@ router.post('/', async (req, res) => {
 });
 
 // @route Get api/user
-// @desc Get user data
+// @desc Get users data
 // @access Private
-router.get('/', (req, res) => {
+router.get('/', verifyToken, (req, res) => {
   User.find()
     .select('-password')
     .then(user => res.json(user));
@@ -74,7 +75,7 @@ router.get('/', (req, res) => {
 // @route Get api/user/:id
 // @desc Get individual user data
 // @access Private
-router.get('/:id', (req, res) => {
+router.get('/:id', verifyToken, (req, res) => {
   User.findById(req.params.id, '-password')
     .then(user => res.json(user))
     .catch(() =>
@@ -85,7 +86,7 @@ router.get('/:id', (req, res) => {
 // @route Delete api/user
 // @desc Delete user
 // @access Private
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     user.remove().then(() => res.status(204).send());
@@ -97,7 +98,7 @@ router.delete('/:id', async (req, res) => {
 // @route patch api/user
 // @desc Modify user data
 // @access Private
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.params.id, '-password');
     user.set(req.body);
