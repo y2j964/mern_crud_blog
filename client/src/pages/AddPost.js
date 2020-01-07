@@ -37,6 +37,7 @@ function AddPost({ addPost, history }) {
     const post = {
       title: postTitleValue,
       description: postDescriptionValue,
+      body: postBodyValue,
       author: name,
       date: 'Friday 3:30PM',
       id: uuid.v4(),

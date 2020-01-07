@@ -9,32 +9,35 @@ import {
 // import { returnErrors } from './errorActions';
 
 export const getPosts = () => dispatch => {
-  dispatch({ type: GET_POSTS });
+  axios
+    .get('/api/posts')
+    .then(res => dispatch({ type: GET_POSTS, payload: res.data }))
+    .catch(err => console.log(err));
 };
 
 export const loadingPosts = () => dispatch => {
   dispatch({ type: LOADING_POSTS });
 };
 
-export const deletePost = postSlug => (dispatch, getState) => {
-  dispatch({ type: DELETE_POST, payload: postSlug });
+export const addPost = post => (dispatch, getState) => {
+  axios
+    .post('/api/posts', post)
+    .then(res => dispatch({ type: ADD_POST, payload: res.data }))
+    .catch(err => console.log(err));
 };
 
-// export const deletePost = id => (dispatch, getState) => {
-//   axios
-//     .delete(`/api/post/${id}`)
-//     .then(res => dispatch({ type: DELETE_POST, payload: id }))
-//     .catch(err =>
-//       dispatch(returnErrors(err.response.data, err.response.status))
-//     );
-// };
-
-export const addPost = post => (dispatch, getState) => {
-  dispatch({ type: ADD_POST, payload: post });
+export const deletePost = id => (dispatch, getState) => {
+  axios
+    .delete(`/api/posts/${id}`)
+    .then(() => dispatch({ type: DELETE_POST, payload: id }))
+    .catch(err => console.log(err));
 };
 
 export const updatePost = post => (dispatch, getState) => {
-  dispatch({ type: UPDATE_POST, payload: post });
+  axios
+    .patch(`/api/posts/${post._id}`, post)
+    .then(res => dispatch({ type: UPDATE_POST, payload: res.data }))
+    .catch(err => console.log(err, post));
 };
 
 // export const addPost = post => (dispatch, getState) => {
@@ -42,6 +45,15 @@ export const updatePost = post => (dispatch, getState) => {
 //   axios
 //     .post('/api/post', post)
 //     .then(res => dispatch({ type: ADD_POST, payload: res.data }))
+//     .catch(err =>
+//       dispatch(returnErrors(err.response.data, err.response.status))
+//     );
+// };
+
+// export const deletePost = id => (dispatch, getState) => {
+//   axios
+//     .delete(`/api/post/${id}`)
+//     .then(res => dispatch({ type: DELETE_POST, payload: id }))
 //     .catch(err =>
 //       dispatch(returnErrors(err.response.data, err.response.status))
 //     );

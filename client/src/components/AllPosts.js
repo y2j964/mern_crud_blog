@@ -9,10 +9,8 @@ import { postsType } from './Card/types';
 function AllPosts({ posts, isLoading, getPosts, loadingPosts, children }) {
   useEffect(() => {
     loadingPosts();
-    setTimeout(() => {
-      getPosts();
-    }, 500);
-  }, [getPosts, posts]);
+    getPosts();
+  }, [getPosts, loadingPosts]);
 
   return (
     <WithLoadingIndicator
@@ -26,6 +24,7 @@ AllPosts.propTypes = {
   posts: postsType,
   isLoading: PropTypes.bool.isRequired,
   getPosts: PropTypes.func.isRequired,
+  loadingPosts: PropTypes.func.isRequired,
   children: PropTypes.func,
 };
 

@@ -6,7 +6,7 @@ export const postType = PropTypes.shape({
   body: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired,
   authorSlug: PropTypes.string.isRequired,
   postSlug: PropTypes.string.isRequired,
 });

@@ -14,7 +14,7 @@ function Author({ match, posts }) {
     document.title = `${author} - MERN Crud Blog`;
     // focus h1 on route change to let screen reader know we changed route
     ref.current.focus();
-  }, []);
+  }, [author]);
 
   return (
     <main>

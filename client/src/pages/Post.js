@@ -5,6 +5,15 @@ import { connect } from 'react-redux';
 import { getPost } from '../selectors/postSelectors';
 import { postType } from '../components/Card/types';
 
+const formatter = new Intl.DateTimeFormat('en-us', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  timeZoneName: 'short',
+});
+
 function Post({ post }) {
   const ref = useRef();
   useEffect(() => {
@@ -14,6 +23,8 @@ function Post({ post }) {
   }, []);
 
   const { title, description, author, date, body, authorSlug } = post;
+  const dateFull = new Date(date);
+
   return (
     <main className="max-w-3xl mx-auto">
       <header className="text-center pb-4">
@@ -29,7 +40,9 @@ function Post({ post }) {
           {author}
         </Link>
         <span className="text-sm"> | </span>
-        <span className="text-sm">{date}</span>
+        <time className="text-sm" dateTime={date}>
+          {formatter.format(dateFull)}
+        </time>
         {/* img placeholder */}
         <div className="w-full h-64 mt-3 bg-gray-200"></div>
       </header>

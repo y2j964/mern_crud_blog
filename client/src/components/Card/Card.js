@@ -11,17 +11,25 @@ import Close from '../../icons/Close';
 import Edit from '../../icons/Edit';
 import { deletePost } from '../../actions/postActions';
 
+const formatter = new Intl.DateTimeFormat('en-us', {
+  month: 'long',
+  day: 'numeric',
+});
+
 function Card({
   title,
   description,
   author,
   date,
+  _id,
   authorSlug,
   postSlug,
   isEditable,
   // eslint-disable-next-line no-shadow
   deletePost,
 }) {
+  const dateFull = new Date(date);
+
   const handleDelete = () => {
     confirmAlert({
       // eslint-disable-next-line react/prop-types
@@ -49,7 +57,7 @@ function Card({
                 <button
                   className="accent-btn w-24 bg-red-600"
                   onClick={() => {
-                    deletePost(postSlug);
+                    deletePost(_id);
                     onClose();
                   }}
                 >
@@ -62,13 +70,6 @@ function Card({
       },
     });
   };
-  // const handleDelete = () => {
-  //   if (
-  //     window.confirm('Deleting posts is irreversible. Do you wish to proceed?')
-  //   ) {
-  //     deletePost(postSlug);
-  //   }
-  // };
 
   return (
     <article className="card">
@@ -111,7 +112,9 @@ function Card({
                 {author}
               </Link>
             </span>
-            <time className="card__small-print">{date}</time>
+            <time className="card__small-print" dateTime={date}>
+              {formatter.format(dateFull)}
+            </time>
           </React.Fragment>
         )}
       </div>
@@ -124,7 +127,7 @@ Card.propTypes = {
   description: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  id: PropTypes.string,
+  _id: PropTypes.string,
   authorSlug: PropTypes.string.isRequired,
   postSlug: PropTypes.string.isRequired,
   isEditable: PropTypes.bool,

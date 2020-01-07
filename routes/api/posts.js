@@ -30,7 +30,7 @@ router.get('/:id', (req, res) => {
 // @route POST api/Posts
 // @desc Create a Post
 // @access Private
-router.post('/', verifyToken, async (req, res) => {
+router.post('/', async (req, res) => {
   const { title, description, body, author } = req.body;
 
   const postDuplicate = await Post.findOne({ title });
@@ -59,7 +59,7 @@ router.post('/', verifyToken, async (req, res) => {
 // @route DELETE api/posts
 // @desc Delete a post
 // @access Private
-router.delete('/:id', verifyToken, (req, res) => {
+router.delete('/:id', (req, res) => {
   Post.findById(req.params.id)
     .then(post => post.remove().then(() => res.status(204).send()))
     .catch(err => res.status(404).json({ success: false }));
@@ -68,7 +68,7 @@ router.delete('/:id', verifyToken, (req, res) => {
 // @route DELETE api/posts
 // @desc Delete a post
 // @access Private
-router.patch('/:id', verifyToken, async (req, res) => {
+router.patch('/:id', async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     post.set(req.body);
