@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -17,6 +17,7 @@ import EditPosts from './pages/EditPosts';
 import EditPost from './pages/EditPost';
 import Error404 from './pages/Error404';
 import store from './store';
+import { getUser } from './actions/authActions';
 
 function App({ location, history }) {
   const [collapsibleNavIsExpanded, setCollapsibleNavIsExpanded] = useState(
@@ -24,6 +25,10 @@ function App({ location, history }) {
   );
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+
+  useEffect(() => {
+    store.dispatch(getUser());
+  }, []);
 
   return (
     <Provider store={store}>

@@ -4,12 +4,13 @@ import { withRouter } from 'react-router-dom';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
 import { addPost } from '../actions/postActions';
+import { getName } from '../selectors/authSelector';
 import { generateSlug } from '../utilityFunctions/generateSlug';
 import { InputText } from '../components/Input';
 import TextArea from '../components/TextArea';
 
 // eslint-disable-next-line no-shadow
-function AddPost({ addPost, history }) {
+function AddPost({ addPost, history, name }) {
   const ref = useRef();
   useEffect(() => {
     document.title = 'Add Post - MERN Crud Blog';
@@ -31,7 +32,6 @@ function AddPost({ addPost, history }) {
   }, [submissionSuccess, history]);
 
   const onSubmit = e => {
-    const name = 'Mark Twain';
     // name will come from redux auth
     e.preventDefault();
     const post = {
@@ -101,7 +101,12 @@ function AddPost({ addPost, history }) {
 
 AddPost.propTypes = {
   addPost: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
   history: PropTypes.object.isRequired,
 };
 
-export default connect(null, { addPost })(withRouter(AddPost));
+const mapStateToProps = state => ({
+  name: getName(state),
+});
+
+export default connect(mapStateToProps, { addPost })(withRouter(AddPost));

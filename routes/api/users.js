@@ -53,7 +53,7 @@ router.post('/', async (req, res) => {
       }
       res.status(201).json({
         token,
-        savedUser: {
+        user: {
           id: savedUser.id,
           name: savedUser.name,
           email: savedUser.email,
@@ -89,7 +89,7 @@ router.get('/:id', verifyToken, (req, res) => {
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    user.remove().then(() => res.status(204).send());
+    user.remove().then(() => res.status(204).end());
   } catch (err) {
     res.status(404).json({ msg: "Can't find user matching that id" });
   }
@@ -102,7 +102,7 @@ router.patch('/:id', verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.params.id, '-password');
     user.set(req.body);
-    user.save().then(() => res.send({ data: user }));
+    user.save().then(() => res.json({ data: user }));
   } catch (err) {
     res.status(404).json({ msg: "Can't find user matching that id" });
   }

@@ -6,13 +6,16 @@ import {
   GET_POSTS,
   LOADING_POSTS,
 } from './types';
-// import { returnErrors } from './errorActions';
+import { tokenConfig } from './authActions';
+import { getErrors } from './errorActions';
 
 export const getPosts = () => dispatch => {
   axios
     .get('/api/posts')
     .then(res => dispatch({ type: GET_POSTS, payload: res.data }))
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch(getErrors(err.response.data.msg, err.response.status))
+    );
 };
 
 export const loadingPosts = () => dispatch => {
@@ -21,40 +24,27 @@ export const loadingPosts = () => dispatch => {
 
 export const addPost = post => (dispatch, getState) => {
   axios
-    .post('/api/posts', post)
+    .post('/api/posts', post, tokenConfig(getState))
     .then(res => dispatch({ type: ADD_POST, payload: res.data }))
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch(getErrors(err.response.data.msg, err.response.status))
+    );
 };
 
 export const deletePost = id => (dispatch, getState) => {
   axios
-    .delete(`/api/posts/${id}`)
+    .delete(`/api/posts/${id}`, tokenConfig(getState))
     .then(() => dispatch({ type: DELETE_POST, payload: id }))
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch(getErrors(err.response.data.msg, err.response.status))
+    );
 };
 
 export const updatePost = post => (dispatch, getState) => {
   axios
-    .patch(`/api/posts/${post._id}`, post)
+    .patch(`/api/posts/${post._id}`, post, tokenConfig(getState))
     .then(res => dispatch({ type: UPDATE_POST, payload: res.data }))
-    .catch(err => console.log(err, post));
+    .catch(err =>
+      dispatch(getErrors(err.response.data.msg, err.response.status))
+    );
 };
-
-// export const addPost = post => (dispatch, getState) => {
-//   // post data to database, THEN dispatch to reducer so that front end is in sync w/ backend
-//   axios
-//     .post('/api/post', post)
-//     .then(res => dispatch({ type: ADD_POST, payload: res.data }))
-//     .catch(err =>
-//       dispatch(returnErrors(err.response.data, err.response.status))
-//     );
-// };
-
-// export const deletePost = id => (dispatch, getState) => {
-//   axios
-//     .delete(`/api/post/${id}`)
-//     .then(res => dispatch({ type: DELETE_POST, payload: id }))
-//     .catch(err =>
-//       dispatch(returnErrors(err.response.data, err.response.status))
-//     );
-// };

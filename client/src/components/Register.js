@@ -1,13 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { InputText, InputEmail, InputPassword } from './Input';
+import { registerUser } from '../actions/authActions';
+import { clearErrors } from '../actions/errorActions';
 
-export default function Login() {
+// eslint-disable-next-line no-shadow
+function Register({ registerUser, clearErrors }) {
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
 
+  // clear errors on unmount so that they don't persist if user reopens modal
+  useEffect(() => {
+    return () => {
+      clearErrors();
+    };
+  }, []);
+
   const onSubmit = e => {
     e.preventDefault();
+
+    const user = {
+      name: nameValue,
+      email: emailValue,
+      password: passwordValue,
+    };
+    registerUser(user);
   };
 
   return (
@@ -56,3 +75,10 @@ export default function Login() {
     </React.Fragment>
   );
 }
+
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
+};
+
+export default connect(null, { registerUser, clearErrors })(Register);

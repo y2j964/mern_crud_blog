@@ -24,13 +24,17 @@ router.get('/', (req, res) => {
 // @desc GET specific post
 // @access Public
 router.get('/:id', (req, res) => {
-  Post.findById(req.params.id).then(post => res.json(post));
+  Post.findById(req.params.id)
+    .then(post => res.json(post))
+    .catch(err =>
+      res.status(404).json({ msg: "Can't find post matching that id" })
+    );
 });
 
 // @route POST api/Posts
 // @desc Create a Post
 // @access Private
-router.post('/', async (req, res) => {
+router.post('/', verifyToken, async (req, res) => {
   const { title, description, body, author } = req.body;
 
   const postDuplicate = await Post.findOne({ title });
@@ -59,20 +63,22 @@ router.post('/', async (req, res) => {
 // @route DELETE api/posts
 // @desc Delete a post
 // @access Private
-router.delete('/:id', (req, res) => {
+router.delete('/:id', verifyToken, (req, res) => {
   Post.findById(req.params.id)
-    .then(post => post.remove().then(() => res.status(204).send()))
-    .catch(err => res.status(404).json({ success: false }));
+    .then(post => post.remove().then(() => res.status(204).end()))
+    .catch(err =>
+      res.status(404).json({ msg: "Can't find post matching that id" })
+    );
 });
 
 // @route DELETE api/posts
 // @desc Delete a post
 // @access Private
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', verifyToken, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     post.set(req.body);
-    post.save().then(() => res.send({ data: post }));
+    post.save().then(() => res.json({ data: post }));
   } catch (err) {
     res.status(404).json({ msg: "Can't find post matching that id" });
   }
