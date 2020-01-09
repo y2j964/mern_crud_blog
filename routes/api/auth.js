@@ -50,4 +50,15 @@ router.post('/', async (req, res) => {
   );
 });
 
+// @route Get api/auth
+// @desc Get individual user data via jwt
+// @access Private
+router.get('/', verifyToken, (req, res) => {
+  User.findById(req.user.id, '-password')
+    .then(user => res.json(user))
+    .catch(() =>
+      res.status(404).json({ msg: "Can't find user matching that id" })
+    );
+});
+
 module.exports = router;

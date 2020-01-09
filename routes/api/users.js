@@ -72,17 +72,6 @@ router.get('/', verifyToken, (req, res) => {
     .then(user => res.json(user));
 });
 
-// @route Get api/user/:id
-// @desc Get individual user data
-// @access Private
-router.get('/:id', verifyToken, (req, res) => {
-  User.findById(req.params.id, '-password')
-    .then(user => res.json(user))
-    .catch(() =>
-      res.status(404).json({ msg: "Can't find user matching that id" })
-    );
-});
-
 // @route Delete api/user
 // @desc Delete user
 // @access Private
