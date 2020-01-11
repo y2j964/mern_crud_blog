@@ -6,10 +6,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import { connect } from 'react-redux';
-import Modal from '../Modal';
 import Close from '../../icons/Close';
 import Edit from '../../icons/Edit';
 import { deletePost } from '../../actions/postActions';
+import DeleteConfirmation from '../DeleteConfirmation';
 
 const formatter = new Intl.DateTimeFormat('en-us', {
   month: 'long',
@@ -33,41 +33,13 @@ function Card({
   const handleDelete = () => {
     confirmAlert({
       // eslint-disable-next-line react/prop-types
-      customUI: ({ onClose }) => {
-        return (
-          <Modal handleClose={onClose}>
-            <div className="mt-6 z-10">
-              <h2
-                className="font-bold text-2xl text-center mb-5"
-                id="modalHeading"
-              >
-                Confirm Delete
-              </h2>
-              <p className="mb-5 text-center">
-                This action is irreversible. Are you sure you want to delete
-                this post?
-              </p>
-              <div className="flex justify-around">
-                <button
-                  className="accent-btn w-24 bg-gray-500"
-                  onClick={onClose}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="accent-btn w-24 bg-red-600"
-                  onClick={() => {
-                    deletePost(_id);
-                    onClose();
-                  }}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          </Modal>
-        );
-      },
+      customUI: ({ onClose }) => (
+        <DeleteConfirmation
+          onClose={onClose}
+          deletePost={deletePost}
+          id={_id}
+        />
+      ),
     });
   };
 
