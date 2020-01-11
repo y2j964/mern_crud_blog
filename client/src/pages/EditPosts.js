@@ -20,7 +20,6 @@ export default function EditPosts() {
         My Posts
       </h1>
       <MyPosts>{posts => <CardGroup posts={posts} isEditable />}</MyPosts>
-      {/* <AllPosts>{posts => <CardGroup posts={posts} isEditable />}</AllPosts> */}
     </main>
   );
 }

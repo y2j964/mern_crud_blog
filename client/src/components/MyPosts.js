@@ -12,7 +12,7 @@ function EmptyMyPosts() {
       You currently haven&apos;t made any contributions to MERN CRUD Blog. Want
       to get started? Head to{' '}
       <Link to={'/add-post'} className="underline text-accent">
-        Add Post
+        Add Post.
       </Link>
     </p>
   );
