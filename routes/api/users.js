@@ -5,6 +5,12 @@ const verifyToken = require('../../middleware/verifyToken');
 const router = express.Router();
 require('dotenv').config();
 
+const generateSlug = str =>
+  str
+    .toLowerCase()
+    .split(' ')
+    .join('-');
+
 // encrypts password(hash) with additional layer of complexity added(salt)
 const getEncryptedPassword = async password => {
   try {
@@ -36,6 +42,7 @@ router.post('/', async (req, res) => {
   }
   const newUser = new User({
     name,
+    authorSlug: generateSlug(name),
     email,
     password,
   });
@@ -53,11 +60,7 @@ router.post('/', async (req, res) => {
       }
       res.status(201).json({
         token,
-        user: {
-          id: savedUser.id,
-          name: savedUser.name,
-          email: savedUser.email,
-        },
+        user: savedUser,
       });
     }
   );

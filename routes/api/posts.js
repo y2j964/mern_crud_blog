@@ -50,8 +50,8 @@ router.post('/', verifyToken, async (req, res) => {
     description,
     body,
     author,
+    authorSlug,
     postSlug: generateSlug(title),
-    authorSlug: generateSlug(author),
   });
 
   newPost

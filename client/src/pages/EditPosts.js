@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import AllPosts from '../components/AllPosts';
+import MyPosts from '../components/MyPosts';
 import CardGroup from '../components/Card/CardGroup';
 
 export default function EditPosts() {
@@ -19,7 +19,8 @@ export default function EditPosts() {
       >
         My Posts
       </h1>
-      <AllPosts>{posts => <CardGroup posts={posts} isEditable />}</AllPosts>
+      <MyPosts>{posts => <CardGroup posts={posts} isEditable />}</MyPosts>
+      {/* <AllPosts>{posts => <CardGroup posts={posts} isEditable />}</AllPosts> */}
     </main>
   );
 }

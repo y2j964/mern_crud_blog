@@ -4,13 +4,13 @@ import { withRouter } from 'react-router-dom';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
 import { addPost } from '../actions/postActions';
-import { getName } from '../selectors/authSelector';
+import { getName, getAuthorSlug } from '../selectors/authSelector';
 import { generateSlug } from '../utilityFunctions/generateSlug';
 import { InputText } from '../components/Input';
 import TextArea from '../components/TextArea';
 
 // eslint-disable-next-line no-shadow
-function AddPost({ addPost, history, name }) {
+function AddPost({ addPost, history, name, authorSlug }) {
   const ref = useRef();
   useEffect(() => {
     document.title = 'Add Post - MERN Crud Blog';
@@ -39,9 +39,9 @@ function AddPost({ addPost, history, name }) {
       description: postDescriptionValue,
       body: postBodyValue,
       author: name,
+      authorSlug,
       date: 'Friday 3:30PM',
       id: uuid.v4(),
-      authorSlug: generateSlug(name),
       postSlug: generateSlug(postTitleValue),
     };
 
@@ -91,7 +91,7 @@ function AddPost({ addPost, history, name }) {
           </button>
         </form>
       ) : (
-        <p className="text-center">
+        <p className="text-center" aria-live="polite">
           Post Added! Navigating back to posts . . .{' '}
         </p>
       )}
@@ -102,11 +102,13 @@ function AddPost({ addPost, history, name }) {
 AddPost.propTypes = {
   addPost: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  authorSlug: PropTypes.string.isRequired,
   history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   name: getName(state),
+  authorSlug: getAuthorSlug(state),
 });
 
 export default connect(mapStateToProps, { addPost })(withRouter(AddPost));
