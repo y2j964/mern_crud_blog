@@ -35,7 +35,7 @@ router.get('/:id', (req, res) => {
 // @desc Create a Post
 // @access Private
 router.post('/', verifyToken, async (req, res) => {
-  const { title, description, body, author } = req.body;
+  const { title, description, body, author, authorSlug } = req.body;
 
   const postDuplicate = await Post.findOne({ title });
   if (postDuplicate) {

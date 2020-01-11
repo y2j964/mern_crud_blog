@@ -39,11 +39,15 @@ function EditPost({ post, updatePost, history }) {
     e.preventDefault();
 
     const updatedPost = {
-      ...post,
+      // ...post,
+      // don't need to copy old post here because patch request
       title: postTitleValue,
       description: postDescriptionValue,
+      body: postBodyValue,
       postSlug: generateSlug(postTitleValue),
     };
+
+    console.log(updatedPost);
 
     updatePost(updatedPost);
     setSubmissionSuccess(true);

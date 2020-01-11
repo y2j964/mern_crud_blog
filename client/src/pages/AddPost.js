@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import uuid from 'uuid';
 import { connect } from 'react-redux';
 import { addPost } from '../actions/postActions';
 import { getName, getAuthorSlug } from '../selectors/authSelector';
@@ -40,8 +39,6 @@ function AddPost({ addPost, history, name, authorSlug }) {
       body: postBodyValue,
       author: name,
       authorSlug,
-      date: 'Friday 3:30PM',
-      id: uuid.v4(),
       postSlug: generateSlug(postTitleValue),
     };
 
