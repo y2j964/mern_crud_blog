@@ -11,6 +11,7 @@ function Input({
   minLength,
   value,
   handleChange,
+  handleBlur,
   children,
 }) {
   return (
@@ -30,6 +31,7 @@ function Input({
         className="form-input"
         value={value}
         onChange={handleChange}
+        onBlur={handleBlur}
       />
       {children}
     </div>
@@ -44,6 +46,7 @@ export const InputPassword = props => (
   <Input
     {...props}
     type="password"
+    minLength={props.minLength || 8}
     autoComplete="current-password"
     isRequired
   />
@@ -56,9 +59,15 @@ Input.propTypes = {
   isRequired: PropTypes.bool.isRequired,
   describedBy: PropTypes.string,
   autoComplete: PropTypes.string,
-  minLength: PropTypes.string,
+  minLength: PropTypes.number,
   value: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleBlur: PropTypes.func,
+  children: PropTypes.node,
+};
+
+InputPassword.propTypes = {
+  minLength: PropTypes.number,
 };
 
 export default Input;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function AuthModalTrigger({
   handleClick,
@@ -14,3 +15,9 @@ export default function AuthModalTrigger({
     </button>
   );
 }
+
+AuthModalTrigger.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  additionalClasses: PropTypes.string,
+  children: PropTypes.node,
+};

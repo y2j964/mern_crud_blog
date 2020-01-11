@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -5,21 +6,32 @@ import { InputText, InputEmail, InputPassword } from './Input';
 import { registerUser } from '../actions/authActions';
 import { clearErrors } from '../actions/errorActions';
 
-// eslint-disable-next-line no-shadow
-function Register({ registerUser, clearErrors }) {
+function Register({
+  handleClose,
+  registerUser,
+  clearErrors,
+  isAuthenticated,
+  errorMsg,
+}) {
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // clear errors on unmount so that they don't persist if user reopens modal
+  // clear errors so that errors don't persist
   useEffect(() => {
-    return () => {
-      clearErrors();
-    };
-  }, []);
+    clearErrors();
+  }, [clearErrors]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      handleClose();
+    }
+  }, [isAuthenticated, handleClose]);
 
   const onSubmit = e => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const user = {
       name: nameValue,
@@ -27,6 +39,7 @@ function Register({ registerUser, clearErrors }) {
       password: passwordValue,
     };
     registerUser(user);
+    setIsSubmitting(false);
   };
 
   return (
@@ -37,6 +50,14 @@ function Register({ registerUser, clearErrors }) {
         </h2>
       </header>
       <form action="" onSubmit={onSubmit}>
+        {errorMsg && (
+          <div
+            className="bg-red-200 mb-3 p-3 rounded-sm flex items-center"
+            role="alert"
+          >
+            <p className="text-sm text-red-800 font-bold">{errorMsg}</p>
+          </div>
+        )}
         <InputText
           labelText={'Name: '}
           name="accountName"
@@ -68,6 +89,7 @@ function Register({ registerUser, clearErrors }) {
         <button
           type="submit"
           className="accent-btn accent-btn--is-glowing w-full mt-2"
+          disable={`${isSubmitting}`}
         >
           Register
         </button>
@@ -77,8 +99,18 @@ function Register({ registerUser, clearErrors }) {
 }
 
 Register.propTypes = {
+  handleClose: PropTypes.func.isRequired,
   registerUser: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  errorMsg: PropTypes.string,
 };
 
-export default connect(null, { registerUser, clearErrors })(Register);
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  errorMsg: state.error.msg,
+});
+
+export default connect(mapStateToProps, { registerUser, clearErrors })(
+  Register
+);

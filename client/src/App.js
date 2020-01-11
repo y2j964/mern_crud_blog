@@ -54,12 +54,12 @@ function App({ location, history }) {
       <AddPostOverlay />
       {isLoginModalOpen && (
         <Modal handleClose={() => setIsLoginModalOpen(false)}>
-          <Login />
+          <Login handleClose={() => setIsLoginModalOpen(false)} />
         </Modal>
       )}
       {isRegisterModalOpen && (
         <Modal handleClose={() => setIsRegisterModalOpen(false)}>
-          <Register />
+          <Register handleClose={() => setIsRegisterModalOpen(false)} />
         </Modal>
       )}
     </Provider>
