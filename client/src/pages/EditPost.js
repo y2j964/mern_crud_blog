@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Prompt } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getPost } from '../selectors/postSelectors';
 import { updatePost } from '../actions/postActions';
@@ -47,8 +47,6 @@ function EditPost({ post, updatePost, history }) {
       postSlug: generateSlug(postTitleValue),
     };
 
-    console.log(updatedPost);
-
     updatePost(updatedPost);
     setSubmissionSuccess(true);
   };
@@ -62,6 +60,15 @@ function EditPost({ post, updatePost, history }) {
       >
         Post Title
       </h1>
+      <Prompt
+        // lanuch when values are diff from initial values
+        when={
+          postTitleValue !== title ||
+          postDescriptionValue !== description ||
+          postBodyValue !== body
+        }
+        message={'Changes have not been saved. Are you sure you want to exit?'}
+      />
       {!submissionSuccess ? (
         <form action="" onSubmit={onSubmit}>
           <InputText

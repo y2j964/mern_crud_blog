@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Prompt } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addPost } from '../actions/postActions';
 import { getName, getAuthorSlug } from '../selectors/authSelector';
@@ -49,6 +49,14 @@ function AddPost({ addPost, history, name, authorSlug }) {
 
   return (
     <main>
+      <Prompt
+        when={
+          postTitleValue !== '' ||
+          postDescriptionValue !== '' ||
+          postBodyValue !== ''
+        }
+        message={'Changes have not been saved. Are you sure you want to exit?'}
+      />
       <h1
         tabIndex="-1"
         ref={ref}
