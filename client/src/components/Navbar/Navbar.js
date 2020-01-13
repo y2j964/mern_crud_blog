@@ -16,7 +16,6 @@ function Navbar({
 }) {
   return (
     <nav className="navbar">
-      <NavbarBrand />
       <HamburgerToggle
         controls="navbarCollapsibleGroup"
         collapsibleNavIsExpanded={collapsibleNavIsExpanded}
@@ -26,20 +25,21 @@ function Navbar({
           toggleCollapsibleNav();
         }}
       />
+      <NavbarBrand />
       <NavbarPrimaryItems collapsibleNavIsExpanded={collapsibleNavIsExpanded} />
-      <div className="ml-auto hidden md:flex items-center">
+      <div className="ml-auto flex items-center order-2 md:order-3">
         {isAuthenticated ? (
           <Logout additionalClasses="pseudo-underline mr-5" />
         ) : (
           <AuthModalTrigger
-            additionalClasses="pseudo-underline mr-5"
+            additionalClasses="pseudo-underline mr-2 sm:mr-5"
             handleClick={() => setIsLoginModalOpen(true)}
           >
             Log In
           </AuthModalTrigger>
         )}
         <AuthModalTrigger
-          additionalClasses="accent-btn accent-btn--is-glowing mr-0"
+          additionalClasses="accent-btn accent-btn--is-glowing mr-0 my-0 px-2 py-1 sm:px-3 sm:py-2"
           handleClick={() => setIsRegisterModalOpen(true)}
         >
           Register

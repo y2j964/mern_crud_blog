@@ -1,5 +1,6 @@
 .hamburger-toggle {
-  @apply ml-auto;
+  @apply mr-2;
+  /* @apply ml-auto; */
   /* opacity: 0.5;
   transition: opacity 200ms ease-in-out; */
 

@@ -6,8 +6,12 @@
   }
 
   &__link {
-    @apply my-3 block uppercase font-medium relative;
+    @apply my-3 block uppercase font-medium relative text-sm;
     transition: opacity 300ms ease-in-out;
+
+    @media (--sm) {
+      @apply text-base mr-0;
+    }
 
     &--is-active {
       @apply font-bold;
