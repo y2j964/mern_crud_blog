@@ -56,8 +56,8 @@ router.post('/', verifyToken, async (req, res) => {
 
   newPost
     .save()
-    .then(Post => res.status(201).json(Post))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .then(post => res.status(201).json(post))
+    .catch(err => res.status(400).json({ msg: err }));
 });
 
 // @route DELETE api/posts
@@ -78,7 +78,7 @@ router.patch('/:id', verifyToken, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     post.set(req.body);
-    post.save().then(() => res.json({ data: post }));
+    post.save().then(() => res.json(post));
   } catch (err) {
     res.status(404).json({ msg: "Can't find post matching that id" });
   }
