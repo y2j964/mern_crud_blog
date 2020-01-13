@@ -18,7 +18,7 @@ function EditPost({ post, updatePost, history }) {
     ref.current.focus();
   }, []);
 
-  const { title, description, body } = post || '';
+  const { title, description, body, _id } = post || '';
   // need to use || so that it doesn't throw an error after submission is successful
 
   const [postTitleValue, setPostTitleValue] = useState(title);
@@ -41,6 +41,7 @@ function EditPost({ post, updatePost, history }) {
     const updatedPost = {
       // ...post,
       // don't need to copy old post here because patch request
+      _id,
       title: postTitleValue,
       description: postDescriptionValue,
       body: postBodyValue,

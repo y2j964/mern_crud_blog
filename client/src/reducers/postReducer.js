@@ -33,7 +33,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         items: state.items.map(post =>
-          post.id === action.payload.id ? action.payload : post
+          post._id === action.payload._id ? action.payload : post
         ),
       };
     case DELETE_POST:
