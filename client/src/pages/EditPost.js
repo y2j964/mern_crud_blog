@@ -61,46 +61,50 @@ function EditPost({ post, updatePost, history }) {
       >
         Post Title
       </h1>
-      <Prompt
-        // lanuch when values are diff from initial values
-        when={
-          postTitleValue !== title ||
-          postDescriptionValue !== description ||
-          postBodyValue !== body
-        }
-        message={'Changes have not been saved. Are you sure you want to exit?'}
-      />
       {!submissionSuccess ? (
-        <form action="" onSubmit={onSubmit}>
-          <InputText
-            labelText={'Title: '}
-            name="postTitle"
-            isRequired={true}
-            value={postTitleValue}
-            handleChange={e => setPostTitleValue(e.target.value)}
+        <React.Fragment>
+          <Prompt
+            // launch when values are diff from initial values
+            when={
+              postTitleValue !== title ||
+              postDescriptionValue !== description ||
+              postBodyValue !== body
+            }
+            message={
+              'Changes have not been saved. Are you sure you want to exit?'
+            }
           />
-          <InputText
-            labelText={'Description: '}
-            name="postDescription"
-            isRequired={true}
-            value={postDescriptionValue}
-            handleChange={e => setPostDescriptionValue(e.target.value)}
-          />
-          <TextArea
-            labelText={'Body: '}
-            name="postBody"
-            isRequired={true}
-            rows={5}
-            value={postBodyValue}
-            handleChange={e => setPostBodyValue(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="accent-btn accent-btn--is-glowing w-full mt-2"
-          >
-            Submit
-          </button>
-        </form>
+          <form action="" onSubmit={onSubmit}>
+            <InputText
+              labelText={'Title: '}
+              name="postTitle"
+              isRequired={true}
+              value={postTitleValue}
+              handleChange={e => setPostTitleValue(e.target.value)}
+            />
+            <InputText
+              labelText={'Description: '}
+              name="postDescription"
+              isRequired={true}
+              value={postDescriptionValue}
+              handleChange={e => setPostDescriptionValue(e.target.value)}
+            />
+            <TextArea
+              labelText={'Body: '}
+              name="postBody"
+              isRequired={true}
+              rows={5}
+              value={postBodyValue}
+              handleChange={e => setPostBodyValue(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="accent-btn accent-btn--is-glowing w-full mt-2"
+            >
+              Submit
+            </button>
+          </form>
+        </React.Fragment>
       ) : (
         <p className="text-center">
           Post Edited! Navigating back to posts . . .{' '}
