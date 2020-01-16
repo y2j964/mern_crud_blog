@@ -2,7 +2,7 @@
   @apply px-3 py-2 rounded;
   background-color: #7300e6;
   color: white;
-  transition: all 200ms ease;
+  transition: text-shadow 200ms ease, box-shadow 200ms ease;
 
   &--is-glowing:hover {
     text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
@@ -13,6 +13,7 @@
     background-color: white;
     color: #7300e6;
     border: 1px solid #7300e6;
+    transition: background-color 200ms ease, color 200ms ease;
 
     &:hover {
       /* text-shadow: none;

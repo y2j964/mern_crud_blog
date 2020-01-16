@@ -35,7 +35,7 @@ function DeleteConfirmation({ onClose, id, deletePost }) {
 DeleteConfirmation.propTypes = {
   onClose: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
-  id: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default DeleteConfirmation;
