@@ -85,7 +85,7 @@ function Login({
           // handleBlur={handleBlur}
         >
           <small
-            className="text-sm text-gray-500 leading-none"
+            className="block text-sm text-gray-500 leading-none mt-1"
             id="passwordDetails"
           >
             Passwords must be at least 8 characters long.

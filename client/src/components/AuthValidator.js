@@ -1,36 +1,55 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Register from './Register';
 import Login from './Login';
 import Dialog from './Modal/Dialog';
+import useWindowWidth from '../utilityFunctions/useWindowWidth';
+
+const getIsFlippedStyle = (loginHeight, registerHeight) => ({
+  transform: `rotateX(180deg) translateY(calc((${loginHeight} - ${registerHeight}) / -2))`,
+});
 
 // object lookups here to prevent running same conditional multiple times
-const authModalView = {
+const authModalView = (loginHeight, registerHeight) => ({
   loginIsActive: {
-    isFlipped: '',
+    isFlipped: {},
     loginAriaHidden: 'false',
     loginTabIndex: '0',
     registerAriaHidden: 'true',
     registerTabIndex: '-1',
   },
   registerIsActive: {
-    isFlipped: 'flip-card__inner--is-flipped',
+    isFlipped: getIsFlippedStyle(loginHeight, registerHeight),
     loginAriaHidden: 'true',
     loginTabIndex: '-1',
     registerAriaHidden: 'false',
     registerTabIndex: '0',
   },
-};
+});
 
 const AuthValidator = ({
   authModalPosition,
   setAuthModalPosition,
   handleClose,
 }) => {
-  const registerRef = useRef();
+  const windowWidth = useWindowWidth();
+  // default heights that will appear at most screen widths
+  const [loginHeight, setLoginHeight] = useState('399px');
+  const [registerHeight, setRegisterHeight] = useState('477px');
+
+  // update height values on debounced browser resize
   useEffect(() => {
-    console.log(document.querySelector('.flip-card__back').clientHeight);
-  }, []);
+    // won't get accurate measurement unless we do the setTimeout
+    setTimeout(() => {
+      const updatedRegisterHeight = document.querySelector('.flip-card__back')
+        .offsetHeight;
+      const updatedLoginHeight = document.querySelector('.flip-card__front')
+        .offsetHeight;
+
+      setLoginHeight(`${updatedLoginHeight}px`);
+      setRegisterHeight(`${updatedRegisterHeight}px`);
+    }, 0);
+  }, [windowWidth]);
 
   const {
     isFlipped,
@@ -38,11 +57,13 @@ const AuthValidator = ({
     loginTabIndex,
     registerAriaHidden,
     registerTabIndex,
-  } = authModalView[`${authModalPosition}IsActive`];
+  } = authModalView(loginHeight, registerHeight)[
+    `${authModalPosition}IsActive`
+  ];
 
   return (
-    <div className="flip-card">
-      <div className={`flip-card__inner ${isFlipped}`}>
+    <div className="flip-card" style={{ height: loginHeight }}>
+      <div className="flip-card__inner" style={isFlipped}>
         <Dialog
           handleClose={handleClose}
           additionalClasses="flip-card__front"
@@ -56,7 +77,6 @@ const AuthValidator = ({
           />
         </Dialog>
         <Dialog
-          ref={registerRef}
           handleClose={handleClose}
           additionalClasses="flip-card__back"
           tabIndex={registerTabIndex}
@@ -74,72 +94,9 @@ const AuthValidator = ({
 };
 
 AuthValidator.propTypes = {
-  authModalPosition: PropTypes.string.isRequired,
+  authModalPosition: PropTypes.oneOf(['login', 'register']).isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 
 export default AuthValidator;
-
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import Register from './Register';
-// import Login from './Login';
-// import Dialog from './Dialog';
-
-// // object lookups here to prevent running same conditional 3 times
-// const authModalView = {
-//   loginIsActive: {
-//     transform: 'translateX(0)',
-//     loginAdditionalClasses: '',
-//     loginAriaHidden: 'false',
-//     loginTabIndex: '0',
-//     registerAdditionalClasses: 'invisible',
-//     registerAriaHidden: 'true',
-//     registerTabIndex: '-1',
-//   },
-//   registerIsActive: {
-//     transform: 'translateX(-50%)',
-//     loginAdditionalClasses: 'invisible',
-//     loginAriaHidden: 'true',
-//     loginTabIndex: '-1',
-//     registerAdditionalClasses: '',
-//     registerAriaHidden: 'false',
-//     registerTabIndex: '0',
-//   },
-// };
-
-// const AuthValidator = ({
-//   authModalPosition,
-//   setAuthModalPosition,
-//   handleClose,
-// }) => {
-//   const {
-//     transform,
-//     loginAdditionalClasses,
-//     registerAdditionalClasses,
-//   } = authModalView[`${authModalPosition}IsActive`];
-
-//   return (
-//       <div className={`flip-card${ isFlipped}`}>
-//         <div className='flip-card__inner'>
-//         <Dialog
-//           handleClose={() => setAuthModalPosition()}
-//           additionalClasses='flip-card__front'
-//         >
-//           <Login setAuthModalPosition={setAuthModalPosition} />
-//         </Dialog>
-//         <Dialog
-//           handleClose={() => setAuthModalPosition()}
-//           additionalClasses='flip-card__back'
-//         >
-//           <Register setAuthModalPosition={setAuthModalPosition} />
-//         </Dialog>
-//       </div>
-//     </div>
-//   );
-// };
-
-// AuthValidator.propTypes = {};
-
-// export default AuthValidator;
