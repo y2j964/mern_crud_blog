@@ -11,12 +11,13 @@ function Input({
   minLength,
   value,
   handleChange,
+  tabIndex,
   handleBlur,
   children,
 }) {
   return (
     <div className="mb-4">
-      <label className="font-bold block" htmlFor={name}>
+      <label className="font-bold block text-left" htmlFor={name}>
         {labelText}
       </label>
       <input
@@ -29,6 +30,7 @@ function Input({
         required={isRequired}
         minLength={minLength}
         className="form-input"
+        tabIndex={tabIndex}
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
@@ -62,6 +64,7 @@ Input.propTypes = {
   minLength: PropTypes.number,
   value: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  tabIndex: PropTypes.string,
   handleBlur: PropTypes.func,
   children: PropTypes.node,
 };

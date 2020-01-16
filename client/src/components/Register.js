@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { InputText, InputEmail, InputPassword } from './Input';
@@ -8,6 +8,8 @@ import { clearErrors } from '../actions/errorActions';
 
 function Register({
   handleClose,
+  setAuthModalPosition,
+  tabIndex,
   registerUser,
   clearErrors,
   isAuthenticated,
@@ -18,6 +20,7 @@ function Register({
   const [passwordValue, setPasswordValue] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const toggleViewRef = useRef();
   // clear errors so that errors don't persist
   useEffect(() => {
     clearErrors();
@@ -42,6 +45,12 @@ function Register({
     setIsSubmitting(false);
   };
 
+  const toggleView = () => {
+    toggleViewRef.current.blur();
+    // need to blur so focus can move to active auth view
+    setAuthModalPosition('login');
+  };
+
   return (
     <React.Fragment>
       <header className="flex items-center mb-6">
@@ -60,22 +69,25 @@ function Register({
         )}
         <InputText
           labelText={'Name: '}
-          name="accountName"
+          name="registerName"
           autoComplete="name"
           isRequired={true}
+          tabIndex={tabIndex}
           value={nameValue}
           handleChange={e => setNameValue(e.target.value)}
         />
         <InputEmail
           labelText={'Email: '}
-          name="accountEmail"
+          name="registerEmail"
           value={emailValue}
+          tabIndex={tabIndex}
           handleChange={e => setEmailValue(e.target.value)}
         />
         <InputPassword
           labelText={'Password: '}
-          name="accountPassword"
-          describedBy="passwordDetails"
+          name="registerPassword"
+          describedBy="registerPasswordDetails"
+          tabIndex={tabIndex}
           value={passwordValue}
           handleChange={e => setPasswordValue(e.target.value)}
         >
@@ -90,10 +102,19 @@ function Register({
           type="submit"
           className="accent-btn accent-btn--is-glowing w-full mt-2"
           disable={`${isSubmitting}`}
+          tabIndex={tabIndex}
         >
           Register
         </button>
       </form>
+      <button
+        className="text-blue-400 mt-3"
+        ref={toggleViewRef}
+        onClick={toggleView}
+        tabIndex={tabIndex}
+      >
+        Already have an account? Log in here.
+      </button>
     </React.Fragment>
   );
 }
@@ -101,7 +122,9 @@ function Register({
 Register.propTypes = {
   handleClose: PropTypes.func.isRequired,
   registerUser: PropTypes.func.isRequired,
+  tabIndex: PropTypes.string,
   clearErrors: PropTypes.func.isRequired,
+  setAuthModalPosition: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   errorMsg: PropTypes.string,
 };

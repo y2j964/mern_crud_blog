@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { InputEmail, InputPassword } from './Input';
@@ -7,7 +7,9 @@ import { loginUser } from '../actions/authActions';
 import { clearErrors } from '../actions/errorActions';
 
 function Login({
+  setAuthModalPosition,
   handleClose,
+  tabIndex,
   loginUser,
   clearErrors,
   isAuthenticated,
@@ -16,6 +18,8 @@ function Login({
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const toggleViewRef = useRef();
 
   // clear errors so that errors don't persist
   useEffect(() => {
@@ -41,6 +45,12 @@ function Login({
     setIsSubmitting(false);
   };
 
+  const toggleView = () => {
+    toggleViewRef.current.blur();
+    // need to blur so focus can move to active auth view
+    setAuthModalPosition('register');
+  };
+
   return (
     <React.Fragment>
       <header className="flex items-center mb-6">
@@ -59,15 +69,17 @@ function Login({
         )}
         <InputEmail
           labelText={'Email: '}
-          name="accountEmail"
+          name="loginEmail"
+          tabIndex={tabIndex}
           value={emailValue}
           handleChange={e => setEmailValue(e.target.value)}
           // handleBlur={handleBlur}
         />
         <InputPassword
           labelText={'Password: '}
-          name="accountPassword"
-          describedBy="passwordDetails"
+          name="loginPassword"
+          describedBy="loginPasswordDetails"
+          tabIndex={tabIndex}
           value={passwordValue}
           handleChange={e => setPasswordValue(e.target.value)}
           // handleBlur={handleBlur}
@@ -82,19 +94,30 @@ function Login({
         <button
           type="submit"
           className="accent-btn accent-btn--is-glowing w-full mt-2"
+          tabIndex={tabIndex}
           disable={`${isSubmitting}`}
         >
           Log In
         </button>
       </form>
+      <button
+        className="text-blue-400 mt-3"
+        ref={toggleViewRef}
+        onClick={toggleView}
+        tabIndex={tabIndex}
+      >
+        Don&apos;t have an account? Register here.
+      </button>
     </React.Fragment>
   );
 }
 
 Login.propTypes = {
   handleClose: PropTypes.func.isRequired,
+  tabIndex: PropTypes.string,
   loginUser: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
+  setAuthModalPosition: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   errorMsg: PropTypes.string,
 };
@@ -105,42 +128,30 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
+
+// /* eslint-disable no-shadow */
 // import React, { useState, useEffect } from 'react';
 // import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 // import { InputEmail, InputPassword } from './Input';
 // import { loginUser } from '../actions/authActions';
 // import { clearErrors } from '../actions/errorActions';
-// import useFormValidation from '../utilityFunctions/useForm';
 
-// const initialState = {
-//   email: '',
-//   password: '',
-// };
-
-// // eslint-disable-next-line no-shadow
 // function Login({
+//   toggleToRegister,
 //   handleClose,
 //   loginUser,
 //   clearErrors,
 //   isAuthenticated,
 //   errorMsg,
 // }) {
-//   // const [emailValue, setEmailValue] = useState('');
-//   // const [passwordValue, setPasswordValue] = useState('');
-//   const {
-//     handleSubmit,
-//     handleChange,
-//     handleBlur,
-//     values,
-//     isSubmitting,
-//   } = useFormValidation(initialState, loginUser);
+//   const [emailValue, setEmailValue] = useState('');
+//   const [passwordValue, setPasswordValue] = useState('');
+//   const [isSubmitting, setIsSubmitting] = useState(false);
 
-//   // clear errors on unmount so that they don't persist if user reopens modal
+//   // clear errors so that errors don't persist
 //   useEffect(() => {
-//     return () => {
-//       clearErrors();
-//     };
+//     clearErrors();
 //   }, [clearErrors]);
 
 //   useEffect(() => {
@@ -149,14 +160,23 @@ export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
 //     }
 //   }, [isAuthenticated, handleClose]);
 
-//   // const onSubmit = e => {
-//   //   e.preventDefault();
-//   //   const user = {
-//   //     email: emailValue,
-//   //     password: passwordValue,
-//   //   };
-//   //   loginUser(user);
-//   // };
+//   const onSubmit = e => {
+//     e.preventDefault();
+//     setIsSubmitting(true);
+
+//     const user = {
+//       email: emailValue,
+//       password: passwordValue,
+//     };
+
+//     loginUser(user);
+//     setIsSubmitting(false);
+//   };
+
+//   const toggleView = () => {
+//     handleClose();
+//     toggleToRegister();
+//   };
 
 //   return (
 //     <React.Fragment>
@@ -165,20 +185,28 @@ export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
 //           Log In
 //         </h2>
 //       </header>
-//       <form action="" onSubmit={handleSubmit}>
+//       <form action="" onSubmit={onSubmit}>
+//         {errorMsg && (
+//           <div
+//             className="bg-red-200 mb-3 p-3 rounded-sm flex items-center"
+//             role="alert"
+//           >
+//             <p className="text-sm text-red-800 font-bold">{errorMsg}</p>
+//           </div>
+//         )}
 //         <InputEmail
 //           labelText={'Email: '}
-//           name="email"
-//           value={values.email}
-//           handleChange={handleChange}
+//           name="accountEmail"
+//           value={emailValue}
+//           handleChange={e => setEmailValue(e.target.value)}
 //           // handleBlur={handleBlur}
 //         />
 //         <InputPassword
 //           labelText={'Password: '}
-//           name="password"
+//           name="accountPassword"
 //           describedBy="passwordDetails"
-//           value={values.password}
-//           handleChange={handleChange}
+//           value={passwordValue}
+//           handleChange={e => setPasswordValue(e.target.value)}
 //           // handleBlur={handleBlur}
 //         >
 //           <small
@@ -188,7 +216,6 @@ export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
 //             Passwords must be at least 8 characters long.
 //           </small>
 //         </InputPassword>
-//         {errorMsg && <p>{errorMsg}</p>}
 //         <button
 //           type="submit"
 //           className="accent-btn accent-btn--is-glowing w-full mt-2"
@@ -197,6 +224,9 @@ export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
 //           Log In
 //         </button>
 //       </form>
+//       <button className="text-blue-400" onClick={toggleView}>
+//         Already have an Account? Register here.
+//       </button>
 //     </React.Fragment>
 //   );
 // }

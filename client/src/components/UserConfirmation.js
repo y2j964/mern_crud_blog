@@ -1,7 +1,7 @@
 // custom ui for react-router-dom Prompt
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Modal from './Modal';
+import Modal from './Modal/Modal';
 
 export default function UserConfirmation({ message, callback }) {
   const [isHidden, setIsHidden] = useState();

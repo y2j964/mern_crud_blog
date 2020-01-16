@@ -10,8 +10,7 @@ import Logout from '../Logout';
 function Navbar({
   collapsibleNavIsExpanded,
   toggleCollapsibleNav,
-  setIsLoginModalOpen,
-  setIsRegisterModalOpen,
+  setAuthModalPosition,
   isAuthenticated,
 }) {
   return (
@@ -29,18 +28,18 @@ function Navbar({
       <NavbarPrimaryItems collapsibleNavIsExpanded={collapsibleNavIsExpanded} />
       <div className="ml-auto flex items-center order-2 md:order-3">
         {isAuthenticated ? (
-          <Logout additionalClasses="pseudo-underline mr-5" />
+          <Logout additionalClasses="pseudo-underline mr-2 sm:mr-5" />
         ) : (
           <AuthModalTrigger
             additionalClasses="pseudo-underline mr-2 sm:mr-5"
-            handleClick={() => setIsLoginModalOpen(true)}
+            handleClick={() => setAuthModalPosition('login')}
           >
             Log In
           </AuthModalTrigger>
         )}
         <AuthModalTrigger
           additionalClasses="accent-btn accent-btn--is-glowing mr-0 my-0 px-2 py-1 sm:px-3 sm:py-2"
-          handleClick={() => setIsRegisterModalOpen(true)}
+          handleClick={() => setAuthModalPosition('register')}
         >
           Register
         </AuthModalTrigger>
@@ -52,8 +51,7 @@ function Navbar({
 Navbar.propTypes = {
   collapsibleNavIsExpanded: PropTypes.bool.isRequired,
   toggleCollapsibleNav: PropTypes.func.isRequired,
-  setIsLoginModalOpen: PropTypes.func.isRequired,
-  setIsRegisterModalOpen: PropTypes.func.isRequired,
+  setAuthModalPosition: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
 

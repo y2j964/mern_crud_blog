@@ -1,0 +1,25 @@
+.modal {
+  @apply absolutely-centered bg-alpha z-10;
+
+  &__dialog {
+    @apply max-w-sm w-full px-12 pb-12 rounded bg-white;
+    /* @apply max-w-sm sm:max-w-md md:max-w-lg w-full px-12 pt-6 pb-12 rounded bg-white;*/
+    @media (--sm) {
+      @apply max-w-md;
+    }
+    @media (--md) {
+      @apply max-w-lg;
+    }
+  }
+
+  &__close-btn {
+    @apply flex ml-auto p-4;
+    margin-right: -48px;
+    margin-bottom: -32px;
+    /* normally I would use absolute positioning here, but that causes a bug in the
+    flip animation in the event that you click the viewToggle while keeping the
+    pointer stationary. Using negative margin circumvents this bug and maintains an
+    identical layout. */
+    /* @apply absolute right-0 top-0 p-4; */
+  }
+}

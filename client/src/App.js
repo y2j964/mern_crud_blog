@@ -4,9 +4,8 @@ import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
-import Modal from './components/Modal';
-import Login from './components/Login';
-import Register from './components/Register';
+import Modal from './components/Modal/Modal';
+import AuthValidator from './components/AuthValidator';
 import AddPostOverlay from './components/AddPostOverlay';
 import Home from './pages/Home';
 import Post from './pages/Post';
@@ -23,8 +22,7 @@ function App({ location, history }) {
   const [collapsibleNavIsExpanded, setCollapsibleNavIsExpanded] = useState(
     false
   );
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [authModalPosition, setAuthModalPosition] = useState();
 
   useEffect(() => {
     store.dispatch(getUser());
@@ -37,8 +35,7 @@ function App({ location, history }) {
         toggleCollapsibleNav={() =>
           setCollapsibleNavIsExpanded(!collapsibleNavIsExpanded)
         }
-        setIsLoginModalOpen={setIsLoginModalOpen}
-        setIsRegisterModalOpen={setIsRegisterModalOpen}
+        setAuthModalPosition={setAuthModalPosition}
       />
       <Switch location={location}>
         <Route exact path="/" component={Home} />
@@ -52,14 +49,13 @@ function App({ location, history }) {
       </Switch>
       <Footer />
       <AddPostOverlay />
-      {isLoginModalOpen && (
-        <Modal handleClose={() => setIsLoginModalOpen(false)}>
-          <Login handleClose={() => setIsLoginModalOpen(false)} />
-        </Modal>
-      )}
-      {isRegisterModalOpen && (
-        <Modal handleClose={() => setIsRegisterModalOpen(false)}>
-          <Register handleClose={() => setIsRegisterModalOpen(false)} />
+      {authModalPosition && (
+        <Modal handleClose={() => setAuthModalPosition()}>
+          <AuthValidator
+            authModalPosition={authModalPosition}
+            setAuthModalPosition={setAuthModalPosition}
+            handleClose={() => setAuthModalPosition()}
+          />
         </Modal>
       )}
     </Provider>

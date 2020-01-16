@@ -4,6 +4,7 @@
 @import 'miscellaneous.css';
 @import 'components/Card/card.css';
 @import 'components/HamburgerToggle/hamburger-toggle.css';
+@import 'components/Modal/modal.css';
 @import 'components/Navbar/navbar.css';
 @import 'components/Navbar/collapsible-group.css';
 @import 'components/Navbar/accent-btn.css';
