@@ -125,7 +125,7 @@ Register.propTypes = {
   tabIndex: PropTypes.string,
   clearErrors: PropTypes.func.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool,
   errorMsg: PropTypes.string,
 };
 

@@ -118,7 +118,7 @@ Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool,
   errorMsg: PropTypes.string,
 };
 
