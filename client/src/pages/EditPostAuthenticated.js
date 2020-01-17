@@ -9,7 +9,8 @@ import { InputText } from '../components/Input';
 import TextArea from '../components/TextArea';
 import { postType } from '../components/Card/types';
 
-function EditPostAuthenticated({ history, post }) {
+// eslint-disable-next-line no-shadow
+function EditPostAuthenticated({ history, post, updatePost }) {
   const { title, description, body, _id } = post || '';
   // need to use || so that it doesn't throw an error after submission is successful
 
@@ -98,12 +99,20 @@ function EditPostAuthenticated({ history, post }) {
 }
 
 EditPostAuthenticated.propTypes = {
-  post: postType,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      postSlug: PropTypes.string,
+    }),
+  }),
   history: PropTypes.object.isRequired,
+  post: postType,
+  updatePost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
   post: getPost(state, props.match.params),
 });
 
-export default connect(mapStateToProps)(withRouter(EditPostAuthenticated));
+export default withRouter(
+  connect(mapStateToProps, { updatePost })(EditPostAuthenticated)
+);

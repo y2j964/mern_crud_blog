@@ -61,7 +61,16 @@ function App({ location, history }) {
             />
           )}
         />
-        <Route path="/edit-posts/:postSlug" component={EditPost} />
+        <Route
+          exact
+          path="/edit-posts/:postSlug"
+          render={props => (
+            <EditPost
+              {...props}
+              openLogin={() => setAuthModalPosition('login')}
+            />
+          )}
+        />
         <Route exact path="/about" component={About} />
         <Route component={Error404} />
       </Switch>

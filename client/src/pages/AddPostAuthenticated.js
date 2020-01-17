@@ -104,6 +104,6 @@ const mapStateToProps = state => ({
   authorSlug: getAuthorSlug(state),
 });
 
-export default connect(mapStateToProps, { addPost })(
-  withRouter(AddPostAuthenticated)
+export default withRouter(
+  connect(mapStateToProps, { addPost })(AddPostAuthenticated)
 );
