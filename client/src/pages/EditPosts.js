@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import MyPosts from '../components/MyPosts';
 import CardGroup from '../components/Card/CardGroup';
+import LockScreen from '../components/LockScreen';
 
-export default function EditPosts() {
+function EditPosts({ isAuthenticated, openLogin }) {
   const ref = useRef();
   useEffect(() => {
     document.title = 'My Posts - MERN Crud Blog';
@@ -19,7 +22,25 @@ export default function EditPosts() {
       >
         My Posts
       </h1>
-      <MyPosts>{posts => <CardGroup posts={posts} isEditable />}</MyPosts>
+      {!isAuthenticated ? (
+        <LockScreen
+          message={'You need to be logged in to edit a post.'}
+          openLogin={openLogin}
+        />
+      ) : (
+        <MyPosts>{posts => <CardGroup posts={posts} isEditable />}</MyPosts>
+      )}
     </main>
   );
 }
+
+EditPosts.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  openLogin: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(EditPosts);

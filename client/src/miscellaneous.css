@@ -259,3 +259,28 @@ h1:focus {
     transform: rotateX(180deg);
   }
 }
+
+.l-lock-icon {
+  @apply flex justify-center items-center;
+  padding: 9%;
+
+  @media (--sm) {
+    padding: 3.5%;
+  }
+}
+
+.lock-icon {
+  fill: #cbd5e0;
+  height: 150px;
+  width: 150px;
+
+  @media (--sm) {
+    height: 175px;
+    width: 175px;
+  }
+
+  @media (--md) {
+    height: 200px;
+    width: 200px;
+  }
+}
