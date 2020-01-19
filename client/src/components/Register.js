@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { InputText, InputEmail, InputPassword } from './Input';
-import { registerUser } from '../actions/authActions';
+import { registerUser } from '../actions/sessionActions';
 import { clearErrors } from '../actions/errorActions';
 
 function Register({
@@ -130,7 +130,7 @@ Register.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.session.isAuthenticated,
   errorMsg: state.error.msg,
 });
 

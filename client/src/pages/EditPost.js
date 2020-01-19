@@ -46,8 +46,8 @@ EditPost.propTypes = {
   post: postType,
 };
 
-const mapStateToProps = (state, props) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+const mapStateToProps = state => ({
+  isAuthenticated: state.session.isAuthenticated,
 });
 
 export default connect(mapStateToProps)(EditPost);

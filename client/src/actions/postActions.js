@@ -6,7 +6,7 @@ import {
   GET_POSTS,
   LOADING_POSTS,
 } from './types';
-import { tokenConfig } from './authActions';
+import { tokenConfig } from './sessionActions';
 import { getErrors } from './errorActions';
 
 export const getPosts = () => dispatch => {

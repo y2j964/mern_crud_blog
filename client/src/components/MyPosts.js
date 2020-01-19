@@ -34,8 +34,8 @@ MyPosts.propTypes = {
   children: PropTypes.func,
 };
 
-const mapStateToProps = (state, props) => ({
-  posts: getPostsByAuthor(state, state.auth.user),
+const mapStateToProps = state => ({
+  posts: getPostsByAuthor(state, state.session.user),
 });
 
 export default connect(mapStateToProps)(MyPosts);

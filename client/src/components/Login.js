@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { InputEmail, InputPassword } from './Input';
-import { loginUser } from '../actions/authActions';
+import { loginUser } from '../actions/sessionActions';
 import { clearErrors } from '../actions/errorActions';
 
 function Login({
@@ -123,7 +123,7 @@ Login.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.session.isAuthenticated,
   errorMsg: state.error.msg,
 });
 
@@ -134,7 +134,7 @@ export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
 // import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 // import { InputEmail, InputPassword } from './Input';
-// import { loginUser } from '../actions/authActions';
+// import { loginUser } from '../actions/sessionActions';
 // import { clearErrors } from '../actions/errorActions';
 
 // function Login({
@@ -240,7 +240,7 @@ export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
 // };
 
 // const mapStateToProps = state => ({
-//   isAuthenticated: state.auth.isAuthenticated,
+//   isAuthenticated: state.session.isAuthenticated,
 //   errorMsg: state.error.msg,
 // });
 

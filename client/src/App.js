@@ -16,7 +16,7 @@ import EditPosts from './pages/EditPosts';
 import EditPost from './pages/EditPost';
 import Error404 from './pages/Error404';
 import store from './store';
-import { getUser } from './actions/authActions';
+import { getUser } from './actions/sessionActions';
 
 function App({ location, history }) {
   const [collapsibleNavIsExpanded, setCollapsibleNavIsExpanded] = useState(

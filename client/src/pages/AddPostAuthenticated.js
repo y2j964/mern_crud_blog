@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter, Prompt } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addPost } from '../actions/postActions';
-import { getName, getAuthorSlug } from '../selectors/authSelector';
+import { getName, getAuthorSlug } from '../selectors/sessionSelector';
 import { generateSlug } from '../utilityFunctions/generateSlug';
 import { InputText } from '../components/Input';
 import TextArea from '../components/TextArea';
