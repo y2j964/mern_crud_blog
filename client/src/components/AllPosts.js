@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -5,12 +6,21 @@ import { getPosts, loadingPosts } from '../actions/postActions';
 import WithLoadingIndicator from './WithLoadingIndicator';
 import { postsType } from './Card/types';
 
-// eslint-disable-next-line no-shadow
-function AllPosts({ posts, isLoading, getPosts, loadingPosts, children }) {
+function AllPosts({
+  posts,
+  isInitiallyFetched,
+  isLoading,
+  getPosts,
+  loadingPosts,
+  children,
+}) {
+  // if haven't fetched posts yet, fetch them
   useEffect(() => {
-    loadingPosts();
-    getPosts();
-  }, [getPosts, loadingPosts]);
+    if (!isInitiallyFetched) {
+      loadingPosts();
+      getPosts();
+    }
+  }, [isInitiallyFetched, getPosts, loadingPosts]);
 
   return (
     <WithLoadingIndicator
@@ -22,6 +32,7 @@ function AllPosts({ posts, isLoading, getPosts, loadingPosts, children }) {
 
 AllPosts.propTypes = {
   posts: postsType,
+  isInitiallyFetched: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   getPosts: PropTypes.func.isRequired,
   loadingPosts: PropTypes.func.isRequired,
@@ -29,6 +40,7 @@ AllPosts.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  isInitiallyFetched: state.posts.isInitiallyFetched,
   posts: state.posts.items,
   isLoading: state.posts.isLoading,
 });

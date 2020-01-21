@@ -1,10 +1,12 @@
-import React from 'react';
+/* eslint-disable no-shadow */
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postsType } from './Card/types';
 import WithEmpty from './WithEmpty';
 import { getPostsByAuthor } from '../selectors/postSelectors';
+import { getPosts, loadingPosts } from '../actions/postActions';
 
 function EmptyMyPosts() {
   return (
@@ -18,24 +20,42 @@ function EmptyMyPosts() {
   );
 }
 
-// eslint-disable-next-line no-shadow
-function MyPosts({ posts, children }) {
+function MyPosts({
+  isInitiallyFetched,
+  myPosts,
+  getPosts,
+  loadingPosts,
+  children,
+}) {
+  // if haven't fetched posts yet, fetch them b/c we need the posts in
+  // store so that our getPostsByAuthor selector works
+  useEffect(() => {
+    if (!isInitiallyFetched) {
+      loadingPosts();
+      getPosts();
+    }
+  }, [isInitiallyFetched, getPosts, loadingPosts]);
+
   return (
     <WithEmpty
-      length={posts.length}
+      length={myPosts.length}
       Component={EmptyMyPosts}
-      render={() => children(posts)}
+      render={() => children(myPosts)}
     ></WithEmpty>
   );
 }
 
 MyPosts.propTypes = {
-  posts: postsType,
+  isInitiallyFetched: PropTypes.bool.isRequired,
+  myPosts: postsType,
+  getPosts: PropTypes.func.isRequired,
+  loadingPosts: PropTypes.func.isRequired,
   children: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
-  posts: getPostsByAuthor(state, state.session.user),
+  isInitiallyFetched: state.posts.isInitiallyFetched,
+  myPosts: getPostsByAuthor(state, state.session.user),
 });
 
-export default connect(mapStateToProps)(MyPosts);
+export default connect(mapStateToProps, { getPosts, loadingPosts })(MyPosts);

@@ -9,6 +9,7 @@ import {
 const initialState = {
   items: [],
   isLoading: false,
+  isInitiallyFetched: false,
 };
 
 export default function(state = initialState, action) {
@@ -18,6 +19,7 @@ export default function(state = initialState, action) {
         ...state,
         items: action.payload,
         isLoading: false,
+        isInitiallyFetched: true,
       };
     case LOADING_POSTS:
       return {
