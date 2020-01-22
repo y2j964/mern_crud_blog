@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { InputText, InputEmail, InputPassword } from './Input';
 import { registerUser } from '../actions/sessionActions';
-import { clearErrors } from '../actions/errorActions';
+import { clearErrors } from '../actions/communicationActions';
 
 function Register({
   handleClose,
@@ -13,7 +13,7 @@ function Register({
   registerUser,
   clearErrors,
   isAuthenticated,
-  errorMsg,
+  errorMessage,
 }) {
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
@@ -59,12 +59,12 @@ function Register({
         </h2>
       </header>
       <form action="" onSubmit={onSubmit}>
-        {errorMsg && (
+        {errorMessage && (
           <div
             className="bg-red-200 mb-3 p-3 rounded-sm flex items-center"
             role="alert"
           >
-            <p className="text-sm text-red-800 font-bold">{errorMsg}</p>
+            <p className="text-sm text-red-800 font-bold">{errorMessage}</p>
           </div>
         )}
         <InputText
@@ -126,12 +126,12 @@ Register.propTypes = {
   clearErrors: PropTypes.func.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
-  errorMsg: PropTypes.string,
+  errorMessage: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
   isAuthenticated: state.session.isAuthenticated,
-  errorMsg: state.error.msg,
+  errorMessage: state.communication.errorMessage,
 });
 
 export default connect(mapStateToProps, { registerUser, clearErrors })(

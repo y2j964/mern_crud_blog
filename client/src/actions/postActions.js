@@ -7,14 +7,14 @@ import {
   LOADING_POSTS,
 } from './types';
 import { tokenConfig } from './sessionActions';
-import { getErrors } from './errorActions';
+import { getErrors } from './communicationActions';
 
 export const getPosts = () => dispatch => {
   axios
     .get('/api/posts')
     .then(res => dispatch({ type: GET_POSTS, payload: res.data }))
     .catch(err =>
-      dispatch(getErrors(err.response.data.msg, err.response.status))
+      dispatch(getErrors(err.response.data.message, err.response.status))
     );
 };
 
@@ -27,7 +27,9 @@ export const addPost = post => (dispatch, getState) => {
     .post('/api/posts', post, tokenConfig(getState))
     .then(res => dispatch({ type: ADD_POST, payload: res.data }))
     .catch(err =>
-      dispatch(getErrors(err.response.data.msg, err.response.status))
+      dispatch(
+        getErrors(err.response.data.message, err.response.status, 'POST_FAIL')
+      )
     );
 };
 
@@ -36,7 +38,7 @@ export const deletePost = id => (dispatch, getState) => {
     .delete(`/api/posts/${id}`, tokenConfig(getState))
     .then(() => dispatch({ type: DELETE_POST, payload: id }))
     .catch(err =>
-      dispatch(getErrors(err.response.data.msg, err.response.status))
+      dispatch(getErrors(err.response.data.message, err.response.status))
     );
 };
 
@@ -45,6 +47,6 @@ export const updatePost = post => (dispatch, getState) => {
     .patch(`/api/posts/${post._id}`, post, tokenConfig(getState))
     .then(res => dispatch({ type: UPDATE_POST, payload: res.data }))
     .catch(err =>
-      dispatch(getErrors(err.response.data.msg, err.response.status))
+      dispatch(getErrors(err.response.data.message, err.response.status))
     );
 };

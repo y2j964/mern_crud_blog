@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getErrors } from './errorActions';
+import { getErrors } from './communicationActions';
 import {
   GET_USER,
   LOADING_USER,
@@ -42,7 +42,7 @@ export const getUser = () => (dispatch, getState) => {
       })
     )
     .catch(err => {
-      dispatch(getErrors(err.response.data.msg, err.response.status));
+      dispatch(getErrors(err.response.data.message, err.response.status));
       dispatch({
         type: AUTH_ERROR,
       });
@@ -71,7 +71,11 @@ export const registerUser = ({ name, email, password }) => dispatch => {
     )
     .catch(err => {
       dispatch(
-        getErrors(err.response.data.msg, err.response.status, 'REGISTER_FAIL')
+        getErrors(
+          err.response.data.message,
+          err.response.status,
+          'REGISTER_FAIL'
+        )
       );
       dispatch({
         type: REGISTER_FAIL,
@@ -101,7 +105,7 @@ export const loginUser = ({ email, password }) => dispatch => {
     )
     .catch(err => {
       dispatch(
-        getErrors(err.response.data.msg, err.response.status, 'LOGIN_FAIL')
+        getErrors(err.response.data.message, err.response.status, 'LOGIN_FAIL')
       );
       dispatch({
         type: LOGIN_FAIL,

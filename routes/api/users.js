@@ -32,13 +32,13 @@ router.post('/', async (req, res) => {
 
   // simple validation
   if (!name || !email || !password) {
-    return res.status(400).json({ msg: 'Please enter all fields' });
+    return res.status(400).json({ message: 'Please enter all fields' });
   }
 
   // check for existing user
   const user = await User.findOne({ email });
   if (user) {
-    return res.status(400).json({ msg: 'Email address is already registered' });
+    return res.status(400).json({ message: 'Email address is already registered' });
   }
   const newUser = new User({
     name,
@@ -83,7 +83,7 @@ router.delete('/:id', verifyToken, async (req, res) => {
     const user = await User.findById(req.params.id);
     user.remove().then(() => res.status(204).end());
   } catch (err) {
-    res.status(404).json({ msg: "Can't find user matching that id" });
+    res.status(404).json({ message: "Can't find user matching that id" });
   }
 });
 
@@ -96,7 +96,7 @@ router.patch('/:id', verifyToken, async (req, res) => {
     user.set(req.body);
     user.save().then(() => res.json({ data: user }));
   } catch (err) {
-    res.status(404).json({ msg: "Can't find user matching that id" });
+    res.status(404).json({ message: "Can't find user matching that id" });
   }
 });
 

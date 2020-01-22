@@ -16,19 +16,19 @@ router.post('/', async (req, res) => {
 
   // simple  form validation
   if (!email || !password) {
-    return res.status(400).json({ msg: 'Please enter all fields' });
+    return res.status(400).json({ message: 'Please enter all fields' });
   }
 
   // check for existing user
   const user = await User.findOne({ email });
   if (!user) {
-    return res.status(400).json({ msg: 'User does not exist' });
+    return res.status(400).json({ message: 'User does not exist' });
   }
 
   // Validate password
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    return res.status(400).json({ msg: 'Invalid credentials' });
+    return res.status(400).json({ message: 'Invalid credentials' });
   }
   jwt.sign(
     { id: user.id },
@@ -58,7 +58,7 @@ router.get('/', verifyToken, (req, res) => {
   User.findById(req.user.id, '-password')
     .then(user => res.json(user))
     .catch(() =>
-      res.status(404).json({ msg: "Can't find user matching that id" })
+      res.status(404).json({ message: "Can't find user matching that id" })
     );
 });
 

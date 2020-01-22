@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { InputEmail, InputPassword } from './Input';
 import { loginUser } from '../actions/sessionActions';
-import { clearErrors } from '../actions/errorActions';
+import { clearErrors } from '../actions/communicationActions';
 
 function Login({
   setAuthModalPosition,
@@ -13,7 +13,7 @@ function Login({
   loginUser,
   clearErrors,
   isAuthenticated,
-  errorMsg,
+  errorMessage,
 }) {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
@@ -59,12 +59,12 @@ function Login({
         </h2>
       </header>
       <form action="" onSubmit={onSubmit}>
-        {errorMsg && (
+        {errorMessage && (
           <div
             className="bg-red-200 mb-3 p-3 rounded-sm flex items-center"
             role="alert"
           >
-            <p className="text-sm text-red-800 font-bold">{errorMsg}</p>
+            <p className="text-sm text-red-800 font-bold">{errorMessage}</p>
           </div>
         )}
         <InputEmail
@@ -119,12 +119,12 @@ Login.propTypes = {
   clearErrors: PropTypes.func.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
-  errorMsg: PropTypes.string,
+  errorMessage: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
   isAuthenticated: state.session.isAuthenticated,
-  errorMsg: state.error.msg,
+  errorMessage: state.communication.errorMessage,
 });
 
 export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
@@ -135,7 +135,7 @@ export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
 // import PropTypes from 'prop-types';
 // import { InputEmail, InputPassword } from './Input';
 // import { loginUser } from '../actions/sessionActions';
-// import { clearErrors } from '../actions/errorActions';
+// import { clearErrors } from '../actions/communicationActions';
 
 // function Login({
 //   toggleToRegister,
@@ -143,7 +143,7 @@ export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
 //   loginUser,
 //   clearErrors,
 //   isAuthenticated,
-//   errorMsg,
+//   errorMessage,
 // }) {
 //   const [emailValue, setEmailValue] = useState('');
 //   const [passwordValue, setPasswordValue] = useState('');
@@ -186,12 +186,12 @@ export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
 //         </h2>
 //       </header>
 //       <form action="" onSubmit={onSubmit}>
-//         {errorMsg && (
+//         {errorMessage && (
 //           <div
 //             className="bg-red-200 mb-3 p-3 rounded-sm flex items-center"
 //             role="alert"
 //           >
-//             <p className="text-sm text-red-800 font-bold">{errorMsg}</p>
+//             <p className="text-sm text-red-800 font-bold">{errorMessage}</p>
 //           </div>
 //         )}
 //         <InputEmail
@@ -236,12 +236,12 @@ export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
 //   loginUser: PropTypes.func.isRequired,
 //   clearErrors: PropTypes.func.isRequired,
 //   isAuthenticated: PropTypes.bool.isRequired,
-//   errorMsg: PropTypes.string,
+//   errorMessage: PropTypes.string,
 // };
 
 // const mapStateToProps = state => ({
 //   isAuthenticated: state.session.isAuthenticated,
-//   errorMsg: state.error.msg,
+//   errorMessage: state.communication.message,
 // });
 
 // export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
