@@ -1,24 +1,64 @@
-import { GET_ERRORS, CLEAR_ERRORS } from '../actions/types';
+import {
+  REQUEST_PENDING,
+  REQUEST_SUCCESS,
+  REQUEST_FAILURE,
+  CLEAR_STATUSES,
+  CLEAR_STATUS_GROUP,
+} from '../actions/types';
 
 const initialState = {
-  errorMessage: '',
-  status: null,
-  id: null,
+  posts: {
+    isLoading: false,
+    success: null,
+    errorMessage: null,
+  },
+  session: {
+    isLoading: false,
+    success: null,
+    errorMessage: null,
+  },
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_ERRORS:
+    case REQUEST_PENDING:
       return {
-        errorMessage: action.payload.errorMessage,
-        status: action.payload.status,
-        id: action.payload.id,
+        ...state,
+        [action.payload.scope]: {
+          isLoading: true,
+          success: null,
+          errorMessage: null,
+        },
       };
-    case CLEAR_ERRORS:
+    case REQUEST_SUCCESS:
       return {
-        errorMessage: '',
-        status: null,
-        id: null,
+        ...state,
+        [action.payload.scope]: {
+          isLoading: false,
+          success: true,
+          errorMessage: null,
+        },
+      };
+
+    case REQUEST_FAILURE:
+      return {
+        ...state,
+        [action.payload.scope]: {
+          isLoading: false,
+          success: false,
+          errorMessage: action.payload.errorMessage,
+        },
+      };
+    case CLEAR_STATUSES:
+      return initialState;
+    case CLEAR_STATUS_GROUP:
+      return {
+        ...state,
+        [action.payload.scope]: {
+          isLoading: false,
+          success: null,
+          errorMessage: null,
+        },
       };
     default:
       return state;

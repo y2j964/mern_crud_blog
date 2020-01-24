@@ -1,16 +1,45 @@
-import { GET_ERRORS, CLEAR_ERRORS } from './types';
+import {
+  REQUEST_PENDING,
+  REQUEST_SUCCESS,
+  REQUEST_FAILURE,
+  CLEAR_STATUSES,
+  CLEAR_STATUS_GROUP,
+} from './types';
 
-// RETURN ERRORS
-export const getErrors = (errorMessage, status, id = null) => {
+export const requestPending = scope => {
   return {
-    type: GET_ERRORS,
-    payload: { errorMessage, status, id },
+    type: REQUEST_PENDING,
+    payload: { scope },
   };
 };
 
-// CLEAR ERRORS
-export const clearErrors = () => {
+export const requestSuccess = scope => {
   return {
-    type: CLEAR_ERRORS,
+    type: REQUEST_SUCCESS,
+    payload: { scope },
   };
 };
+
+export const requestFailure = (scope, errorMessage) => {
+  return {
+    type: REQUEST_FAILURE,
+    payload: { scope, errorMessage },
+  };
+};
+
+export const clearStatuses = scope => {
+  return {
+    type: CLEAR_STATUSES,
+    payload: { scope },
+  };
+};
+
+export const clearStatusGroup = scope => {
+  return {
+    type: CLEAR_STATUS_GROUP,
+    payload: { scope },
+  };
+};
+
+export const clearSessionStatuses = () => clearStatusGroup('session');
+export const clearPostStatuses = () => clearStatusGroup('posts');

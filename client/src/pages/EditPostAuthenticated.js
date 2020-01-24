@@ -9,8 +9,13 @@ import { InputText } from '../components/Input';
 import TextArea from '../components/TextArea';
 import { postType } from '../components/Card/types';
 
-// eslint-disable-next-line no-shadow
-function EditPostAuthenticated({ history, post, updatePost }) {
+function EditPostAuthenticated({
+  history,
+  post,
+  // eslint-disable-next-line no-shadow
+  updatePost,
+  // eslint-disable-next-line no-shadow
+}) {
   const { title, description, body, _id } = post || '';
   // need to use || so that it doesn't throw an error after submission is successful
 
@@ -114,5 +119,7 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, { updatePost })(EditPostAuthenticated)
+  connect(mapStateToProps, { updatePost })(
+    EditPostAuthenticated
+  )
 );

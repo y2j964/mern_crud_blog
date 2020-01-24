@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPosts, loadingPosts } from '../actions/postActions';
+import { getPosts } from '../actions/postActions';
 import WithLoadingIndicator from './WithLoadingIndicator';
 import { postsType } from './Card/types';
 
@@ -11,16 +11,14 @@ function AllPosts({
   isInitiallyFetched,
   isLoading,
   getPosts,
-  loadingPosts,
   children,
 }) {
   // if haven't fetched posts yet, fetch them
   useEffect(() => {
     if (!isInitiallyFetched) {
-      loadingPosts();
       getPosts();
     }
-  }, [isInitiallyFetched, getPosts, loadingPosts]);
+  }, [isInitiallyFetched, getPosts]);
 
   return (
     <WithLoadingIndicator
@@ -35,17 +33,16 @@ AllPosts.propTypes = {
   isInitiallyFetched: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   getPosts: PropTypes.func.isRequired,
-  loadingPosts: PropTypes.func.isRequired,
   children: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   isInitiallyFetched: state.posts.isInitiallyFetched,
   posts: state.posts.items,
-  isLoading: state.posts.isLoading,
+  isLoading: state.communication.posts.isLoading,
 });
 
-export default connect(mapStateToProps, { getPosts, loadingPosts })(AllPosts);
+export default connect(mapStateToProps, { getPosts })(AllPosts);
 
 // import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';

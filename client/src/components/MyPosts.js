@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { postsType } from './Card/types';
 import WithEmpty from './WithEmpty';
 import { getPostsByAuthor } from '../selectors/postSelectors';
-import { getPosts, loadingPosts } from '../actions/postActions';
+import { getPosts } from '../actions/postActions';
 
 function EmptyMyPosts() {
   return (
@@ -20,21 +20,14 @@ function EmptyMyPosts() {
   );
 }
 
-function MyPosts({
-  isInitiallyFetched,
-  myPosts,
-  getPosts,
-  loadingPosts,
-  children,
-}) {
+function MyPosts({ isInitiallyFetched, myPosts, getPosts, children }) {
   // if haven't fetched posts yet, fetch them b/c we need the posts in
   // store so that our getPostsByAuthor selector works
   useEffect(() => {
     if (!isInitiallyFetched) {
-      loadingPosts();
       getPosts();
     }
-  }, [isInitiallyFetched, getPosts, loadingPosts]);
+  }, [isInitiallyFetched, getPosts]);
 
   return (
     <WithEmpty
@@ -49,7 +42,6 @@ MyPosts.propTypes = {
   isInitiallyFetched: PropTypes.bool.isRequired,
   myPosts: postsType,
   getPosts: PropTypes.func.isRequired,
-  loadingPosts: PropTypes.func.isRequired,
   children: PropTypes.func,
 };
 
@@ -58,4 +50,4 @@ const mapStateToProps = state => ({
   myPosts: getPostsByAuthor(state, state.session.user),
 });
 
-export default connect(mapStateToProps, { getPosts, loadingPosts })(MyPosts);
+export default connect(mapStateToProps, { getPosts })(MyPosts);

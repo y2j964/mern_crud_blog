@@ -1,15 +1,10 @@
 import axios from 'axios';
-import { getErrors } from './communicationActions';
 import {
-  GET_USER,
-  LOADING_USER,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT_SUCCESS,
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-} from './types';
+  requestPending,
+  requestSuccess,
+  requestFailure,
+} from './communicationActions';
+import { GET_USER, LOGIN_USER, LOGOUT_USER, REGISTER_USER } from './types';
 
 // Setup config/headers and token
 export const tokenConfig = getState => {
@@ -30,22 +25,20 @@ export const tokenConfig = getState => {
   return config;
 };
 
+const scope = 'session';
+
 // Check token & load user
 export const getUser = () => (dispatch, getState) => {
-  dispatch({ type: LOADING_USER });
   axios
     .get('/api/auth', tokenConfig(getState))
-    .then(res =>
+    .then(res => {
       dispatch({
         type: GET_USER,
         payload: res.data,
-      })
-    )
-    .catch(err => {
-      dispatch(getErrors(err.response.data.message, err.response.status));
-      dispatch({
-        type: AUTH_ERROR,
       });
+    })
+    .catch(err => {
+      dispatch(requestFailure(scope, err.response.data.message));
     });
 };
 
@@ -61,26 +54,17 @@ export const registerUser = ({ name, email, password }) => dispatch => {
   // Request body
   const body = JSON.stringify({ name, email, password });
 
+  dispatch(requestPending(scope));
   axios
     .post('/api/users', body, config)
-    .then(res =>
+    .then(res => {
       dispatch({
-        type: REGISTER_SUCCESS,
+        type: REGISTER_USER,
         payload: res.data,
-      })
-    )
-    .catch(err => {
-      dispatch(
-        getErrors(
-          err.response.data.message,
-          err.response.status,
-          'REGISTER_FAIL'
-        )
-      );
-      dispatch({
-        type: REGISTER_FAIL,
       });
-    });
+      dispatch(requestSuccess(scope));
+    })
+    .catch(err => dispatch(requestFailure(scope, err.response.data.message)));
 };
 
 // Login User
@@ -95,27 +79,22 @@ export const loginUser = ({ email, password }) => dispatch => {
   // Request body
   const body = JSON.stringify({ email, password });
 
+  dispatch(requestPending(scope));
   axios
     .post('/api/auth', body, config)
-    .then(res =>
+    .then(res => {
       dispatch({
-        type: LOGIN_SUCCESS,
+        type: LOGIN_USER,
         payload: res.data,
-      })
-    )
-    .catch(err => {
-      dispatch(
-        getErrors(err.response.data.message, err.response.status, 'LOGIN_FAIL')
-      );
-      dispatch({
-        type: LOGIN_FAIL,
       });
-    });
+      dispatch(requestSuccess(scope));
+    })
+    .catch(err => dispatch(requestFailure(scope, err.response.data.message)));
 };
 
 // Logout User
 export const logoutUser = () => {
   return {
-    type: LOGOUT_SUCCESS,
+    type: LOGOUT_USER,
   };
 };

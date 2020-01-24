@@ -17,6 +17,7 @@ import EditPost from './pages/EditPost';
 import Error404 from './pages/Error404';
 import store from './store';
 import { getUser } from './actions/sessionActions';
+import { clearStatuses } from './actions/communicationActions';
 
 function App({ location, history }) {
   const [collapsibleNavIsExpanded, setCollapsibleNavIsExpanded] = useState(
@@ -27,6 +28,15 @@ function App({ location, history }) {
   useEffect(() => {
     store.dispatch(getUser());
   }, []);
+
+  useEffect(() => {
+    const unlisten = history.listen(() => {
+      store.dispatch(clearStatuses());
+    });
+    return () => {
+      unlisten();
+    };
+  }, [history]);
 
   return (
     <Provider store={store}>

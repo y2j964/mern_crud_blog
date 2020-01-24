@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { InputText, InputEmail, InputPassword } from './Input';
 import { registerUser } from '../actions/sessionActions';
-import { clearErrors } from '../actions/communicationActions';
+import { clearSessionStatuses } from '../actions/communicationActions';
 
 function Register({
   handleClose,
   setAuthModalPosition,
   tabIndex,
   registerUser,
-  clearErrors,
+  clearSessionStatuses,
   isAuthenticated,
   errorMessage,
 }) {
@@ -23,8 +23,8 @@ function Register({
   const toggleViewRef = useRef();
   // clear errors so that errors don't persist
   useEffect(() => {
-    clearErrors();
-  }, [clearErrors]);
+    clearSessionStatuses();
+  }, [clearSessionStatuses]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -123,7 +123,7 @@ Register.propTypes = {
   handleClose: PropTypes.func.isRequired,
   registerUser: PropTypes.func.isRequired,
   tabIndex: PropTypes.string,
-  clearErrors: PropTypes.func.isRequired,
+  clearSessionStatuses: PropTypes.func.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   errorMessage: PropTypes.string,
@@ -131,9 +131,9 @@ Register.propTypes = {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.session.isAuthenticated,
-  errorMessage: state.communication.errorMessage,
+  errorMessage: state.communication.session.errorMessage,
 });
 
-export default connect(mapStateToProps, { registerUser, clearErrors })(
+export default connect(mapStateToProps, { registerUser, clearSessionStatuses })(
   Register
 );

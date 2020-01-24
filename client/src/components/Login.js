@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { InputEmail, InputPassword } from './Input';
 import { loginUser } from '../actions/sessionActions';
-import { clearErrors } from '../actions/communicationActions';
+import { clearSessionStatuses } from '../actions/communicationActions';
 
 function Login({
   setAuthModalPosition,
   handleClose,
   tabIndex,
   loginUser,
-  clearErrors,
+  clearSessionStatuses,
   isAuthenticated,
   errorMessage,
 }) {
@@ -20,11 +20,10 @@ function Login({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const toggleViewRef = useRef();
-
   // clear errors so that errors don't persist
   useEffect(() => {
-    clearErrors();
-  }, [clearErrors]);
+    clearSessionStatuses();
+  }, [clearSessionStatuses]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -116,7 +115,7 @@ Login.propTypes = {
   handleClose: PropTypes.func.isRequired,
   tabIndex: PropTypes.string,
   loginUser: PropTypes.func.isRequired,
-  clearErrors: PropTypes.func.isRequired,
+  clearSessionStatuses: PropTypes.func.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   errorMessage: PropTypes.string,
@@ -124,124 +123,9 @@ Login.propTypes = {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.session.isAuthenticated,
-  errorMessage: state.communication.errorMessage,
+  errorMessage: state.communication.session.errorMessage,
 });
 
-export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
-
-// /* eslint-disable no-shadow */
-// import React, { useState, useEffect } from 'react';
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-// import { InputEmail, InputPassword } from './Input';
-// import { loginUser } from '../actions/sessionActions';
-// import { clearErrors } from '../actions/communicationActions';
-
-// function Login({
-//   toggleToRegister,
-//   handleClose,
-//   loginUser,
-//   clearErrors,
-//   isAuthenticated,
-//   errorMessage,
-// }) {
-//   const [emailValue, setEmailValue] = useState('');
-//   const [passwordValue, setPasswordValue] = useState('');
-//   const [isSubmitting, setIsSubmitting] = useState(false);
-
-//   // clear errors so that errors don't persist
-//   useEffect(() => {
-//     clearErrors();
-//   }, [clearErrors]);
-
-//   useEffect(() => {
-//     if (isAuthenticated) {
-//       handleClose();
-//     }
-//   }, [isAuthenticated, handleClose]);
-
-//   const onSubmit = e => {
-//     e.preventDefault();
-//     setIsSubmitting(true);
-
-//     const user = {
-//       email: emailValue,
-//       password: passwordValue,
-//     };
-
-//     loginUser(user);
-//     setIsSubmitting(false);
-//   };
-
-//   const toggleView = () => {
-//     handleClose();
-//     toggleToRegister();
-//   };
-
-//   return (
-//     <React.Fragment>
-//       <header className="flex items-center mb-6">
-//         <h2 className="text-3xl text-center w-full font-bold" id="modalHeading">
-//           Log In
-//         </h2>
-//       </header>
-//       <form action="" onSubmit={onSubmit}>
-//         {errorMessage && (
-//           <div
-//             className="bg-red-200 mb-3 p-3 rounded-sm flex items-center"
-//             role="alert"
-//           >
-//             <p className="text-sm text-red-800 font-bold">{errorMessage}</p>
-//           </div>
-//         )}
-//         <InputEmail
-//           labelText={'Email: '}
-//           name="accountEmail"
-//           value={emailValue}
-//           handleChange={e => setEmailValue(e.target.value)}
-//           // handleBlur={handleBlur}
-//         />
-//         <InputPassword
-//           labelText={'Password: '}
-//           name="accountPassword"
-//           describedBy="passwordDetails"
-//           value={passwordValue}
-//           handleChange={e => setPasswordValue(e.target.value)}
-//           // handleBlur={handleBlur}
-//         >
-//           <small
-//             className="text-sm text-gray-500 leading-none"
-//             id="passwordDetails"
-//           >
-//             Passwords must be at least 8 characters long.
-//           </small>
-//         </InputPassword>
-//         <button
-//           type="submit"
-//           className="accent-btn accent-btn--is-glowing w-full mt-2"
-//           disable={`${isSubmitting}`}
-//         >
-//           Log In
-//         </button>
-//       </form>
-//       <button className="text-blue-400" onClick={toggleView}>
-//         Already have an Account? Register here.
-//       </button>
-//     </React.Fragment>
-//   );
-// }
-
-// Login.propTypes = {
-//   handleClose: PropTypes.func.isRequired,
-//   loginUser: PropTypes.func.isRequired,
-//   clearErrors: PropTypes.func.isRequired,
-//   isAuthenticated: PropTypes.bool.isRequired,
-//   errorMessage: PropTypes.string,
-// };
-
-// const mapStateToProps = state => ({
-//   isAuthenticated: state.session.isAuthenticated,
-//   errorMessage: state.communication.message,
-// });
-
-// export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
+export default connect(mapStateToProps, { loginUser, clearSessionStatuses })(
+  Login
+);

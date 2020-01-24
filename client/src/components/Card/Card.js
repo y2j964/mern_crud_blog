@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import { connect } from 'react-redux';
+import { deletePost } from '../../actions/postActions';
 import Close from '../../icons/Close';
 import Edit from '../../icons/Edit';
-import { deletePost } from '../../actions/postActions';
 import DeleteConfirmation from '../DeleteConfirmation';
 
 const formatter = new Intl.DateTimeFormat('en-us', {
@@ -27,6 +27,7 @@ function Card({
   isEditable,
   // eslint-disable-next-line no-shadow
   deletePost,
+  // eslint-disable-next-line no-shadow
 }) {
   const dateFull = new Date(date);
 
