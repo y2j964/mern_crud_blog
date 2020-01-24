@@ -48,6 +48,11 @@ function Register({
   const toggleView = () => {
     toggleViewRef.current.blur();
     // need to blur so focus can move to active auth view
+    setTimeout(() => {
+      if (errorMessage) {
+        clearSessionStatuses();
+      }
+    }, 300);
     setAuthModalPosition('login');
   };
 

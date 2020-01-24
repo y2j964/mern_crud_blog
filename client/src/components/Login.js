@@ -47,6 +47,13 @@ function Login({
   const toggleView = () => {
     toggleViewRef.current.blur();
     // need to blur so focus can move to active auth view
+    setTimeout(() => {
+      if (errorMessage) {
+        clearSessionStatuses();
+      }
+    }, 300);
+    // 300ms is length of transition; only hide error message when it
+    // isn't visible, so it is smooth and doesn't show on opposite side
     setAuthModalPosition('register');
   };
 
