@@ -15,6 +15,7 @@ function EditPostAuthenticated({
   // eslint-disable-next-line no-shadow
   updatePost,
   // eslint-disable-next-line no-shadow
+  postSuccess,
 }) {
   const { title, description, body, _id } = post || '';
   // need to use || so that it doesn't throw an error after submission is successful
@@ -22,20 +23,21 @@ function EditPostAuthenticated({
   const [postTitleValue, setPostTitleValue] = useState(title);
   const [postDescriptionValue, setPostDescriptionValue] = useState(description);
   const [postBodyValue, setPostBodyValue] = useState(body);
-  const [submissionSuccess, setSubmissionSuccess] = useState();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
-      if (submissionSuccess) {
+      if (postSuccess) {
         history.push('/edit-posts');
         // redirect to main edit page if successful submission
       }
     }, 1000);
-  }, [submissionSuccess, history]);
+  }, [postSuccess, history]);
 
   const onSubmit = e => {
     e.preventDefault();
 
+    setIsSubmitting(true);
     const updatedPost = {
       // ...post,
       // don't need to copy old post here because patch request
@@ -47,12 +49,11 @@ function EditPostAuthenticated({
     };
 
     updatePost(updatedPost);
-    setSubmissionSuccess(true);
   };
 
-  if (submissionSuccess) {
+  if (postSuccess) {
     return (
-      <p className="text-center">
+      <p className="text-center" aria-live="assertive">
         Post Edited! Navigating back to posts . . .{' '}
       </p>
     );
@@ -95,8 +96,9 @@ function EditPostAuthenticated({
         <button
           type="submit"
           className="accent-btn accent-btn--is-glowing w-full mt-2"
+          disabled={isSubmitting}
         >
-          Submit
+          {!isSubmitting ? 'Submit' : 'Pending . . .'}
         </button>
       </form>
     </React.Fragment>
@@ -112,14 +114,14 @@ EditPostAuthenticated.propTypes = {
   history: PropTypes.object.isRequired,
   post: postType,
   updatePost: PropTypes.func.isRequired,
+  postSuccess: PropTypes.bool,
 };
 
 const mapStateToProps = (state, props) => ({
   post: getPost(state, props.match.params),
+  postSuccess: state.communication.posts.success,
 });
 
 export default withRouter(
-  connect(mapStateToProps, { updatePost })(
-    EditPostAuthenticated
-  )
+  connect(mapStateToProps, { updatePost })(EditPostAuthenticated)
 );

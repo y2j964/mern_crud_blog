@@ -7,6 +7,7 @@ import { getName, getAuthorSlug } from '../selectors/sessionSelector';
 import { generateSlug } from '../utilityFunctions/generateSlug';
 import { InputText } from '../components/Input';
 import TextArea from '../components/TextArea';
+import WithErrorNotification from '../components/WithErrorNotification';
 
 function AddPostAuthenticated({
   history,
@@ -20,6 +21,7 @@ function AddPostAuthenticated({
   const [postTitleValue, setPostTitleValue] = useState('');
   const [postDescriptionValue, setPostDescriptionValue] = useState('');
   const [postBodyValue, setPostBodyValue] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // redirect back to home if post succeeded
   useEffect(() => {
@@ -33,6 +35,8 @@ function AddPostAuthenticated({
   const onSubmit = e => {
     // name will come from redux auth
     e.preventDefault();
+    setIsSubmitting(true);
+
     const post = {
       title: postTitleValue,
       description: postDescriptionValue,
@@ -45,9 +49,14 @@ function AddPostAuthenticated({
     addPost(post);
   };
 
+  // if fails, reset button to default state
+  useEffect(() => {
+    setIsSubmitting(false);
+  }, [errorMessage]);
+
   if (postSuccess) {
     return (
-      <p className="text-center" aria-live="polite">
+      <p className="text-center" aria-live="assertive">
         Post Added! Navigating back to posts . . .{' '}
       </p>
     );
@@ -64,14 +73,7 @@ function AddPostAuthenticated({
         message={'Changes have not been saved. Are you sure you want to exit?'}
       />
       <form action="" onSubmit={onSubmit}>
-        {errorMessage && (
-          <div
-            className="bg-red-200 mb-3 p-3 rounded-sm flex items-center"
-            role="alert"
-          >
-            <p className="text-sm text-red-800 font-bold">{errorMessage}</p>
-          </div>
-        )}
+        <WithErrorNotification error={errorMessage} />
         <InputText
           labelText={'Title: '}
           name="postTitle"
@@ -97,8 +99,9 @@ function AddPostAuthenticated({
         <button
           type="submit"
           className="accent-btn accent-btn--is-glowing w-full mt-2"
+          disabled={isSubmitting}
         >
-          Submit
+          {!isSubmitting ? 'Submit' : 'Pending . . .'}
         </button>
       </form>
     </React.Fragment>
@@ -122,9 +125,7 @@ const mapStateToProps = state => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, { addPost })(
-    AddPostAuthenticated
-  )
+  connect(mapStateToProps, { addPost })(AddPostAuthenticated)
 );
 // import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';

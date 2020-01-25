@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { InputEmail, InputPassword } from './Input';
 import { loginUser } from '../actions/sessionActions';
 import { clearSessionStatuses } from '../actions/communicationActions';
+import WithErrorNotification from './WithErrorNotification';
+import WithSuccessNotification from './WithSuccessNotification';
 
 function Login({
   setAuthModalPosition,
@@ -12,8 +14,8 @@ function Login({
   tabIndex,
   loginUser,
   clearSessionStatuses,
-  isAuthenticated,
   errorMessage,
+  submissionSuccess,
 }) {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
@@ -21,15 +23,20 @@ function Login({
 
   const toggleViewRef = useRef();
   // clear errors so that errors don't persist
+  // if you don't also run this on unmount, it won't launch in the event
+  // that you logout and attempt to log back in. It will require two
+  // clicks to open up the modal again.
   useEffect(() => {
     clearSessionStatuses();
+    return () => clearSessionStatuses();
   }, [clearSessionStatuses]);
 
+  // if succeeds, close it
   useEffect(() => {
-    if (isAuthenticated) {
-      handleClose();
+    if (submissionSuccess) {
+      setTimeout(() => handleClose(), 1200);
     }
-  }, [isAuthenticated, handleClose]);
+  }, [submissionSuccess, handleClose]);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -41,8 +48,12 @@ function Login({
     };
 
     loginUser(user);
-    setIsSubmitting(false);
   };
+
+  // if fails, reset button to default state
+  useEffect(() => {
+    setIsSubmitting(false);
+  }, [errorMessage]);
 
   const toggleView = () => {
     toggleViewRef.current.blur();
@@ -52,8 +63,8 @@ function Login({
         clearSessionStatuses();
       }
     }, 300);
-    // 300ms is length of transition; only hide error message when it
-    // isn't visible, so it is smooth and doesn't show on opposite side
+    // 300ms is length of transition; only hide error message when it isn't
+    // visible, so transition is smooth and error doesn't show on opposite side
     setAuthModalPosition('register');
   };
 
@@ -65,14 +76,8 @@ function Login({
         </h2>
       </header>
       <form action="" onSubmit={onSubmit}>
-        {errorMessage && (
-          <div
-            className="bg-red-200 mb-3 p-3 rounded-sm flex items-center"
-            role="alert"
-          >
-            <p className="text-sm text-red-800 font-bold">{errorMessage}</p>
-          </div>
-        )}
+        <WithSuccessNotification success={submissionSuccess} />
+        <WithErrorNotification error={errorMessage} />
         <InputEmail
           labelText={'Email: '}
           name="loginEmail"
@@ -101,9 +106,9 @@ function Login({
           type="submit"
           className="accent-btn accent-btn--is-glowing w-full mt-2"
           tabIndex={tabIndex}
-          disable={`${isSubmitting}`}
+          disabled={isSubmitting}
         >
-          Log In
+          {!isSubmitting || submissionSuccess ? 'Log In' : 'Pending . . .'}
         </button>
       </form>
       <button
@@ -124,13 +129,13 @@ Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   clearSessionStatuses: PropTypes.func.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
   errorMessage: PropTypes.string,
+  submissionSuccess: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.session.isAuthenticated,
   errorMessage: state.communication.session.errorMessage,
+  submissionSuccess: state.communication.session.success,
 });
 
 export default connect(mapStateToProps, { loginUser, clearSessionStatuses })(

@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { InputText, InputEmail, InputPassword } from './Input';
 import { registerUser } from '../actions/sessionActions';
 import { clearSessionStatuses } from '../actions/communicationActions';
+import WithErrorNotification from './WithErrorNotification';
+import WithSuccessNotification from './WithSuccessNotification';
 
 function Register({
   handleClose,
@@ -12,8 +14,8 @@ function Register({
   tabIndex,
   registerUser,
   clearSessionStatuses,
-  isAuthenticated,
   errorMessage,
+  submissionSuccess,
 }) {
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
@@ -22,15 +24,20 @@ function Register({
 
   const toggleViewRef = useRef();
   // clear errors so that errors don't persist
+  // if you don't also run this on unmount, it won't launch in the event
+  // that you logout and attempt to log back in. It will require two
+  // clicks to open up the modal again.
   useEffect(() => {
     clearSessionStatuses();
+    return () => clearSessionStatuses();
   }, [clearSessionStatuses]);
 
+  // if succeeds, close it
   useEffect(() => {
-    if (isAuthenticated) {
-      handleClose();
+    if (submissionSuccess) {
+      setTimeout(() => handleClose(), 1200);
     }
-  }, [isAuthenticated, handleClose]);
+  }, [submissionSuccess, handleClose]);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -42,8 +49,13 @@ function Register({
       password: passwordValue,
     };
     registerUser(user);
-    setIsSubmitting(false);
+    // setIsSubmitting(false);
   };
+
+  // if fails, reset button to default state
+  useEffect(() => {
+    setIsSubmitting(false);
+  }, [errorMessage]);
 
   const toggleView = () => {
     toggleViewRef.current.blur();
@@ -64,14 +76,8 @@ function Register({
         </h2>
       </header>
       <form action="" onSubmit={onSubmit}>
-        {errorMessage && (
-          <div
-            className="bg-red-200 mb-3 p-3 rounded-sm flex items-center"
-            role="alert"
-          >
-            <p className="text-sm text-red-800 font-bold">{errorMessage}</p>
-          </div>
-        )}
+        <WithSuccessNotification success={submissionSuccess} />
+        <WithErrorNotification error={errorMessage} />
         <InputText
           labelText={'Name: '}
           name="registerName"
@@ -109,7 +115,7 @@ function Register({
           disable={`${isSubmitting}`}
           tabIndex={tabIndex}
         >
-          Register
+          {!isSubmitting || submissionSuccess ? 'Register' : 'Pending . . .'}
         </button>
       </form>
       <button
@@ -117,6 +123,7 @@ function Register({
         ref={toggleViewRef}
         onClick={toggleView}
         tabIndex={tabIndex}
+        disabled={isSubmitting}
       >
         Already have an account? Log in here.
       </button>
@@ -130,13 +137,13 @@ Register.propTypes = {
   tabIndex: PropTypes.string,
   clearSessionStatuses: PropTypes.func.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
   errorMessage: PropTypes.string,
+  submissionSuccess: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.session.isAuthenticated,
   errorMessage: state.communication.session.errorMessage,
+  submissionSuccess: state.communication.session.success,
 });
 
 export default connect(mapStateToProps, { registerUser, clearSessionStatuses })(

@@ -1,0 +1,23 @@
+.notification {
+  @apply mb-3 p-3 rounded-sm flex items-center;
+
+  &--success {
+    @apply bg-blue-100;
+
+    .notification__text {
+      @apply text-blue-700;
+    }
+  }
+
+  &--error {
+    @apply bg-red-200;
+
+    .notification__text {
+      @apply text-red-800;
+    }
+  }
+
+  &__text {
+    @apply text-sm font-bold;
+  }
+}
