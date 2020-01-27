@@ -2,7 +2,8 @@
   "env": {
     "browser": true,
     "commonjs": true,
-    "es6": true
+    "es6": true,
+    "jest": true
   },
   "settings": {
     "react": {
@@ -14,12 +15,16 @@
     "airbnb-base",
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended",
     "prettier",
     "prettier/react"
   ],
   "plugins": [
     "jsx-a11y",
-    "react-hooks"
+    "react-hooks",
+    "testing-library",
+    "jest-dom"
   ],
   "globals": {
     "Atomics": "readonly",
