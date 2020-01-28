@@ -2,7 +2,8 @@ import React from 'react';
 
 export default function Spinner() {
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center" role="status">
+      <span className="sr-only">Loading...</span>
       <svg
         className="lds-spinner"
         aria-label="loading"
