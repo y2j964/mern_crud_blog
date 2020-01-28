@@ -27,28 +27,40 @@ const authModalView = (loginHeight, registerHeight) => ({
   },
 });
 
+// heights that will appear at most screen widths
+const defaultLoginHeight = '399px';
+const defaultRegisterHeight = '477px';
+
 const AuthValidator = ({
   authModalPosition,
   setAuthModalPosition,
   handleClose,
 }) => {
   const windowWidth = useWindowWidth();
-  // default heights that will appear at most screen widths
-  const [loginHeight, setLoginHeight] = useState('399px');
-  const [registerHeight, setRegisterHeight] = useState('477px');
+  const [loginHeight, setLoginHeight] = useState(defaultLoginHeight);
+  const [registerHeight, setRegisterHeight] = useState(defaultRegisterHeight);
 
   // update height values on debounced browser resize
   useEffect(() => {
     // won't get accurate measurement unless we do the setTimeout
-    setTimeout(() => {
-      const updatedRegisterHeight = document.querySelector('.flip-card__back')
-        .offsetHeight;
-      const updatedLoginHeight = document.querySelector('.flip-card__front')
-        .offsetHeight;
+    const timeoutID = setTimeout(() => {
+      const updatedLogin = document.querySelector('.flip-card__front');
+      const updatedLoginHeight = updatedLogin
+        ? updatedLogin.offsetHeight
+        : defaultLoginHeight;
+      // revert default value if querySelector returns null
+
+      const updatedRegister = document.querySelector('.flip-card__back');
+      const updatedRegisterHeight = updatedRegister
+        ? updatedRegister.offsetHeight
+        : defaultRegisterHeight;
+      // revert default value if querySelector returns null
 
       setLoginHeight(`${updatedLoginHeight}px`);
       setRegisterHeight(`${updatedRegisterHeight}px`);
     }, 0);
+
+    return () => clearTimeout(timeoutID);
   }, [windowWidth]);
 
   const {
@@ -69,6 +81,7 @@ const AuthValidator = ({
           additionalClasses="flip-card__front"
           tabIndex={loginTabIndex}
           ariaHidden={loginAriaHidden}
+          dataTestId={'loginModal'}
         >
           <Login
             setAuthModalPosition={setAuthModalPosition}
@@ -81,6 +94,7 @@ const AuthValidator = ({
           additionalClasses="flip-card__back"
           tabIndex={registerTabIndex}
           ariaHidden={registerAriaHidden}
+          dataTestId={'registerModal'}
         >
           <Register
             setAuthModalPosition={setAuthModalPosition}

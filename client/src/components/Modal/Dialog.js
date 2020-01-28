@@ -7,12 +7,14 @@ function Dialog({
   tabIndex,
   handleClose,
   additionalClasses,
+  dataTestId,
   children,
 }) {
   return (
     <div
       className={`modal__dialog ${additionalClasses}`}
       aria-hidden={ariaHidden}
+      data-testid={dataTestId}
     >
       <button
         className="modal__close-btn"
@@ -32,6 +34,7 @@ Dialog.propTypes = {
   tabIndex: PropTypes.string,
   handleClose: PropTypes.func.isRequired,
   additionalClasses: PropTypes.string,
+  dataTestId: PropTypes.string,
   children: PropTypes.node,
 };
 
