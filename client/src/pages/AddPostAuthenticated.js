@@ -25,11 +25,13 @@ function AddPostAuthenticated({
 
   // redirect back to home if post succeeded
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutID = setTimeout(() => {
       if (postSuccess) {
         history.push('/');
       }
     }, 1000);
+
+    return () => clearTimeout(timeoutID);
   }, [postSuccess, history]);
 
   const onSubmit = e => {

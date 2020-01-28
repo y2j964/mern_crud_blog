@@ -26,12 +26,14 @@ function EditPostAuthenticated({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutID = setTimeout(() => {
       if (postSuccess) {
         history.push('/edit-posts');
         // redirect to main edit page if successful submission
       }
     }, 1000);
+
+    return () => clearTimeout(timeoutID);
   }, [postSuccess, history]);
 
   const onSubmit = e => {

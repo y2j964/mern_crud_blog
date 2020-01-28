@@ -33,9 +33,12 @@ function Login({
 
   // if succeeds, close it
   useEffect(() => {
-    if (submissionSuccess) {
-      setTimeout(() => handleClose(), 1200);
+    if (!submissionSuccess) {
+      return;
     }
+    const timeoutID = setTimeout(() => handleClose(), 1200);
+    // eslint-disable-next-line consistent-return
+    return () => clearTimeout(timeoutID);
   }, [submissionSuccess, handleClose]);
 
   const onSubmit = e => {
