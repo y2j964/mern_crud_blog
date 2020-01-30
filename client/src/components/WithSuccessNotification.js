@@ -7,5 +7,5 @@ export default function WithSuccessNotification({ success }) {
 }
 
 WithSuccessNotification.propTypes = {
-  success: PropTypes.string,
+  success: PropTypes.bool,
 };

@@ -31,7 +31,7 @@ function SuccessNotification() {
 }
 
 SuccessNotification.propTypes = {
-  successMessage: PropTypes.string.isRequired,
+  successMessage: PropTypes.bool.isRequired,
 };
 
 export { ErrorNotification, SuccessNotification };
