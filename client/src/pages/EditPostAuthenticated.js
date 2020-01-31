@@ -8,6 +8,7 @@ import { generateSlug } from '../utilityFunctions/generateSlug';
 import { InputText } from '../components/Input';
 import TextArea from '../components/TextArea';
 import { postType } from '../components/Card/types';
+import WithErrorNotification from '../components/WithErrorNotification';
 
 function EditPostAuthenticated({
   history,
@@ -16,6 +17,8 @@ function EditPostAuthenticated({
   updatePost,
   // eslint-disable-next-line no-shadow
   postSuccess,
+  // eslint-disable-next-line react/prop-types
+  errorMessage,
 }) {
   const { title, description, body, _id } = post || '';
   // need to use || so that it doesn't throw an error after submission is successful
@@ -35,6 +38,11 @@ function EditPostAuthenticated({
 
     return () => clearTimeout(timeoutID);
   }, [postSuccess, history]);
+
+  // if fails, reset button to default state
+  useEffect(() => {
+    setIsSubmitting(false);
+  }, [errorMessage]);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -73,6 +81,7 @@ function EditPostAuthenticated({
         message={'Changes have not been saved. Are you sure you want to exit?'}
       />
       <form action="" onSubmit={onSubmit}>
+        <WithErrorNotification error={errorMessage} />
         <InputText
           labelText={'Title: '}
           name="postTitle"
@@ -122,6 +131,7 @@ EditPostAuthenticated.propTypes = {
 const mapStateToProps = (state, props) => ({
   post: getPost(state, props.match.params),
   postSuccess: state.communication.posts.success,
+  errorMessage: state.communication.posts.errorMessage,
 });
 
 export default withRouter(

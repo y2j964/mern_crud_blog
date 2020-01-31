@@ -71,10 +71,18 @@ router.delete('/:id', verifyToken, (req, res) => {
     );
 });
 
-// @route DELETE api/posts
-// @desc Delete a post
+// @route Patch api/posts
+// @desc Update a post
 // @access Private
 router.patch('/:id', verifyToken, async (req, res) => {
+  const { title } = req.body;
+  const postDuplicate = await Post.findOne({ title });
+  if (postDuplicate) {
+    return res.status(400).json({
+      message:
+        'An post already exists with that title. Please choose a different title.',
+    });
+  }
   try {
     const post = await Post.findById(req.params.id);
     post.set(req.body);
