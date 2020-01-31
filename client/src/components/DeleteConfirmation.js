@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from './Modal/Modal';
 import Dialog from './Modal/Dialog';
 
-function DeleteConfirmation({ onClose, id, deletePost }) {
+function DeleteConfirmation({ onClose, deletePost }) {
   return (
     <Modal handleClose={onClose}>
       <Dialog handleClose={onClose}>
@@ -22,9 +22,10 @@ function DeleteConfirmation({ onClose, id, deletePost }) {
             <button
               className="accent-btn w-24 bg-red-600"
               onClick={() => {
-                deletePost(id);
+                deletePost();
                 onClose();
               }}
+              data-testid='finalize delete'
             >
               Delete
             </button>
@@ -38,7 +39,6 @@ function DeleteConfirmation({ onClose, id, deletePost }) {
 DeleteConfirmation.propTypes = {
   onClose: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
 };
 
 export default DeleteConfirmation;

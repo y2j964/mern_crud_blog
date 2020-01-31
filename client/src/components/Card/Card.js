@@ -37,8 +37,7 @@ function Card({
       customUI: ({ onClose }) => (
         <DeleteConfirmation
           onClose={onClose}
-          deletePost={deletePost}
-          id={_id}
+          deletePost={() => deletePost(_id)}
         />
       ),
     });
