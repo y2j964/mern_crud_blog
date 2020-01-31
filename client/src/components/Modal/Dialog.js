@@ -12,7 +12,7 @@ function Dialog({
 }) {
   return (
     <div
-      className={`modal__dialog ${additionalClasses}`}
+      className={`modal__dialog ${additionalClasses || ''}`}
       aria-hidden={ariaHidden}
       data-testid={dataTestId}
     >
