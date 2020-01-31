@@ -42,7 +42,7 @@ function Register({
     return () => clearTimeout(timeoutID);
   }, [submissionSuccess, handleClose]);
 
-  const onSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -52,7 +52,6 @@ function Register({
       password: passwordValue,
     };
     registerUser(user);
-    // setIsSubmitting(false);
   };
 
   // if fails, reset button to default state
@@ -78,7 +77,7 @@ function Register({
           Register
         </h2>
       </header>
-      <form action="" onSubmit={onSubmit}>
+      <form action="" onSubmit={handleSubmit}>
         <WithSuccessNotification success={submissionSuccess} />
         <WithErrorNotification error={errorMessage} />
         <InputText
@@ -115,8 +114,9 @@ function Register({
         <button
           type="submit"
           className="accent-btn accent-btn--is-glowing w-full mt-2"
-          disable={`${isSubmitting}`}
+          disabled={isSubmitting || submissionSuccess}
           tabIndex={tabIndex}
+          data-testid="submitRegister"
         >
           {!isSubmitting || submissionSuccess ? 'Register' : 'Pending . . .'}
         </button>

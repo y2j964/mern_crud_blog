@@ -41,7 +41,7 @@ function Login({
     return () => clearTimeout(timeoutID);
   }, [submissionSuccess, handleClose]);
 
-  const onSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -78,7 +78,7 @@ function Login({
           Log In
         </h2>
       </header>
-      <form action="" onSubmit={onSubmit}>
+      <form action="" onSubmit={handleSubmit}>
         <WithSuccessNotification success={submissionSuccess} />
         <WithErrorNotification error={errorMessage} />
         <InputEmail
@@ -109,7 +109,8 @@ function Login({
           type="submit"
           className="accent-btn accent-btn--is-glowing w-full mt-2"
           tabIndex={tabIndex}
-          disabled={isSubmitting}
+          disabled={isSubmitting || submissionSuccess}
+          data-testid="submitLogin"
         >
           {!isSubmitting || submissionSuccess ? 'Log In' : 'Pending . . .'}
         </button>
