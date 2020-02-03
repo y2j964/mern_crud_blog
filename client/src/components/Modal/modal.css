@@ -1,5 +1,5 @@
 .modal {
-  @apply absolutely-centered bg-alpha z-10;
+  @apply absolutely-centered bg-alpha z-10 overflow-x-hidden;
 
   &__dialog {
     @apply max-w-sm w-full px-12 pb-12 rounded bg-white;

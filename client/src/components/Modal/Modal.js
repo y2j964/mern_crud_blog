@@ -2,19 +2,25 @@
 // dialog should allow user to close with escape key
 
 import React, { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import FocusLock from 'react-focus-lock';
 import PropTypes from 'prop-types';
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { CSSTransition } from 'react-transition-group';
 
-export default function Modal({ handleClose, children }) {
+export default function Modal({ authModalPosition, handleClose, children }) {
   const modalRef = useRef();
 
   useEffect(() => {
+    if (!authModalPosition) {
+      return;
+    }
     disableBodyScroll(modalRef.current);
+    // eslint-disable-next-line consistent-return
     return () => {
       clearAllBodyScrollLocks();
     };
-  }, []);
+  }, [authModalPosition]);
 
   const handleKeyDown = e => {
     const key = e.key || e.code;
@@ -24,8 +30,13 @@ export default function Modal({ handleClose, children }) {
     handleClose();
   };
 
-  return (
-    <FocusLock returnFocus={{ preventScroll: false }}>
+  return ReactDOM.createPortal(
+    <CSSTransition
+      in={!!authModalPosition}
+      timeout={{ enter: 150, exit: 300 }}
+      unmountOnExit
+      classNames="fade"
+    >
       <div
         className="modal"
         ref={modalRef}
@@ -34,14 +45,16 @@ export default function Modal({ handleClose, children }) {
         aria-labelledby="modalHeading"
         role="dialog"
       >
-        {children}
+        <FocusLock returnFocus={{ preventScroll: false }}>{children}</FocusLock>
       </div>
-    </FocusLock>
+    </CSSTransition>,
+    document.getElementById('modal-root')
   );
 }
 
 Modal.propTypes = {
   handleClose: PropTypes.func.isRequired,
+  authModalPosition: PropTypes.oneOf(['login', 'register', '']),
   children: PropTypes.node.isRequired,
 };
 // /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */

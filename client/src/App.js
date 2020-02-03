@@ -86,15 +86,13 @@ function App({ location, history }) {
       </Switch>
       <Footer />
       <AddPostOverlay />
-      {authModalPosition && (
-        <Modal handleClose={() => setAuthModalPosition()}>
+        <Modal authModalPosition={authModalPosition} handleClose={() => setAuthModalPosition()}>
           <AuthValidator
             authModalPosition={authModalPosition}
             setAuthModalPosition={setAuthModalPosition}
             handleClose={() => setAuthModalPosition()}
           />
         </Modal>
-      )}
     </Provider>
   );
 }
