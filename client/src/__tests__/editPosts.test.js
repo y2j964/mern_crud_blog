@@ -79,9 +79,12 @@ test('deletes post and loads new posts sans deleted post', async () => {
 
   const history = createMemoryHistory();
   const { getByText, getByTestId, getAllByLabelText } = renderWithRedux(
-    <Router history={history}>
-      <EditPosts openLogin={openLogin} />
-    </Router>,
+    <React.Fragment>
+      <Router history={history}>
+        <EditPosts openLogin={openLogin} />
+      </Router>
+      <div id="modal-root"></div>
+    </React.Fragment>,
     { initialState }
   );
 

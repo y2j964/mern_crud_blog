@@ -1,10 +1,9 @@
 /* eslint-disable react/display-name */
 // this is for confirmAlert; I follow the implementation laid out by the docs
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { confirmAlert } from 'react-confirm-alert';
 import { connect } from 'react-redux';
 import { deletePost } from '../../actions/postActions';
 import Close from '../../icons/Close';
@@ -30,67 +29,64 @@ function Card({
   // eslint-disable-next-line no-shadow
 }) {
   const dateFull = new Date(date);
-
-  const handleDelete = () => {
-    confirmAlert({
-      // eslint-disable-next-line react/prop-types
-      customUI: ({ onClose }) => (
-        <DeleteConfirmation
-          onClose={onClose}
-          deletePost={() => deletePost(_id)}
-        />
-      ),
-    });
-  };
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
   return (
-    <article className="card">
-      <div className="card__img-container">
-        <img className="card__img" src="" alt="" />
-      </div>
-      <div className="card__body">
-        <h2 className="card__title">
-          <Link to={`/posts/${postSlug}`} className="a-pseudo-wrap">
-            {title}
-          </Link>
-        </h2>
-        <p className="mb-4">{description}</p>
-        {isEditable ? (
-          <div className="flex justify-around">
-            <Link
-              to={`/edit-posts/${postSlug}`}
-              className="p-2 relative z-10"
-              aria-label="edit post"
-            >
-              <Edit />
+    <React.Fragment>
+      <article className="card">
+        <div className="card__img-container">
+          <img className="card__img" src="" alt="" />
+        </div>
+        <div className="card__body">
+          <h2 className="card__title">
+            <Link to={`/posts/${postSlug}`} className="a-pseudo-wrap">
+              {title}
             </Link>
-            <button
-              className="p-2 relative z-10"
-              aria-label="delete post"
-              onClick={handleDelete}
-            >
-              <Close fill="#e60000" />
-            </button>
-          </div>
-        ) : (
-          <React.Fragment>
-            <span className="card__small-print">
-              Written by:{' '}
+          </h2>
+          <p className="mb-4">{description}</p>
+          {isEditable ? (
+            <div className="flex justify-around">
               <Link
-                to={`/authors/${authorSlug}`}
-                // to={{ pathname: `/authors/${authorSlug}`, author }}
-                className="text-accent relative z-10"
+                to={`/edit-posts/${postSlug}`}
+                className="p-2 relative z-10"
+                aria-label="edit post"
               >
-                {author}
+                <Edit />
               </Link>
-            </span>
-            <time className="card__small-print" dateTime={date}>
-              {formatter.format(dateFull)}
-            </time>
-          </React.Fragment>
-        )}
-      </div>
-    </article>
+              <button
+                className="p-2 relative z-10"
+                aria-label="delete post"
+                onClick={() => setIsConfirmationOpen(true)}
+              >
+                <Close fill="#e60000" />
+              </button>
+            </div>
+          ) : (
+            <React.Fragment>
+              <span className="card__small-print">
+                Written by:{' '}
+                <Link
+                  to={`/authors/${authorSlug}`}
+                  // to={{ pathname: `/authors/${authorSlug}`, author }}
+                  className="text-accent relative z-10"
+                >
+                  {author}
+                </Link>
+              </span>
+              <time className="card__small-print" dateTime={date}>
+                {formatter.format(dateFull)}
+              </time>
+            </React.Fragment>
+          )}
+        </div>
+      </article>
+      {isConfirmationOpen && (
+        <DeleteConfirmation
+          handleClose={() => setIsConfirmationOpen(false)}
+          deletePost={() => deletePost(_id)}
+        />
+      )}
+    </React.Fragment>
   );
 }
 

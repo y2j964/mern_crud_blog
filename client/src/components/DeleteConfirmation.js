@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Modal from './Modal/Modal';
 import Dialog from './Modal/Dialog';
 
-function DeleteConfirmation({ onClose, deletePost }) {
+function DeleteConfirmation({ handleClose, deletePost }) {
   return (
-    <Modal handleClose={onClose}>
-      <Dialog handleClose={onClose}>
+    <Modal isOpen={true} handleClose={handleClose}>
+      <Dialog handleClose={handleClose}>
         <div className="mt-6 z-10">
           <h2 className="font-bold text-2xl text-center mb-5" id="modalHeading">
             Confirm Delete
@@ -16,16 +16,19 @@ function DeleteConfirmation({ onClose, deletePost }) {
             post?
           </p>
           <div className="flex justify-around">
-            <button className="accent-btn w-24 bg-gray-500" onClick={onClose}>
+            <button
+              className="accent-btn w-24 bg-gray-500"
+              onClick={handleClose}
+            >
               Cancel
             </button>
             <button
               className="accent-btn w-24 bg-red-600"
               onClick={() => {
                 deletePost();
-                onClose();
+                handleClose();
               }}
-              data-testid='finalize delete'
+              data-testid="finalize delete"
             >
               Delete
             </button>
@@ -37,7 +40,7 @@ function DeleteConfirmation({ onClose, deletePost }) {
 }
 
 DeleteConfirmation.propTypes = {
-  onClose: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
 };
 
