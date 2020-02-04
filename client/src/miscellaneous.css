@@ -285,6 +285,46 @@ h1:focus {
   }
 }
 
+.fade {
+  &-enter {
+    opacity: 0;
+  }
+  &-enter-active {
+    opacity: 1;
+    transition: opacity 150ms linear;
+  }
+  &-exit {
+    opacity: 1;
+  }
+  &-exit-active {
+    /* opacity: 0; */
+    transition: opacity 150ms linear 150ms;
+  }
+}
+
+.slide-from-right {
+  &-appear {
+    /* transform: scale(0.3); */
+    transform: translateY(-200px);
+  }
+  &-appear-active {
+    /* transform: scale(1); */
+    transform: translateY(0);
+    transition: transform 300ms ease-out;
+  }
+  &-exit {
+    /* transform: scale(1); */
+    transform: translateY(0);
+    opacity: 1;
+  }
+  &-exit-active {
+    /* transform: scale(0.3); */
+    transform: translateY(-200px);
+    opacity: 0;
+    transition: transform 300ms ease-out, opacity 175ms ease-out 125ms;
+  }
+}
+
 .fade-away-exit {
   opacity: 1;
 }
@@ -292,4 +332,25 @@ h1:focus {
 .fade-away-exit-active {
   opacity: 0;
   transition: opacity 300ms;
+}
+
+.search-box {
+  @apply absolute left-0 top-0 h-full border border-purple-400 invisible;
+  width: 132px;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms ease-in, visibility 300ms ease-in;
+
+  @media (--sm) {
+    width: 166px;
+  }
+
+  &--is-open {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+
+  &__input {
+    @apply w-full h-full rounded p-2 leading-tight appearance-none;
+  }
 }
