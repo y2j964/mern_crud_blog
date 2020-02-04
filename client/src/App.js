@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
+import { CSSTransition } from 'react-transition-group';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Modal from './components/Modal/Modal';
@@ -86,13 +87,23 @@ function App({ location, history }) {
       </Switch>
       <Footer />
       <AddPostOverlay />
-        <Modal authModalPosition={authModalPosition} handleClose={() => setAuthModalPosition()}>
+      <CSSTransition
+        in={!!authModalPosition}
+        timeout={{ enter: 150, exit: 300 }}
+        unmountOnExit
+        classNames="fade"
+      >
+        <Modal
+          isOpen={!!authModalPosition}
+          handleClose={() => setAuthModalPosition()}
+        >
           <AuthValidator
             authModalPosition={authModalPosition}
             setAuthModalPosition={setAuthModalPosition}
             handleClose={() => setAuthModalPosition()}
           />
         </Modal>
+      </CSSTransition>
     </Provider>
   );
 }
