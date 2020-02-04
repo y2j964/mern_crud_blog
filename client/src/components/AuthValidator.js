@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransition } from 'react-transition-group';
 import Register from './Register';
 import Login from './Login';
 import Dialog from './Modal/Dialog';
 import useWindowWidth from '../utilityFunctions/useWindowWidth';
+import usePrevious from '../utilityFunctions/usePrevious';
 
 const getIsFlippedStyle = (loginHeight, registerHeight) => ({
   transform: `rotateX(180deg) translateY(calc((${loginHeight} - ${registerHeight}) / -2))`,
@@ -63,6 +65,11 @@ const AuthValidator = ({
     return () => clearTimeout(timeoutID);
   }, [windowWidth]);
 
+  const prevAuthModalPosition = usePrevious(authModalPosition);
+  // if closed, authModalPosition will be set to undefined, which will mess up
+  // this object lookup in the modal unmount animation;
+  // so track previous value and use in that instance
+
   const {
     isFlipped,
     loginAriaHidden,
@@ -70,45 +77,53 @@ const AuthValidator = ({
     registerAriaHidden,
     registerTabIndex,
   } = authModalView(loginHeight, registerHeight)[
-    `${authModalPosition}IsActive`
+    `${authModalPosition || prevAuthModalPosition}IsActive`
   ];
 
   return (
-    <div className="flip-card" style={{ height: loginHeight }}>
-      <div className="flip-card__inner" style={isFlipped}>
-        <Dialog
-          handleClose={handleClose}
-          additionalClasses="flip-card__front"
-          tabIndex={loginTabIndex}
-          ariaHidden={loginAriaHidden}
-          dataTestId={'loginModal'}
-        >
-          <Login
-            setAuthModalPosition={setAuthModalPosition}
+    <CSSTransition
+      in={!!authModalPosition}
+      timeout={300}
+      unmountOnExit
+      classNames="slide-from-right"
+      appear
+    >
+      <div className="flip-card" style={{ height: loginHeight }}>
+        <div className="flip-card__inner" style={isFlipped}>
+          <Dialog
+            handleClose={handleClose}
+            additionalClasses="flip-card__front"
             tabIndex={loginTabIndex}
+            ariaHidden={loginAriaHidden}
+            dataTestId={'loginModal'}
+          >
+            <Login
+              setAuthModalPosition={setAuthModalPosition}
+              tabIndex={loginTabIndex}
+              handleClose={handleClose}
+            />
+          </Dialog>
+          <Dialog
             handleClose={handleClose}
-          />
-        </Dialog>
-        <Dialog
-          handleClose={handleClose}
-          additionalClasses="flip-card__back"
-          tabIndex={registerTabIndex}
-          ariaHidden={registerAriaHidden}
-          dataTestId={'registerModal'}
-        >
-          <Register
-            setAuthModalPosition={setAuthModalPosition}
+            additionalClasses="flip-card__back"
             tabIndex={registerTabIndex}
-            handleClose={handleClose}
-          />
-        </Dialog>
+            ariaHidden={registerAriaHidden}
+            dataTestId={'registerModal'}
+          >
+            <Register
+              setAuthModalPosition={setAuthModalPosition}
+              tabIndex={registerTabIndex}
+              handleClose={handleClose}
+            />
+          </Dialog>
+        </div>
       </div>
-    </div>
+    </CSSTransition>
   );
 };
 
 AuthValidator.propTypes = {
-  authModalPosition: PropTypes.oneOf(['login', 'register']).isRequired,
+  authModalPosition: PropTypes.oneOf(['login', 'register', '']),
   setAuthModalPosition: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
 };

@@ -6,13 +6,12 @@ import ReactDOM from 'react-dom';
 import FocusLock from 'react-focus-lock';
 import PropTypes from 'prop-types';
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
-import { CSSTransition } from 'react-transition-group';
 
-export default function Modal({ authModalPosition, handleClose, children }) {
+export default function Modal({ isOpen, handleClose, children }) {
   const modalRef = useRef();
 
   useEffect(() => {
-    if (!authModalPosition) {
+    if (!isOpen) {
       return;
     }
     disableBodyScroll(modalRef.current);
@@ -20,7 +19,7 @@ export default function Modal({ authModalPosition, handleClose, children }) {
     return () => {
       clearAllBodyScrollLocks();
     };
-  }, [authModalPosition]);
+  }, [isOpen]);
 
   const handleKeyDown = e => {
     const key = e.key || e.code;
@@ -31,23 +30,16 @@ export default function Modal({ authModalPosition, handleClose, children }) {
   };
 
   return ReactDOM.createPortal(
-    <CSSTransition
-      in={!!authModalPosition}
-      timeout={{ enter: 150, exit: 300 }}
-      unmountOnExit
-      classNames="fade"
+    <div
+      className="modal"
+      ref={modalRef}
+      onKeyDown={handleKeyDown}
+      aria-modal="true"
+      aria-labelledby="modalHeading"
+      role="dialog"
     >
-      <div
-        className="modal"
-        ref={modalRef}
-        onKeyDown={handleKeyDown}
-        aria-modal="true"
-        aria-labelledby="modalHeading"
-        role="dialog"
-      >
-        <FocusLock returnFocus={{ preventScroll: false }}>{children}</FocusLock>
-      </div>
-    </CSSTransition>,
+      <FocusLock returnFocus={{ preventScroll: false }}>{children}</FocusLock>
+    </div>,
     document.getElementById('modal-root')
   );
 }

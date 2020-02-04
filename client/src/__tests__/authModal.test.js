@@ -1,5 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import { render, fireEvent, within } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  within,
+  wait,
+  waitForDomChange,
+} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
@@ -14,9 +21,12 @@ test('launch login modal, toggle modal views, and close login modal', async () =
     getByLabelText,
     getByTestId,
   } = render(
-    <Router history={history}>
-      <App />
-    </Router>
+    <React.Fragment>
+      <Router history={history}>
+        <App />
+      </Router>
+      <div id="modal-root"></div>
+    </React.Fragment>
   );
 
   expect(queryByRole('dialog')).not.toBeInTheDocument();
@@ -48,7 +58,9 @@ test('launch login modal, toggle modal views, and close login modal', async () =
   const closeBtn = within(loginModal).getByLabelText('close modal');
   fireEvent.click(closeBtn);
 
-  expect(queryByRole('dialog')).not.toBeInTheDocument();
+  await waitForDomChange(() =>
+    expect(queryByRole('dialog')).not.toBeInTheDocument()
+  );
 });
 
 test('launch register modal and close register modal', async () => {
@@ -60,9 +72,12 @@ test('launch register modal and close register modal', async () => {
     getByLabelText,
     getByTestId,
   } = render(
-    <Router history={history}>
-      <App />
-    </Router>
+    <React.Fragment>
+      <Router history={history}>
+        <App />
+      </Router>
+      <div id="modal-root"></div>
+    </React.Fragment>
   );
 
   expect(queryByRole('dialog')).not.toBeInTheDocument();
@@ -81,5 +96,7 @@ test('launch register modal and close register modal', async () => {
   const closeBtn = within(registerModal).getByLabelText('close modal');
   fireEvent.click(closeBtn);
 
-  expect(queryByRole('dialog')).not.toBeInTheDocument();
+  await waitForDomChange(() =>
+    expect(queryByRole('dialog')).not.toBeInTheDocument()
+  );
 });
