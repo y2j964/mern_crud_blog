@@ -1,8 +1,12 @@
 .accent-btn {
-  @apply px-3 py-2 rounded;
+  @apply px-2 py-1 rounded;
   background-color: #7300e6;
   color: white;
   transition: text-shadow 200ms ease, box-shadow 200ms ease;
+
+  @media (--sm) {
+    @apply px-3 py-2;
+  }
 
   &--is-glowing:hover {
     text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);

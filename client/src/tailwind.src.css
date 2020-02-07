@@ -2,6 +2,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'miscellaneous.css';
+@import 'components/AuthDropdown/auth-dropdown.css';
 @import 'components/Card/card.css';
 @import 'components/HamburgerToggle/hamburger-toggle.css';
 @import 'components/Modal/modal.css';
@@ -9,6 +10,7 @@
 @import 'components/Navbar/collapsible-group.css';
 @import 'components/Navbar/accent-btn.css';
 @import 'components/Notification/notification.css';
+@import 'components/SearchBox/search-box.css';
 /* purgecss end ignore */
 @import 'tailwindcss/utilities';
 

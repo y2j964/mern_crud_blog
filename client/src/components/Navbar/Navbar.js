@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NavbarBrand from './NavbarBrand';
 import HamburgerToggle from '../HamburgerToggle/HamburgerToggle';
 import NavbarPrimaryItems from './NavbarPrimaryItems';
-import AuthModalTrigger from '../AuthModalTrigger';
 import Logout from '../Logout';
+import SearchBoxTrigger from '../SearchBox/SearchBoxTrigger';
+import SearchBox from '../SearchBox/SearchBox';
+import AccentButton from '../AccentButton';
+import ButtonLink from '../ButtonLink';
 
 function Navbar({
   collapsibleNavIsExpanded,
   toggleCollapsibleNav,
   setAuthModalPosition,
   isAuthenticated,
+  children,
 }) {
+  const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false);
+  const toggleIsSearchBoxOpen = () => setIsSearchBoxOpen(!isSearchBoxOpen);
+
   return (
     <nav className="navbar">
       <HamburgerToggle
@@ -26,23 +33,38 @@ function Navbar({
       />
       <NavbarBrand />
       <NavbarPrimaryItems collapsibleNavIsExpanded={collapsibleNavIsExpanded} />
-      <div className="ml-auto flex items-center order-2 md:order-3">
+      <div className="ml-auto flex items-center order-2 md:order-3 relative">
         {isAuthenticated ? (
           <Logout additionalClasses="pseudo-underline mr-2 sm:mr-5" />
         ) : (
-          <AuthModalTrigger
-            additionalClasses="pseudo-underline mr-2 sm:mr-5"
-            handleClick={() => setAuthModalPosition('login')}
-          >
-            Log In
-          </AuthModalTrigger>
+          <React.Fragment>
+            <ButtonLink
+              additionalClasses="hidden md:block mr-2 sm:mr-3"
+              handleClick={() => setAuthModalPosition('login')}
+              dataTestId="desktopLoginModalBtn"
+            >
+              Log in
+            </ButtonLink>
+            <AccentButton
+              additionalClasses="navbar__link hidden md:block mr-1"
+              handleClick={() => setAuthModalPosition('register')}
+              dataTestId="desktopRegisterModalBtn"
+            >
+              Register
+            </AccentButton>
+          </React.Fragment>
         )}
-        <AuthModalTrigger
-          additionalClasses="accent-btn accent-btn--is-glowing mr-0 my-0 px-2 py-1 sm:px-3 sm:py-2"
-          handleClick={() => setAuthModalPosition('register')}
-        >
-          Register
-        </AuthModalTrigger>
+        {children}
+        <SearchBox
+          isSearchBoxOpen={isSearchBoxOpen}
+          additionalClasses={`search-box ${
+            isSearchBoxOpen ? 'search-box--is-open' : ''
+          }`}
+        />
+        <SearchBoxTrigger
+          toggleIsSearchBoxOpen={toggleIsSearchBoxOpen}
+          isSearchBoxOpen={isSearchBoxOpen}
+        />
       </div>
     </nav>
   );
@@ -53,6 +75,7 @@ Navbar.propTypes = {
   toggleCollapsibleNav: PropTypes.func.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 const mapStateToProps = state => ({

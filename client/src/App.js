@@ -19,6 +19,8 @@ import Error404 from './pages/Error404';
 import store from './store';
 import { getUser } from './actions/sessionActions';
 import { clearStatuses } from './actions/communicationActions';
+import SearchResults from './components/SearchResults';
+import AuthDropdown from './components/AuthDropdown/AuthDropdown';
 
 function App({ location, history }) {
   const [collapsibleNavIsExpanded, setCollapsibleNavIsExpanded] = useState(
@@ -47,7 +49,9 @@ function App({ location, history }) {
           setCollapsibleNavIsExpanded(!collapsibleNavIsExpanded)
         }
         setAuthModalPosition={setAuthModalPosition}
-      />
+      >
+        <AuthDropdown setAuthModalPosition={setAuthModalPosition} />
+      </Navbar>
       <Switch location={location}>
         <Route exact path="/" component={Home} />
         <Route path="/posts/:postSlug" component={Post} />
@@ -104,6 +108,7 @@ function App({ location, history }) {
           />
         </Modal>
       </CSSTransition>
+      <SearchResults />
     </Provider>
   );
 }

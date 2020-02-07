@@ -1,0 +1,40 @@
+.auth-dropdown {
+  @apply invisible absolute right-0 w-40 flex flex-col z-10 rounded bg-gray-200 rounded;
+  top: 100%;
+  margin-top: 9px;
+  /* transition: height 300ms ease-in-out, visibility 300ms ease-in-out; */
+  margin-right: -12px;
+
+  &--is-open {
+    @apply visible;
+  }
+
+  &::before {
+    z-index: 10;
+    content: '';
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: -12px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-bottom-color: #edf2f7;
+  }
+
+  @media (--md) {
+    @apply invisible;
+  }
+
+  &__item {
+    @apply text-left py-3 px-3 w-full text-sm border-b border-gray-300;
+    transition: background-color 200ms ease-in-out;
+
+    &:last-child {
+      @apply border-transparent;
+    }
+    &:hover {
+      @apply bg-gray-300;
+    }
+  }
+}

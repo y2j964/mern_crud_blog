@@ -2,6 +2,8 @@ import React from 'react';
 import uuid from 'uuid';
 import PropTypes from 'prop-types';
 import NavbarPrimaryItem from './NavbarPrimaryItem';
+import SearchBox from '../SearchBox/SearchBox';
+import SearchGlass from '../../icons/SearchGlass';
 
 const navbarPrimaryItemsData = [
   {
@@ -38,6 +40,13 @@ export default function NavbarPrimaryItems({ collapsibleNavIsExpanded }) {
       id="navbarCollapsibleGroup"
     >
       {navbarPrimaryItemsFrags}
+      <li className="flex items-center md:hidden">
+        <SearchGlass fill="black" additionalClasses="mr-2" />
+        <SearchBox
+          additionalClasses="my-1 text-sm md:hidden w-full"
+          searchInputId="searchInputMobile"
+        />
+      </li>
     </ul>
   );
 }

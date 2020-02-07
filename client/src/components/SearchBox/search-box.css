@@ -1,0 +1,27 @@
+.search-box {
+  @apply absolute left-0 top-0 h-full invisible;
+  /* width matches width of authModal triggers */
+  width: 132px;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms ease-in, visibility 300ms ease-in;
+
+  @media (--sm) {
+    width: 161px;
+  }
+
+  &--is-open {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+
+  &__input {
+    @apply w-full h-full rounded p-2 appearance-none leading-tight border border-gray-400;
+    transition: border-color 150ms ease-in-out;
+
+    &:focus {
+      outline: none;
+      border: 1px solid $primary-color;
+    }
+  }
+}

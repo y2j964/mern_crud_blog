@@ -1,3 +1,5 @@
+$primary-color: #7300e6;
+
 #root {
   @apply flex flex-col min-h-screen;
   /* ensure that viewport height is full, at minimum */
@@ -204,7 +206,7 @@ h1:focus {
 }
 
 .text-accent {
-  color: #7300e6;
+  color: $primary-color;
 }
 
 .bg-alpha {
@@ -213,10 +215,10 @@ h1:focus {
 
 .form-input {
   @apply py-2 px-3 border border-gray-400 w-full appearance-none leading-tight;
-  transition: border-color 0.15s ease-in-out;
+  transition: border-color 150ms ease-in-out;
   &:focus {
     outline: none;
-    border: 1px solid #7300e6;
+    border: 1px solid $primary-color;
   }
 }
 
@@ -334,23 +336,26 @@ h1:focus {
   transition: opacity 300ms;
 }
 
-.search-box {
-  @apply absolute left-0 top-0 h-full border border-purple-400 invisible;
-  width: 132px;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 300ms ease-in, visibility 300ms ease-in;
-
-  @media (--sm) {
-    width: 166px;
-  }
-
-  &--is-open {
-    visibility: visible;
-    transform: scaleX(1);
-  }
-
-  &__input {
-    @apply w-full h-full rounded p-2 leading-tight appearance-none;
-  }
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  border-top: 4px solid #000;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
 }
+/* .caret {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(50%);
+    border-top: 4px solid #000;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+  }
+} */

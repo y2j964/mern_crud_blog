@@ -1,23 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function AuthModalTrigger({
+function AccentButton({
   handleClick,
-  children,
   additionalClasses,
+  dataTestId,
+  children,
 }) {
   return (
     <button
-      className={`navbar__link ${additionalClasses || ''}`}
+      className={`accent-btn accent-btn--is-glowing ${additionalClasses || ''}`}
       onClick={handleClick}
+      data-testid={dataTestId}
     >
       {children}
     </button>
   );
 }
 
-AuthModalTrigger.propTypes = {
+AccentButton.propTypes = {
   handleClick: PropTypes.func.isRequired,
   additionalClasses: PropTypes.string,
+  dataTestId: PropTypes.string,
   children: PropTypes.node,
 };
+
+export default AccentButton;
