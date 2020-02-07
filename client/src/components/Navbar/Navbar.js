@@ -57,8 +57,8 @@ function Navbar({
         {children}
         <SearchBox
           isSearchBoxOpen={isSearchBoxOpen}
-          additionalClasses={`search-box ${
-            isSearchBoxOpen ? 'search-box--is-open' : ''
+          additionalClasses={`search-box-desktop ${
+            isSearchBoxOpen ? 'search-box-desktop--is-open' : ''
           }`}
         />
         <SearchBoxTrigger

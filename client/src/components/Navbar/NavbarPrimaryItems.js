@@ -43,7 +43,7 @@ export default function NavbarPrimaryItems({ collapsibleNavIsExpanded }) {
       <li className="flex items-center md:hidden">
         <SearchGlass fill="black" additionalClasses="mr-2" />
         <SearchBox
-          additionalClasses="my-1 text-sm md:hidden w-full"
+          additionalClasses="search-box-mobile"
           searchInputId="searchInputMobile"
         />
       </li>

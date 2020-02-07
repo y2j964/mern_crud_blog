@@ -1,21 +1,35 @@
 .search-box {
-  @apply absolute left-0 top-0 h-full invisible;
-  /* width matches width of authModal triggers */
-  width: 132px;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 300ms ease-in, visibility 300ms ease-in;
+  &-desktop {
+    @apply absolute left-0 top-0 h-full invisible;
+    /* width matches width of authModal triggers */
+    width: 132px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 300ms ease-in, visibility 300ms ease-in;
 
-  @media (--sm) {
-    width: 161px;
+    @media (--sm) {
+      width: 161px;
+    }
+
+    &--is-open {
+      /* if user triggered to open state and then resized the window width,
+      we want search-box to be hidden */
+      @media (--md) {
+        visibility: visible;
+        transform: scaleX(1);
+      }
+    }
   }
 
-  &--is-open {
-    visibility: visible;
-    transform: scaleX(1);
+  &-mobile {
+    @apply my-1 text-sm w-full;
+
+    @media (--md) {
+      @apply hidden;
+    }
   }
 
-  &__input {
+  &-input {
     @apply w-full h-full rounded p-2 appearance-none leading-tight border border-gray-400;
     transition: border-color 150ms ease-in-out;
 
