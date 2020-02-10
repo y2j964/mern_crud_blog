@@ -43,7 +43,9 @@ export default function NavbarPrimaryItems({
     >
       {navbarPrimaryItemsFrags}
       <li className="flex items-center md:hidden">
-        <ButtonLink handleClick={openSearchModal}>Search</ButtonLink>
+        <ButtonLink handleClick={openSearchModal} dataTestId="searchMobile">
+          Search
+        </ButtonLink>
       </li>
     </ul>
   );

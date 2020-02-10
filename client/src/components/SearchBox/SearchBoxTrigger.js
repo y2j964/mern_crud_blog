@@ -9,6 +9,7 @@ export default function SearchBoxTrigger({ openSearchModal, isSearchBoxOpen }) {
       <button
         className="p-1 hidden md:block"
         aria-label="search for post"
+        data-testid="searchDesktop"
         onClick={openSearchModal}
       >
         {!isSearchBoxOpen ? (

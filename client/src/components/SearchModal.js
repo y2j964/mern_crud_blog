@@ -26,7 +26,7 @@ const getRelevantValues = (targetedObj, targetedKeys) => {
   return relevantValues;
 };
 
-const getFilteredPosts = (dataSource, searchQuery) => {
+export const getFilteredPosts = (dataSource, searchQuery) => {
   const updatedFilteredPosts = dataSource.filter(film => {
     const relevantValues = getRelevantValues(film, relevantKeys);
     // return Posts that have words that start with the input value and are followed by zero or more non-whitespace characters
