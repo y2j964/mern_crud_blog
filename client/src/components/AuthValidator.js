@@ -85,7 +85,7 @@ const AuthValidator = ({
       in={!!authModalPosition}
       timeout={300}
       unmountOnExit
-      classNames="slide-from-right"
+      classNames="slide-from-top"
       appear
     >
       <div className="flip-card" style={{ height: loginHeight }}>

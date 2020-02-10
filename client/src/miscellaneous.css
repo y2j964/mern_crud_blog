@@ -304,7 +304,7 @@ h1:focus {
   }
 }
 
-.slide-from-right {
+.slide-from-top {
   &-appear {
     /* transform: scale(0.3); */
     transform: translateY(-200px);
