@@ -5,7 +5,7 @@
 
   &--is-expanded {
     @apply visible;
-    height: 189px;
+    height: 180px;
     /* height is hard coded here, so if you want to add or subtract any nav links,
     you will have to adjust this value to whatever the new collapsible-group height is */
   }

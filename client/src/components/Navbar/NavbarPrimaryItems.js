@@ -2,8 +2,7 @@ import React from 'react';
 import uuid from 'uuid';
 import PropTypes from 'prop-types';
 import NavbarPrimaryItem from './NavbarPrimaryItem';
-import SearchBox from '../SearchBox/SearchBox';
-import SearchGlass from '../../icons/SearchGlass';
+import ButtonLink from '../ButtonLink';
 
 const navbarPrimaryItemsData = [
   {
@@ -23,7 +22,10 @@ const navbarPrimaryItemsData = [
   },
 ];
 
-export default function NavbarPrimaryItems({ collapsibleNavIsExpanded }) {
+export default function NavbarPrimaryItems({
+  collapsibleNavIsExpanded,
+  openSearchModal,
+}) {
   const navbarPrimaryItemsFrags = navbarPrimaryItemsData.map(item => {
     return (
       <NavbarPrimaryItem key={item.id} slug={item.slug}>
@@ -41,11 +43,7 @@ export default function NavbarPrimaryItems({ collapsibleNavIsExpanded }) {
     >
       {navbarPrimaryItemsFrags}
       <li className="flex items-center md:hidden">
-        <SearchGlass fill="black" additionalClasses="mr-2" />
-        <SearchBox
-          additionalClasses="search-box-mobile"
-          searchInputId="searchInputMobile"
-        />
+        <ButtonLink handleClick={openSearchModal}>Search</ButtonLink>
       </li>
     </ul>
   );
@@ -53,4 +51,5 @@ export default function NavbarPrimaryItems({ collapsibleNavIsExpanded }) {
 
 NavbarPrimaryItems.propTypes = {
   collapsibleNavIsExpanded: PropTypes.bool.isRequired,
+  openSearchModal: PropTypes.func.isRequired,
 };

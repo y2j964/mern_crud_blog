@@ -327,6 +327,27 @@ h1:focus {
   }
 }
 
+.search-scale {
+  &-appear {
+    opacity: 0;
+    transform: scale(0);
+  }
+  &-appear-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: transform 300ms ease-out, opacity 150ms ease-out;
+  }
+  &-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+  &-exit-active {
+    opacity: 0;
+    transform: scale(0);
+    transition: transform 300ms ease-out, opacity 175ms ease-out 75ms;
+  }
+}
+
 .fade-away-exit {
   opacity: 1;
 }
@@ -345,17 +366,3 @@ h1:focus {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
 }
-/* .caret {
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    right: -8px;
-    top: 50%;
-    transform: translateY(50%);
-    border-top: 4px solid #000;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-  }
-} */

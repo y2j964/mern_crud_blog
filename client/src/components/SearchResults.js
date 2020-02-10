@@ -1,20 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CardGroup from './Card/CardGroup';
+import { postsType } from './Card/types';
 
-function SearchResults(props) {
+function SearchResults({ posts, totalResults }) {
   return (
-    <div
-      className="fixed right-0 top-0 bottom-0 z-10 bg-blue-300"
-      style={{
-        width: '464px',
-        marginTop: '72px',
-        transition: 'transform 300ms ease',
-        transform: 'translateX(464px)',
-      }}
-    ></div>
+    <section aria-live="polite">
+      <h3 className="text-3xl text-center font-bold py-6">
+        {totalResults} Results
+      </h3>
+      <CardGroup posts={posts} />
+    </section>
   );
 }
 
-SearchResults.propTypes = {};
+SearchResults.propTypes = {
+  posts: postsType.isRequired,
+  totalResults: PropTypes.number.isRequired,
+};
 
 export default SearchResults;

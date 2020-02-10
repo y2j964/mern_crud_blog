@@ -1,14 +1,34 @@
 .modal {
-  @apply absolutely-centered bg-alpha z-10 overflow-x-hidden;
+  @apply absolutely-centered w-full h-full bg-alpha z-10 overflow-x-hidden;
 
   &__dialog {
-    @apply max-w-sm w-full px-12 pb-12 rounded bg-white;
+    @apply max-w-sm w-full px-12 pb-12 rounded bg-white m-auto;
     /* @apply max-w-sm sm:max-w-md md:max-w-lg w-full px-12 pt-6 pb-12 rounded bg-white;*/
     @media (--sm) {
       @apply max-w-md;
     }
     @media (--md) {
       @apply max-w-lg;
+    }
+  }
+
+  &--large {
+    @apply block;
+    /* if container is smaller than modal, flexbox vertical center will excise
+    overflown content and block max-w*/
+
+    .modal__dialog {
+      @apply min-h-screen max-w-md;
+
+      @media (--sm) {
+        @apply max-w-lg;
+      }
+      @media (--md) {
+        @apply max-w-2xl;
+      }
+      @media (--lg) {
+        @apply max-w-3xl;
+      }
     }
   }
 

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import NavbarBrand from './NavbarBrand';
 import HamburgerToggle from '../HamburgerToggle/HamburgerToggle';
 import NavbarPrimaryItems from './NavbarPrimaryItems';
 import Logout from '../Logout';
 import SearchBoxTrigger from '../SearchBox/SearchBoxTrigger';
-import SearchBox from '../SearchBox/SearchBox';
 import AccentButton from '../AccentButton';
 import ButtonLink from '../ButtonLink';
+import SearchModal from '../SearchModal';
 
 function Navbar({
   collapsibleNavIsExpanded,
@@ -18,7 +19,7 @@ function Navbar({
   children,
 }) {
   const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false);
-  const toggleIsSearchBoxOpen = () => setIsSearchBoxOpen(!isSearchBoxOpen);
+  const openSearchModal = () => setIsSearchBoxOpen(true);
 
   return (
     <nav className="navbar">
@@ -32,7 +33,10 @@ function Navbar({
         }}
       />
       <NavbarBrand />
-      <NavbarPrimaryItems collapsibleNavIsExpanded={collapsibleNavIsExpanded} />
+      <NavbarPrimaryItems
+        collapsibleNavIsExpanded={collapsibleNavIsExpanded}
+        openSearchModal={openSearchModal}
+      />
       <div className="ml-auto flex items-center order-2 md:order-3 relative">
         {isAuthenticated ? (
           <Logout additionalClasses="pseudo-underline mr-2 sm:mr-5" />
@@ -55,16 +59,21 @@ function Navbar({
           </React.Fragment>
         )}
         {children}
-        <SearchBox
-          isSearchBoxOpen={isSearchBoxOpen}
-          additionalClasses={`search-box-desktop ${
-            isSearchBoxOpen ? 'search-box-desktop--is-open' : ''
-          }`}
-        />
         <SearchBoxTrigger
-          toggleIsSearchBoxOpen={toggleIsSearchBoxOpen}
+          openSearchModal={openSearchModal}
           isSearchBoxOpen={isSearchBoxOpen}
         />
+        <CSSTransition
+          in={isSearchBoxOpen}
+          timeout={{ enter: 150, exit: 300 }}
+          unmountOnExit
+          classNames="fade"
+        >
+          <SearchModal
+            isOpen={isSearchBoxOpen}
+            handleClose={() => setIsSearchBoxOpen(false)}
+          />
+        </CSSTransition>
       </div>
     </nav>
   );

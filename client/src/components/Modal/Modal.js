@@ -7,7 +7,12 @@ import FocusLock from 'react-focus-lock';
 import PropTypes from 'prop-types';
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
-export default function Modal({ isOpen, handleClose, children }) {
+export default function Modal({
+  isOpen,
+  handleClose,
+  additionalClasses,
+  children,
+}) {
   const modalRef = useRef();
 
   useEffect(() => {
@@ -31,7 +36,7 @@ export default function Modal({ isOpen, handleClose, children }) {
 
   return ReactDOM.createPortal(
     <div
-      className="modal"
+      className={`modal ${additionalClasses || ''}`}
       ref={modalRef}
       onKeyDown={handleKeyDown}
       aria-modal="true"

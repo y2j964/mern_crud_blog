@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 function SearchBoxInput({ value, setValue, searchInputId }) {
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current.focus();
+  }, []);
   return (
     <React.Fragment>
       <label htmlFor={searchInputId || 'searchInput'} className="sr-only">
@@ -10,6 +15,7 @@ function SearchBoxInput({ value, setValue, searchInputId }) {
       <input
         className="search-box-input"
         id={searchInputId || 'searchInput'}
+        ref={ref}
         type="search"
         role="searchbox"
         placeholder="Search"
