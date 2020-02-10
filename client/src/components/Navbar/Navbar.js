@@ -6,7 +6,7 @@ import NavbarBrand from './NavbarBrand';
 import HamburgerToggle from '../HamburgerToggle/HamburgerToggle';
 import NavbarPrimaryItems from './NavbarPrimaryItems';
 import Logout from '../Logout';
-import SearchBoxTrigger from '../SearchBox/SearchBoxTrigger';
+import SearchModalTrigger from '../SearchBox/SearchModalTrigger';
 import AccentButton from '../AccentButton';
 import ButtonLink from '../ButtonLink';
 import SearchModal from '../SearchModal';
@@ -59,7 +59,7 @@ function Navbar({
           </React.Fragment>
         )}
         {children}
-        <SearchBoxTrigger
+        <SearchModalTrigger
           openSearchModal={openSearchModal}
           isSearchBoxOpen={isSearchBoxOpen}
         />
