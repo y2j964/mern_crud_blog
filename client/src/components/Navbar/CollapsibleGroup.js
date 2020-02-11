@@ -1,10 +1,10 @@
 import React from 'react';
 import uuid from 'uuid';
 import PropTypes from 'prop-types';
-import NavbarPrimaryItem from './NavbarPrimaryItem';
+import CollapsibleGroupItem from './CollapsibleGroupItem';
 import ButtonLink from '../ButtonLink';
 
-const navbarPrimaryItemsData = [
+const collapsibleGroupItemsData = [
   {
     text: 'Add Post',
     slug: 'add-post',
@@ -22,15 +22,15 @@ const navbarPrimaryItemsData = [
   },
 ];
 
-export default function NavbarPrimaryItems({
+export default function CollapsibleGroup({
   collapsibleNavIsExpanded,
   openSearchModal,
 }) {
-  const navbarPrimaryItemsFrags = navbarPrimaryItemsData.map(item => {
+  const collapsibleGroupItemsFrags = collapsibleGroupItemsData.map(item => {
     return (
-      <NavbarPrimaryItem key={item.id} slug={item.slug}>
+      <CollapsibleGroupItem key={item.id} slug={item.slug}>
         {item.text}
-      </NavbarPrimaryItem>
+      </CollapsibleGroupItem>
     );
   });
 
@@ -41,7 +41,7 @@ export default function NavbarPrimaryItems({
       }`}
       id="navbarCollapsibleGroup"
     >
-      {navbarPrimaryItemsFrags}
+      {collapsibleGroupItemsFrags}
       <li className="flex items-center md:hidden">
         <ButtonLink handleClick={openSearchModal} dataTestId="searchMobile">
           Search
@@ -51,7 +51,7 @@ export default function NavbarPrimaryItems({
   );
 }
 
-NavbarPrimaryItems.propTypes = {
+CollapsibleGroup.propTypes = {
   collapsibleNavIsExpanded: PropTypes.bool.isRequired,
   openSearchModal: PropTypes.func.isRequired,
 };

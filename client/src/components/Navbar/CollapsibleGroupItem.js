@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export default function NavbarPrimaryItem({
+export default function CollapsibleGroupItem({
   children,
   slug,
   additionalClasses,
@@ -21,7 +21,7 @@ export default function NavbarPrimaryItem({
   );
 }
 
-NavbarPrimaryItem.propTypes = {
+CollapsibleGroupItem.propTypes = {
   children: PropTypes.node.isRequired,
   slug: PropTypes.string.isRequired,
   additionalClasses: PropTypes.string,

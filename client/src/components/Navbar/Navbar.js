@@ -4,7 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import NavbarBrand from './NavbarBrand';
 import HamburgerToggle from '../HamburgerToggle/HamburgerToggle';
-import NavbarPrimaryItems from './NavbarPrimaryItems';
+import CollapsibleGroup from './CollapsibleGroup';
 import Logout from '../Logout';
 import SearchModalTrigger from '../SearchBox/SearchModalTrigger';
 import AccentButton from '../AccentButton';
@@ -30,7 +30,7 @@ function Navbar({
         handleClick={() => toggleCollapsibleNav()}
       />
       <NavbarBrand />
-      <NavbarPrimaryItems
+      <CollapsibleGroup
         ref={collapsibleGroupRef}
         collapsibleNavIsExpanded={collapsibleNavIsExpanded}
         openSearchModal={openSearchModal}
