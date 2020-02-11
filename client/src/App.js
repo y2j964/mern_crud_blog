@@ -20,6 +20,7 @@ import store from './store';
 import { getUser } from './actions/sessionActions';
 import { clearStatuses } from './actions/communicationActions';
 import AuthDropdown from './components/AuthDropdown/AuthDropdown';
+import ScrollToTop from './components/ScrollToTop';
 
 function App({ location, history }) {
   const [collapsibleNavIsExpanded, setCollapsibleNavIsExpanded] = useState(
@@ -42,6 +43,7 @@ function App({ location, history }) {
 
   return (
     <Provider store={store}>
+      <ScrollToTop />
       <Navbar
         collapsibleNavIsExpanded={collapsibleNavIsExpanded}
         toggleCollapsibleNav={() =>
