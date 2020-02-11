@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
@@ -20,20 +20,18 @@ function Navbar({
 }) {
   const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false);
   const openSearchModal = () => setIsSearchBoxOpen(true);
+  const collapsibleGroupRef = useRef();
 
   return (
     <nav className="navbar">
       <HamburgerToggle
         controls="navbarCollapsibleGroup"
         collapsibleNavIsExpanded={collapsibleNavIsExpanded}
-        handleClick={() => {
-          document.getElementById('navbarCollapsibleGroup').style.transition =
-            'transition: height .3s ease-in-out, visibility .3s ease-in-out';
-          toggleCollapsibleNav();
-        }}
+        handleClick={() => toggleCollapsibleNav()}
       />
       <NavbarBrand />
       <NavbarPrimaryItems
+        ref={collapsibleGroupRef}
         collapsibleNavIsExpanded={collapsibleNavIsExpanded}
         openSearchModal={openSearchModal}
       />
