@@ -35,6 +35,7 @@ function App({ location, history }) {
   useEffect(() => {
     const unlisten = history.listen(() => {
       store.dispatch(clearStatuses());
+      setCollapsibleNavIsExpanded(false);
     });
     return () => {
       unlisten();
