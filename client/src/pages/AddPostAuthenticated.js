@@ -40,7 +40,7 @@ function AddPostAuthenticated({
     setIsSubmitting(false);
   }, [errorMessage]);
 
-  const onSubmit = e => {
+  const handleSubmit = e => {
     // name will come from redux auth
     e.preventDefault();
     setIsSubmitting(true);
@@ -80,7 +80,7 @@ function AddPostAuthenticated({
         }
         message={'Changes have not been saved. Are you sure you want to exit?'}
       />
-      <form action="" onSubmit={onSubmit}>
+      <form action="" onSubmit={handleSubmit}>
         <WithErrorNotification error={errorMessage} />
         <InputText
           labelText={'Title: '}

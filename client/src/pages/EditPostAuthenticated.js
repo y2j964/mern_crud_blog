@@ -45,7 +45,7 @@ function EditPostAuthenticated({
     setIsSubmitting(false);
   }, [errorMessage]);
 
-  const onSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     setIsSubmitting(true);
@@ -81,7 +81,7 @@ function EditPostAuthenticated({
         }
         message={'Changes have not been saved. Are you sure you want to exit?'}
       />
-      <form action="" onSubmit={onSubmit}>
+      <form action="" onSubmit={handleSubmit}>
         <WithErrorNotification error={errorMessage} />
         <InputText
           labelText={'Title: '}
