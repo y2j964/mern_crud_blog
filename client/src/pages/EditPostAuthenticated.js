@@ -9,6 +9,7 @@ import { InputText } from '../components/Input';
 import TextArea from '../components/TextArea';
 import { postType } from '../components/Card/types';
 import WithErrorNotification from '../components/WithErrorNotification';
+import { AccentButton } from '../components/Button/Button';
 
 function EditPostAuthenticated({
   history,
@@ -104,13 +105,13 @@ function EditPostAuthenticated({
           value={postBodyValue}
           handleChange={e => setPostBodyValue(e.target.value)}
         />
-        <button
+        <AccentButton
           type="submit"
-          className="accent-btn accent-btn--is-glowing w-full mt-2"
+          additionalClasses="w-full mt-2"
           disabled={isSubmitting}
         >
           {!isSubmitting ? 'Submit' : 'Pending . . .'}
-        </button>
+        </AccentButton>
       </form>
     </React.Fragment>
   );

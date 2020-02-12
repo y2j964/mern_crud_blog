@@ -7,6 +7,7 @@ import { registerUser } from '../actions/sessionActions';
 import { clearSessionStatuses } from '../actions/communicationActions';
 import WithErrorNotification from './WithErrorNotification';
 import WithSuccessNotification from './WithSuccessNotification';
+import { AccentButton } from './Button/Button';
 
 function Register({
   handleClose,
@@ -111,15 +112,15 @@ function Register({
             Passwords must be at least 8 characters long.
           </small>
         </InputPassword>
-        <button
+        <AccentButton
           type="submit"
-          className="accent-btn accent-btn--is-glowing w-full mt-2"
+          additionalClasses="w-full mt-2"
           disabled={isSubmitting || submissionSuccess}
           tabIndex={tabIndex}
-          data-testid="submitRegister"
+          dataTestId="submitRegister"
         >
           {!isSubmitting || submissionSuccess ? 'Register' : 'Pending . . .'}
-        </button>
+        </AccentButton>
       </form>
       <button
         className="text-blue-400 mt-3"

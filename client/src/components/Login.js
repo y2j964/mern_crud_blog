@@ -7,6 +7,7 @@ import { loginUser } from '../actions/sessionActions';
 import { clearSessionStatuses } from '../actions/communicationActions';
 import WithErrorNotification from './WithErrorNotification';
 import WithSuccessNotification from './WithSuccessNotification';
+import { AccentButton } from './Button/Button';
 
 function Login({
   setAuthModalPosition,
@@ -105,15 +106,15 @@ function Login({
             Passwords must be at least 8 characters long.
           </small>
         </InputPassword>
-        <button
+        <AccentButton
           type="submit"
-          className="accent-btn accent-btn--is-glowing w-full mt-2"
+          additionalClasses="w-full mt-2"
           tabIndex={tabIndex}
           disabled={isSubmitting || submissionSuccess}
-          data-testid="submitLogin"
+          dataTestId="submitLogin"
         >
           {!isSubmitting || submissionSuccess ? 'Log In' : 'Pending . . .'}
-        </button>
+        </AccentButton>
       </form>
       <button
         className="text-blue-400 mt-3"

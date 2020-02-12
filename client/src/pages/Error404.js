@@ -18,10 +18,10 @@ export default function Error404() {
         404 Error: Page Not Found
       </h1>
       <p className="mb-6">
-        I don't know how, but we've strayed a little too far from the beaten
-        path.
+        I don&apos;t know how, but we&apos;ve strayed a little too far from the
+        beaten path.
       </p>
-      <Link to={'/'} className="accent-btn accent-btn--inverse">
+      <Link to={'/'} className="btn btn--inverse">
         Take Me Home
       </Link>
     </main>

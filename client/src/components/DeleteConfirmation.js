@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from './Modal/Modal';
 import Dialog from './Modal/Dialog';
+import { DangerButton, NeutralButton } from './Button/Button';
 
 function DeleteConfirmation({ handleClose, deletePost }) {
   return (
@@ -16,22 +17,16 @@ function DeleteConfirmation({ handleClose, deletePost }) {
             post?
           </p>
           <div className="flex justify-around">
-            <button
-              className="accent-btn w-24 bg-gray-500"
-              onClick={handleClose}
-            >
-              Cancel
-            </button>
-            <button
-              className="accent-btn w-24 bg-red-600"
-              onClick={() => {
+            <NeutralButton handleClick={handleClose}>Cancel</NeutralButton>
+            <DangerButton
+              handleClick={() => {
                 deletePost();
                 handleClose();
               }}
-              data-testid="finalize delete"
+              dataTestId="finalize delete"
             >
               Delete
-            </button>
+            </DangerButton>
           </div>
         </div>
       </Dialog>

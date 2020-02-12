@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ import HamburgerToggle from '../HamburgerToggle/HamburgerToggle';
 import CollapsibleGroup from './CollapsibleGroup';
 import Logout from '../Logout';
 import SearchModalTrigger from '../SearchBox/SearchModalTrigger';
-import AccentButton from '../AccentButton';
+import { AccentButton } from '../Button/Button';
 import ButtonLink from '../ButtonLink';
 import SearchModal from '../SearchModal';
 
@@ -20,7 +20,6 @@ function Navbar({
 }) {
   const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false);
   const openSearchModal = () => setIsSearchBoxOpen(true);
-  const collapsibleGroupRef = useRef();
 
   return (
     <nav className="navbar">
@@ -31,7 +30,6 @@ function Navbar({
       />
       <NavbarBrand />
       <CollapsibleGroup
-        ref={collapsibleGroupRef}
         collapsibleNavIsExpanded={collapsibleNavIsExpanded}
         openSearchModal={openSearchModal}
       />

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Modal from './Modal/Modal';
 import Dialog from './Modal/Dialog';
+import { WindowButton } from './Button/Button';
 
 export default function UserConfirmation({ message, callback }) {
   const [isHidden, setIsHidden] = useState();
@@ -29,18 +30,12 @@ export default function UserConfirmation({ message, callback }) {
           </h2>
           <p className="mb-5 text-center">{message}</p>
           <div className="flex justify-around">
-            <button
-              className="accent-btn w-24 bg-gray-300 text-black"
-              onClick={() => closeModal(false)}
-            >
+            <WindowButton handleClick={() => closeModal(false)}>
               No
-            </button>
-            <button
-              className="accent-btn w-24 bg-gray-300 text-black"
-              onClick={() => closeModal(true)}
-            >
+            </WindowButton>
+            <WindowButton handleClick={() => closeModal(true)}>
               Yes
-            </button>
+            </WindowButton>
           </div>
         </div>
       </Dialog>
