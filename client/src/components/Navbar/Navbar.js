@@ -5,16 +5,17 @@ import { connect } from 'react-redux';
 import NavbarBrand from './NavbarBrand';
 import HamburgerToggle from '../HamburgerToggle/HamburgerToggle';
 import CollapsibleGroup from './CollapsibleGroup';
-import Logout from '../Logout';
 import SearchModalTrigger from '../SearchBox/SearchModalTrigger';
 import { AccentButton } from '../Button/Button';
 import ButtonLink from '../ButtonLink';
 import SearchModal from '../SearchModal';
+import { logoutUser } from '../../actions/sessionActions';
 
 function Navbar({
   collapsibleNavIsExpanded,
   toggleCollapsibleNav,
   setAuthModalPosition,
+  logoutUser,
   isAuthenticated,
   children,
 }) {
@@ -35,7 +36,12 @@ function Navbar({
       />
       <div className="ml-auto flex items-center order-2 md:order-3 relative">
         {isAuthenticated ? (
-          <Logout additionalClasses="pseudo-underline mr-2 sm:mr-5" />
+          <ButtonLink
+            additionalClasses="hidden md:block mr-2 sm:mr-3"
+            handleClick={logoutUser}
+          >
+            Logout
+          </ButtonLink>
         ) : (
           <React.Fragment>
             <ButtonLink
@@ -79,6 +85,7 @@ Navbar.propTypes = {
   collapsibleNavIsExpanded: PropTypes.bool.isRequired,
   toggleCollapsibleNav: PropTypes.func.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   children: PropTypes.node,
 };
@@ -87,4 +94,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.session.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { logoutUser })(Navbar);
