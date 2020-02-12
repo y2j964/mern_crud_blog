@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Lock({ width, height, fill, additionalClasses }) {
+function Lock({ width, height, fill, additionalClasses }) {
   return (
     <svg
       viewBox="0 0 32 32"
@@ -22,3 +22,5 @@ Lock.propTypes = {
   fill: PropTypes.string,
   additionalClasses: PropTypes.string,
 };
+
+export default Lock;

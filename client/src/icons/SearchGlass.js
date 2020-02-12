@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function SearchGlass({
+function SearchGlass({
   width,
   height,
   fill,
@@ -27,3 +27,5 @@ SearchGlass.propTypes = {
   fill: PropTypes.string,
   additionalClasses: PropTypes.string,
 };
+
+export default SearchGlass;

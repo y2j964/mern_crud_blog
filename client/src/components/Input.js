@@ -40,11 +40,11 @@ function Input({
   );
 }
 
-export const InputText = props => <Input {...props} type="text" />;
-export const InputEmail = props => (
+const InputText = props => <Input {...props} type="text" />;
+const InputEmail = props => (
   <Input {...props} type="email" autoComplete="email" isRequired />
 );
-export const InputPassword = props => (
+const InputPassword = props => (
   <Input
     {...props}
     type="password"
@@ -74,3 +74,4 @@ InputPassword.propTypes = {
 };
 
 export default Input;
+export { InputText, InputEmail, InputPassword };

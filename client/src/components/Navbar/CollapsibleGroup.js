@@ -22,10 +22,7 @@ const collapsibleGroupItemsData = [
   },
 ];
 
-export default function CollapsibleGroup({
-  collapsibleNavIsExpanded,
-  openSearchModal,
-}) {
+function CollapsibleGroup({ collapsibleNavIsExpanded, openSearchModal }) {
   const collapsibleGroupItemsFrags = collapsibleGroupItemsData.map(item => {
     return (
       <CollapsibleGroupItem key={item.id} slug={item.slug}>
@@ -55,3 +52,5 @@ CollapsibleGroup.propTypes = {
   collapsibleNavIsExpanded: PropTypes.bool.isRequired,
   openSearchModal: PropTypes.func.isRequired,
 };
+
+export default CollapsibleGroup;

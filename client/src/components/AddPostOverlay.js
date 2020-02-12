@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Plus from '../icons/Plus';
 
-export default function AddPostOverlay() {
+function AddPostOverlay() {
   return (
     <div className="fixed bottom-0 right-0 p-4">
       <Link
@@ -14,3 +14,5 @@ export default function AddPostOverlay() {
     </div>
   );
 }
+
+export default AddPostOverlay;

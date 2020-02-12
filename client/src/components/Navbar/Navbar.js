@@ -15,6 +15,7 @@ function Navbar({
   collapsibleNavIsExpanded,
   toggleCollapsibleNav,
   setAuthModalPosition,
+  // eslint-disable-next-line no-shadow
   logoutUser,
   isAuthenticated,
   children,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Close({ width, height, fill }) {
+function Close({ width, height, fill }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -20,3 +20,5 @@ Close.propTypes = {
   height: PropTypes.string,
   fill: PropTypes.string,
 };
+
+export default Close;

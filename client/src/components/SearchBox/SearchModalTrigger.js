@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import SearchGlass from '../../icons/SearchGlass';
 import Close from '../../icons/Close';
 
-export default function SearchModalTrigger({
-  openSearchModal,
-  isSearchBoxOpen,
-}) {
+function SearchModalTrigger({ openSearchModal, isSearchBoxOpen }) {
   return (
     <React.Fragment>
       <button
@@ -29,3 +26,5 @@ SearchModalTrigger.propTypes = {
   openSearchModal: PropTypes.func.isRequired,
   isSearchBoxOpen: PropTypes.bool.isRequired,
 };
+
+export default SearchModalTrigger;

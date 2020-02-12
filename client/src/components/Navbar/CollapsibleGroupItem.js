@@ -2,11 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export default function CollapsibleGroupItem({
-  children,
-  slug,
-  additionalClasses,
-}) {
+function CollapsibleGroupItem({ children, slug, additionalClasses }) {
   return (
     <li>
       <NavLink
@@ -26,3 +22,5 @@ CollapsibleGroupItem.propTypes = {
   slug: PropTypes.string.isRequired,
   additionalClasses: PropTypes.string,
 };
+
+export default CollapsibleGroupItem;

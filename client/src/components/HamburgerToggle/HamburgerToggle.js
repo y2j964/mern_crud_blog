@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import HamburgerMenu from '../../icons/HamburgerMenu';
 
-export default function HamburgerToggle({
+function HamburgerToggle({
   controls,
   collapsibleNavIsExpanded,
   handleClick,
@@ -25,3 +25,5 @@ HamburgerToggle.propTypes = {
   collapsibleNavIsExpanded: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
+
+export default HamburgerToggle

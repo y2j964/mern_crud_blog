@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../icons/Spinner';
 
-export default function WithLoadingIndicator({
+function WithLoadingIndicator({
   isLoading,
   Component = Spinner,
   render,
@@ -15,3 +15,5 @@ WithLoadingIndicator.propTypes = {
   Component: PropTypes.elementType,
   render: PropTypes.func.isRequired,
 };
+
+export default WithLoadingIndicator;

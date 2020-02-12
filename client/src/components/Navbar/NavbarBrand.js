@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function NavbarBrand() {
+function NavbarBrand() {
   return (
     <div
       className="flex-1 self-center md:flex-none md:self-auto text-center"
@@ -19,3 +19,5 @@ export default function NavbarBrand() {
     </div>
   );
 }
+
+export default NavbarBrand;

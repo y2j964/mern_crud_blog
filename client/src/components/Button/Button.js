@@ -34,7 +34,7 @@ Button.propTypes = {
   children: PropTypes.node,
 };
 
-export const AccentButton = props => (
+const AccentButton = props => (
   <Button
     {...props}
     additionalClasses={`btn--accent ${props.additionalClasses || ''}`}
@@ -44,7 +44,7 @@ AccentButton.propTypes = {
   additionalClasses: PropTypes.string,
 };
 
-export const InverseButton = props => (
+const InverseButton = props => (
   <Button
     {...props}
     additionalClasses={`btn--inverse ${props.additionalClasses || ''}`}
@@ -54,7 +54,7 @@ InverseButton.propTypes = {
   additionalClasses: PropTypes.string,
 };
 
-export const WindowButton = props => (
+const WindowButton = props => (
   <Button
     {...props}
     additionalClasses={`btn--window ${props.additionalClasses || ''}`}
@@ -64,7 +64,7 @@ WindowButton.propTypes = {
   additionalClasses: PropTypes.string,
 };
 
-export const NeutralButton = props => (
+const NeutralButton = props => (
   <Button
     {...props}
     additionalClasses={`btn--neutral ${props.additionalClasses || ''}`}
@@ -74,7 +74,7 @@ NeutralButton.propTypes = {
   additionalClasses: PropTypes.string,
 };
 
-export const DangerButton = props => (
+const DangerButton = props => (
   <Button
     {...props}
     additionalClasses={`btn--danger ${props.additionalClasses || ''}`}
@@ -82,4 +82,12 @@ export const DangerButton = props => (
 );
 DangerButton.propTypes = {
   additionalClasses: PropTypes.string,
+};
+
+export {
+  AccentButton,
+  InverseButton,
+  WindowButton,
+  NeutralButton,
+  DangerButton,
 };

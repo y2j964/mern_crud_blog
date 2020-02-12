@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Error404() {
+function Error404() {
   const ref = useRef();
   useEffect(() => {
     document.title = '404 Error - MERN Crud Blog';
@@ -27,3 +27,5 @@ export default function Error404() {
     </main>
   );
 }
+
+export default Error404;

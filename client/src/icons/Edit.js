@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Edit({ width, height, fill, additionalClasses }) {
+function Edit({ width, height, fill, additionalClasses }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -23,3 +23,4 @@ Edit.propTypes = {
   additionalClasses: PropTypes.string,
 };
 
+export default Edit;

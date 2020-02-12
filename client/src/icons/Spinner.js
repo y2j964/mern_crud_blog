@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Spinner() {
+function Spinner() {
   return (
     <div className="flex justify-center items-center" role="status">
       <span className="sr-only">Loading...</span>
@@ -257,3 +257,5 @@ export default function Spinner() {
     </div>
   );
 }
+
+export default Spinner;

@@ -7,7 +7,7 @@ function InputPrompt() {
   )
 }
 
-export default function WithInputPrompt({ inputValue, render }) {
+function WithInputPrompt({ inputValue, render }) {
   return !inputValue ? <InputPrompt /> : render();
 }
 
@@ -15,3 +15,5 @@ WithInputPrompt.propTypes = {
   inputValue: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired,
 };
+
+export default WithInputPrompt;

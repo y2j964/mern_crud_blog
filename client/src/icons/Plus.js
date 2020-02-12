@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Plus({ width, height, fill, additionalClasses }) {
+function Plus({ width, height, fill, additionalClasses }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -22,3 +22,5 @@ Plus.propTypes = {
   fill: PropTypes.string,
   additionalClasses: PropTypes.string,
 };
+
+export default Plus;

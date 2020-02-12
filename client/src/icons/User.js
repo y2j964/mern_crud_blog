@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function User({ width, height, fill }) {
+function User({ width, height, fill }) {
   return (
     <svg
       viewBox="0 0 32 32"
@@ -21,3 +21,5 @@ User.propTypes = {
   height: PropTypes.string,
   fill: PropTypes.string,
 };
+
+export default User;

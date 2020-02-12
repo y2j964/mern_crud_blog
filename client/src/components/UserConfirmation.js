@@ -5,7 +5,7 @@ import Modal from './Modal/Modal';
 import Dialog from './Modal/Dialog';
 import { WindowButton } from './Button/Button';
 
-export default function UserConfirmation({ message, callback }) {
+function UserConfirmation({ message, callback }) {
   const [isHidden, setIsHidden] = useState();
 
   useEffect(() => {
@@ -47,3 +47,5 @@ UserConfirmation.propTypes = {
   message: PropTypes.string.isRequired,
   callback: PropTypes.func.isRequired,
 };
+
+export default UserConfirmation;

@@ -19,11 +19,13 @@ const footerItemsData = [
     id: uuid.v4(),
   },
 ];
-
-export default function FooterItems() {
+function FooterItems() {
   const footerItemFrags = footerItemsData.map(link => {
     const { id, ...otherProps } = link;
     return <FooterItem key={id} {...otherProps} />;
   });
   return <React.Fragment>{footerItemFrags}</React.Fragment>;
 }
+
+
+export default FooterItems;
