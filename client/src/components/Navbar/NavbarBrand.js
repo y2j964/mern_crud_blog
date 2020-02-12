@@ -11,7 +11,7 @@ function NavbarBrand() {
       <NavLink
         to={'/'}
         exact
-        className={`navbar__link pseudo-underline navbar__link--is-active inline-block text-base`}
+        className={`navbar__link pseudo-underline inline-block text-base`}
         activeClassName={`navbar__link--is-active`}
       >
         Crud Blog
