@@ -49,7 +49,7 @@ function Navbar({
               handleClick={() => setAuthModalPosition('login')}
               dataTestId="desktopLoginModalBtn"
             >
-              Log in
+              Login
             </ButtonLink>
             <AccentButton
               additionalClasses="navbar__link hidden md:block mr-1"

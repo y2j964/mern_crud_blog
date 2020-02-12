@@ -10,17 +10,17 @@
     transition: opacity 300ms ease-in-out;
 
     @media (--sm) {
-      @apply text-base mr-0;
+      @apply mr-0;
+    }
+
+    @media (--md) {
+      @apply my-0 mr-8 py-2 text-base;
+      /* only want vertical padding on md screen b/c otherwise
+      there is no separation between items in collapsible menu */
     }
 
     &--is-active {
       @apply font-bold;
-    }
-
-    @media (--md) {
-      @apply my-0 mr-8 py-2;
-      /* only want vertical padding on md screen b/c otherwise
-      there is no separation between items in collapsible menu */
     }
   }
 }

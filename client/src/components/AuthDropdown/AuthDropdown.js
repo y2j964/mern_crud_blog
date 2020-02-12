@@ -23,7 +23,7 @@ function AuthDropdown({ isAuthenticated, setAuthModalPosition }) {
         {isAuthenticated ? (
           <li>
             <button className="auth-dropdown__item" onClick={logoutUser}>
-              Log out
+              Log Out
             </button>
           </li>
         ) : (
@@ -34,7 +34,7 @@ function AuthDropdown({ isAuthenticated, setAuthModalPosition }) {
                 onClick={() => setAuthModalPosition('login')}
                 data-testid="mobileLoginModalBtn"
               >
-                Log in
+                Log In
               </button>
             </li>
             <li>
