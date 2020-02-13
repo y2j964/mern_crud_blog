@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import AddPostAuthenticated from '../components/AddPostAuthenticated';
+import AddPostForm from '../components/AddPostForm';
 import LockScreen from '../components/LockScreen';
 
 // eslint-disable-next-line no-shadow
@@ -28,7 +28,7 @@ function AddPost({ isAuthenticated, openLogin }) {
           openLogin={openLogin}
         />
       ) : (
-        <AddPostAuthenticated />
+        <AddPostForm />
       )}
     </main>
   );

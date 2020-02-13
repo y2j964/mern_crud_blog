@@ -11,7 +11,7 @@ import { postType } from './Card/types';
 import WithErrorNotification from './WithErrorNotification';
 import { AccentButton } from './Button/Button';
 
-function EditPostAuthenticated({
+function EditPostForm({
   history,
   post,
   // eslint-disable-next-line no-shadow
@@ -116,7 +116,7 @@ function EditPostAuthenticated({
   );
 }
 
-EditPostAuthenticated.propTypes = {
+EditPostForm.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       postSlug: PropTypes.string,
@@ -136,5 +136,5 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, { updatePost })(EditPostAuthenticated)
+  connect(mapStateToProps, { updatePost })(EditPostForm)
 );

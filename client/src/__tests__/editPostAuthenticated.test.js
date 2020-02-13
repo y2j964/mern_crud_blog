@@ -5,7 +5,7 @@ import axiosMock from 'axios';
 import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import renderWithRedux from './utils/renderWithRedux';
-import EditPostAuthenticated from '../components/EditPostAuthenticated';
+import EditPostForm from '../components/EditPostForm';
 
 jest.mock('axios');
 
@@ -58,11 +58,7 @@ const setupPostForm = () => {
 
   const utils = renderWithRedux(
     <Router history={history}>
-      <Route
-        exact
-        path="/edit-posts/:postSlug"
-        component={EditPostAuthenticated}
-      />
+      <Route exact path="/edit-posts/:postSlug" component={EditPostForm} />
     </Router>,
     { initialState }
   );

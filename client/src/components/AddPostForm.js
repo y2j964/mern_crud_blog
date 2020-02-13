@@ -10,7 +10,7 @@ import TextArea from './TextArea';
 import WithErrorNotification from './WithErrorNotification';
 import { AccentButton } from './Button/Button';
 
-function AddPostAuthenticated({
+function AddPostForm({
   history,
   // eslint-disable-next-line no-shadow
   addPost,
@@ -116,7 +116,7 @@ function AddPostAuthenticated({
   );
 }
 
-AddPostAuthenticated.propTypes = {
+AddPostForm.propTypes = {
   addPost: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   authorSlug: PropTypes.string.isRequired,
@@ -132,6 +132,4 @@ const mapStateToProps = state => ({
   postSuccess: state.communication.posts.success,
 });
 
-export default withRouter(
-  connect(mapStateToProps, { addPost })(AddPostAuthenticated)
-);
+export default withRouter(connect(mapStateToProps, { addPost })(AddPostForm));
