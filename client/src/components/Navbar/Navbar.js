@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import NavbarBrand from './NavbarBrand';
 import HamburgerToggle from '../HamburgerToggle/HamburgerToggle';
 import CollapsibleGroup from './CollapsibleGroup';
-import SearchModalTrigger from '../Search/SearchModalTrigger';
+import SearchFilterTrigger from '../Search/SearchFilterTrigger';
 import { AccentButton } from '../Button/Button';
 import ButtonLink from '../Button/ButtonLink';
-import SearchModal from '../Search/SearchModal';
+import SearchFilter from '../Search/SearchFilter';
 import { logoutUser } from '../../actions/sessionActions';
 
 function Navbar({
@@ -20,8 +20,8 @@ function Navbar({
   isAuthenticated,
   children,
 }) {
-  const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false);
-  const openSearchModal = () => setIsSearchBoxOpen(true);
+  const [isSearchFilterOpen, setIsSearchFilterOpen] = useState(false);
+  const openSearchFilter = () => setIsSearchFilterOpen(true);
 
   return (
     <nav className="navbar">
@@ -33,7 +33,7 @@ function Navbar({
       <NavbarBrand />
       <CollapsibleGroup
         collapsibleNavIsExpanded={collapsibleNavIsExpanded}
-        openSearchModal={openSearchModal}
+        openSearchFilter={openSearchFilter}
       />
       <div className="ml-auto flex items-center order-2 md:order-3 relative">
         {isAuthenticated ? (
@@ -62,19 +62,19 @@ function Navbar({
           </React.Fragment>
         )}
         {children}
-        <SearchModalTrigger
-          openSearchModal={openSearchModal}
-          isSearchBoxOpen={isSearchBoxOpen}
+        <SearchFilterTrigger
+          openSearchFilter={openSearchFilter}
+          isSearchFilterOpen={isSearchFilterOpen}
         />
         <CSSTransition
-          in={isSearchBoxOpen}
+          in={isSearchFilterOpen}
           timeout={{ enter: 150, exit: 300 }}
           unmountOnExit
           classNames="fade"
         >
-          <SearchModal
-            isOpen={isSearchBoxOpen}
-            handleClose={() => setIsSearchBoxOpen(false)}
+          <SearchFilter
+            isOpen={isSearchFilterOpen}
+            handleClose={() => setIsSearchFilterOpen(false)}
           />
         </CSSTransition>
       </div>

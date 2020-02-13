@@ -35,7 +35,7 @@ export const getFilteredPosts = (dataSource, searchQuery) => {
   return updatedFilteredPosts;
 };
 
-function SearchModal({
+function SearchFilter({
   isOpen,
   handleClose,
   posts,
@@ -121,7 +121,7 @@ function SearchModal({
   );
 }
 
-SearchModal.propTypes = {
+SearchFilter.propTypes = {
   posts: postsType,
   isOpen: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
@@ -135,4 +135,4 @@ const mapStateToProps = state => ({
   isLoading: state.communication.posts.isLoading,
 });
 
-export default connect(mapStateToProps, { getPosts })(SearchModal);
+export default connect(mapStateToProps, { getPosts })(SearchFilter);

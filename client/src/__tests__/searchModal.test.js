@@ -66,8 +66,8 @@ test('launch search modal in mobile view, successfully search for posts, and clo
     { initialState }
   );
 
-  const searchModalBtn = getByTestId('searchMobile');
-  fireEvent.click(searchModalBtn);
+  const searchFilterBtn = getByTestId('searchMobile');
+  fireEvent.click(searchFilterBtn);
 
   const searchInput = getByLabelText(/Search MERN Crud Blog/i);
   expect(searchInput).toBeInTheDocument();
@@ -124,8 +124,8 @@ test('launch search modal in mobile view, unsuccessfully search for posts, and c
     { initialState }
   );
 
-  const searchModalBtn = getByTestId('searchMobile');
-  fireEvent.click(searchModalBtn);
+  const searchFilterBtn = getByTestId('searchMobile');
+  fireEvent.click(searchFilterBtn);
 
   const searchInput = getByLabelText(/Search MERN Crud Blog/i);
   expect(searchInput).toBeInTheDocument();
@@ -177,8 +177,8 @@ test('launch search modal in desktop view, and close modal', () => {
     { initialState }
   );
 
-  const searchModalBtn = getByTestId('searchDesktop');
-  fireEvent.click(searchModalBtn);
+  const searchFilterBtn = getByTestId('searchDesktop');
+  fireEvent.click(searchFilterBtn);
 
   const searchInput = getByLabelText(/Search MERN Crud Blog/i);
   expect(searchInput).toBeInTheDocument();

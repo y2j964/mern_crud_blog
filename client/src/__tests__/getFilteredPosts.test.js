@@ -1,4 +1,4 @@
-import { getFilteredPosts } from '../components/Search/SearchModal';
+import { getFilteredPosts } from '../components/Search/SearchFilter';
 
 const initialState = {
   posts: {

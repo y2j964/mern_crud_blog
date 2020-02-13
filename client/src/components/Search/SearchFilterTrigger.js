@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import SearchGlass from '../../icons/SearchGlass';
 import Close from '../../icons/Close';
 
-function SearchModalTrigger({ openSearchModal, isSearchBoxOpen }) {
+function SearchFilterTrigger({ openSearchFilter, isSearchFilterOpen }) {
   return (
     <React.Fragment>
       <button
         className="p-1 hidden md:block"
         aria-label="search for post"
         data-testid="searchDesktop"
-        onClick={openSearchModal}
+        onClick={openSearchFilter}
       >
-        {!isSearchBoxOpen ? (
+        {!isSearchFilterOpen ? (
           <SearchGlass fill="#000" />
         ) : (
           <Close fill="#000" width="20px" height="20px" />
@@ -22,9 +22,9 @@ function SearchModalTrigger({ openSearchModal, isSearchBoxOpen }) {
   );
 }
 
-SearchModalTrigger.propTypes = {
-  openSearchModal: PropTypes.func.isRequired,
-  isSearchBoxOpen: PropTypes.bool.isRequired,
+SearchFilterTrigger.propTypes = {
+  openSearchFilter: PropTypes.func.isRequired,
+  isSearchFilterOpen: PropTypes.bool.isRequired,
 };
 
-export default SearchModalTrigger;
+export default SearchFilterTrigger;

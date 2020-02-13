@@ -22,7 +22,7 @@ const collapsibleGroupItemsData = [
   },
 ];
 
-function CollapsibleGroup({ collapsibleNavIsExpanded, openSearchModal }) {
+function CollapsibleGroup({ collapsibleNavIsExpanded, openSearchFilter }) {
   const collapsibleGroupItemsFrags = collapsibleGroupItemsData.map(item => {
     return (
       <CollapsibleGroupItem key={item.id} slug={item.slug}>
@@ -40,7 +40,7 @@ function CollapsibleGroup({ collapsibleNavIsExpanded, openSearchModal }) {
     >
       {collapsibleGroupItemsFrags}
       <li className="flex items-center md:hidden">
-        <ButtonLink handleClick={openSearchModal} dataTestId="searchMobile">
+        <ButtonLink handleClick={openSearchFilter} dataTestId="searchMobile">
           Search
         </ButtonLink>
       </li>
@@ -50,7 +50,7 @@ function CollapsibleGroup({ collapsibleNavIsExpanded, openSearchModal }) {
 
 CollapsibleGroup.propTypes = {
   collapsibleNavIsExpanded: PropTypes.bool.isRequired,
-  openSearchModal: PropTypes.func.isRequired,
+  openSearchFilter: PropTypes.func.isRequired,
 };
 
 export default CollapsibleGroup;
