@@ -10,7 +10,7 @@
 @import 'components/Navbar/navbar.css';
 @import 'components/Navbar/collapsible-group.css';
 @import 'components/Notification/notification.css';
-@import 'components/SearchBox/search-box.css';
+@import 'components/Search/search-box.css';
 /* purgecss end ignore */
 @import 'tailwindcss/utilities';
 
