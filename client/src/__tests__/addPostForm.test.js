@@ -62,7 +62,7 @@ afterEach(() => {
   axiosMock.post.mockClear();
 });
 
-test('displays success messages and behavior from post patch submission', async () => {
+test('displays success messages and behavior from add post submission', async () => {
   axiosMock.post.mockResolvedValueOnce({
     data: addedPost,
   });
@@ -93,7 +93,7 @@ test('displays success messages and behavior from post patch submission', async 
   expect(getByText(/navigating back to posts/i)).toBeInTheDocument();
 });
 
-test('displays error messages and behavior from post patch submission', async () => {
+test('displays error messages and behavior from add post submission', async () => {
   axiosMock.post.mockRejectedValueOnce({
     response: { data: { message: 'error message' } },
   });

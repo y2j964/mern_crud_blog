@@ -64,13 +64,7 @@ test('launch login modal, toggle modal views, and close login modal in desktop v
 
 test('launch register modal and close register modal in desktop view', async () => {
   const history = createMemoryHistory();
-  const {
-    getByText,
-    getByRole,
-    queryByRole,
-    getByLabelText,
-    getByTestId,
-  } = render(
+  const { getByRole, queryByRole, getByLabelText, getByTestId } = render(
     <React.Fragment>
       <Router history={history}>
         <App />
@@ -102,13 +96,7 @@ test('launch register modal and close register modal in desktop view', async () 
 
 test('launch login modal and close login modal in mobile view', async () => {
   const history = createMemoryHistory();
-  const {
-    getByText,
-    getByRole,
-    queryByRole,
-    getByLabelText,
-    getByTestId,
-  } = render(
+  const { getByRole, queryByRole, getByLabelText, getByTestId } = render(
     <React.Fragment>
       <Router history={history}>
         <App />
@@ -140,13 +128,7 @@ test('launch login modal and close login modal in mobile view', async () => {
 
 test('launch register modal and close register modal in mobile view', async () => {
   const history = createMemoryHistory();
-  const {
-    getByText,
-    getByRole,
-    queryByRole,
-    getByLabelText,
-    getByTestId,
-  } = render(
+  const { getByRole, queryByRole, getByLabelText, getByTestId } = render(
     <React.Fragment>
       <Router history={history}>
         <App />
