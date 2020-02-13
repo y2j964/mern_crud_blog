@@ -72,9 +72,9 @@ router.delete('/:id', verifyToken, (req, res) => {
 router.patch('/:id', verifyToken, async (req, res) => {
   const { title } = req.body;
   const postDuplicate = await Post.findOne({ title });
-  if (postDuplicate) {
-    // req.body.postSlug = 'new-slug';
-    // console.log(req.body);
+
+  // if title already exists, and it has a diff id than the post being edited, bail.
+  if (postDuplicate && !postDuplicate._id.equals(req.body._id)) {
     return res.status(400).json({
       message:
         'An post already exists with that title. Please choose a different title.',
