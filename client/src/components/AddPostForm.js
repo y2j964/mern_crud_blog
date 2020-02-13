@@ -4,7 +4,6 @@ import { withRouter, Prompt } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addPost } from '../actions/postActions';
 import { getName, getAuthorSlug } from '../selectors/sessionSelector';
-import { generateSlug } from '../utils/generateSlug';
 import { InputText } from './Input';
 import TextArea from './TextArea';
 import WithErrorNotification from './WithErrorNotification';
@@ -51,7 +50,6 @@ function AddPostForm({
       body: postBodyValue,
       author: name,
       authorSlug,
-      postSlug: generateSlug(postTitleValue),
     };
 
     addPost(post);

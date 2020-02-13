@@ -2,14 +2,9 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('../../middleware/verifyToken');
+const generateSlug = require('../../utils/generateSlug');
 const router = express.Router();
 require('dotenv').config();
-
-const generateSlug = str =>
-  str
-    .toLowerCase()
-    .split(' ')
-    .join('-');
 
 // encrypts password(hash) with additional layer of complexity added(salt)
 const getEncryptedPassword = async password => {
@@ -38,7 +33,9 @@ router.post('/', async (req, res) => {
   // check for existing user
   const user = await User.findOne({ email });
   if (user) {
-    return res.status(400).json({ message: 'Email address is already registered' });
+    return res
+      .status(400)
+      .json({ message: 'Email address is already registered' });
   }
   const newUser = new User({
     name,

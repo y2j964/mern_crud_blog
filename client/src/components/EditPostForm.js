@@ -4,7 +4,6 @@ import { withRouter, Prompt } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getPost } from '../selectors/postSelectors';
 import { updatePost } from '../actions/postActions';
-import { generateSlug } from '../utils/generateSlug';
 import { InputText } from './Input';
 import TextArea from './TextArea';
 import { postType } from './Card/types';
@@ -55,7 +54,6 @@ function EditPostForm({
       title: postTitleValue,
       description: postDescriptionValue,
       body: postBodyValue,
-      postSlug: generateSlug(postTitleValue),
     };
 
     updatePost(updatedPost);

@@ -1,12 +1,7 @@
 const express = require('express');
 const verifyToken = require('../../middleware/verifyToken');
+const generateSlug = require('../../utils/generateSlug');
 const router = express.Router();
-
-const generateSlug = str =>
-  str
-    .toLowerCase()
-    .split(' ')
-    .join('-');
 
 // Post Model
 const Post = require('../../models/Post');
@@ -78,6 +73,8 @@ router.patch('/:id', verifyToken, async (req, res) => {
   const { title } = req.body;
   const postDuplicate = await Post.findOne({ title });
   if (postDuplicate) {
+    // req.body.postSlug = 'new-slug';
+    // console.log(req.body);
     return res.status(400).json({
       message:
         'An post already exists with that title. Please choose a different title.',
@@ -85,6 +82,9 @@ router.patch('/:id', verifyToken, async (req, res) => {
   }
   try {
     const post = await Post.findById(req.params.id);
+    req.body.postSlug = generateSlug(title);
+    // in the event that you change the title, you should reflect that in the slug
+
     post.set(req.body);
     post.save().then(() => res.json(post));
   } catch (err) {
