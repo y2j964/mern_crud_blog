@@ -18,40 +18,20 @@ import EditPost from './pages/EditPost';
 import Error404 from './pages/Error404';
 import store from './store';
 import { getUser } from './actions/sessionActions';
-import { clearStatuses } from './actions/communicationActions';
 import AuthDropdown from './components/AuthDropdown/AuthDropdown';
 import ScrollToTop from './components/ScrollToTop';
 
-function App({ location, history }) {
-  const [collapsibleNavIsExpanded, setCollapsibleNavIsExpanded] = useState(
-    false
-  );
+function App({ location }) {
   const [authModalPosition, setAuthModalPosition] = useState();
 
   useEffect(() => {
     store.dispatch(getUser());
   }, []);
 
-  useEffect(() => {
-    const unlisten = history.listen(() => {
-      store.dispatch(clearStatuses());
-      setCollapsibleNavIsExpanded(false);
-    });
-    return () => {
-      unlisten();
-    };
-  }, [history]);
-
   return (
     <Provider store={store}>
       <ScrollToTop />
-      <Navbar
-        collapsibleNavIsExpanded={collapsibleNavIsExpanded}
-        toggleCollapsibleNav={() =>
-          setCollapsibleNavIsExpanded(!collapsibleNavIsExpanded)
-        }
-        setAuthModalPosition={setAuthModalPosition}
-      >
+      <Navbar setAuthModalPosition={setAuthModalPosition}>
         <AuthDropdown setAuthModalPosition={setAuthModalPosition} />
       </Navbar>
       <Switch location={location}>

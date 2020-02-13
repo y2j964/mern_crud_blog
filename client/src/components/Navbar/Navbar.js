@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import NavbarBrand from './NavbarBrand';
@@ -10,25 +11,44 @@ import { AccentButton } from '../Button/Button';
 import ButtonLink from '../Button/ButtonLink';
 import SearchFilter from '../Search/SearchFilter';
 import { logoutUser } from '../../actions/sessionActions';
+import { clearStatuses } from '../../actions/communicationActions';
 
 function Navbar({
-  collapsibleNavIsExpanded,
-  toggleCollapsibleNav,
+  history,
   setAuthModalPosition,
   // eslint-disable-next-line no-shadow
   logoutUser,
+  // eslint-disable-next-line no-shadow
+  clearStatuses,
   isAuthenticated,
   children,
 }) {
+  const [collapsibleNavIsExpanded, setCollapsibleNavIsExpanded] = useState(
+    false
+  );
   const [isSearchFilterOpen, setIsSearchFilterOpen] = useState(false);
   const openSearchFilter = () => setIsSearchFilterOpen(true);
+
+  // on route change . . .
+  useEffect(() => {
+    const unlisten = history.listen(() => {
+      clearStatuses();
+      setCollapsibleNavIsExpanded(false);
+      setIsSearchFilterOpen(false);
+    });
+    return () => {
+      unlisten();
+    };
+  }, [history, clearStatuses]);
 
   return (
     <nav className="navbar">
       <HamburgerToggle
         controls="navbarCollapsibleGroup"
         collapsibleNavIsExpanded={collapsibleNavIsExpanded}
-        handleClick={() => toggleCollapsibleNav()}
+        handleClick={() =>
+          setCollapsibleNavIsExpanded(!collapsibleNavIsExpanded)
+        }
       />
       <NavbarBrand />
       <CollapsibleGroup
@@ -83,10 +103,10 @@ function Navbar({
 }
 
 Navbar.propTypes = {
-  collapsibleNavIsExpanded: PropTypes.bool.isRequired,
-  toggleCollapsibleNav: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
+  clearStatuses: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   children: PropTypes.node,
 };
@@ -95,4 +115,6 @@ const mapStateToProps = state => ({
   isAuthenticated: state.session.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Navbar);
+export default withRouter(
+  connect(mapStateToProps, { logoutUser, clearStatuses })(Navbar)
+);
