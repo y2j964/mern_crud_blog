@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { postType } from '../components/Card/types';
 import LockScreen from '../components/LockScreen';
-import EditPostAuthenticated from './EditPostAuthenticated';
+import EditPostAuthenticated from '../components/EditPostAuthenticated';
 
 // eslint-disable-next-line no-shadow
 function EditPost({ isAuthenticated, openLogin }) {

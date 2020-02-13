@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import NavbarBrand from './NavbarBrand';
 import HamburgerToggle from '../HamburgerToggle/HamburgerToggle';
 import CollapsibleGroup from './CollapsibleGroup';
-import SearchModalTrigger from '../SearchBox/SearchModalTrigger';
+import SearchModalTrigger from '../Search/SearchModalTrigger';
 import { AccentButton } from '../Button/Button';
-import ButtonLink from '../ButtonLink';
-import SearchModal from '../SearchModal';
+import ButtonLink from '../Button/ButtonLink';
+import SearchModal from '../Search/SearchModal';
 import { logoutUser } from '../../actions/sessionActions';
 
 function Navbar({

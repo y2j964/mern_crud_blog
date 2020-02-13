@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import {
   render,
@@ -17,6 +16,7 @@ test('launch login modal, toggle modal views, and close login modal in desktop v
     getByText,
     getByRole,
     queryByRole,
+    // eslint-disable-next-line no-unused-vars
     getByLabelText,
     getByTestId,
   } = render(

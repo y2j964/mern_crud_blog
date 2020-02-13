@@ -134,6 +134,16 @@ h1:focus {
   );
 }
 
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  border-top: 4px solid #000;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+
 .jitterbug {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -306,21 +316,17 @@ h1:focus {
 
 .slide-from-top {
   &-appear {
-    /* transform: scale(0.3); */
     transform: translateY(-200px);
   }
   &-appear-active {
-    /* transform: scale(1); */
     transform: translateY(0);
     transition: transform 300ms ease-out;
   }
   &-exit {
-    /* transform: scale(1); */
     transform: translateY(0);
     opacity: 1;
   }
   &-exit-active {
-    /* transform: scale(0.3); */
     transform: translateY(-200px);
     opacity: 0;
     transition: transform 300ms ease-out, opacity 175ms ease-out 125ms;
@@ -355,14 +361,4 @@ h1:focus {
 .fade-away-exit-active {
   opacity: 0;
   transition: opacity 300ms;
-}
-
-.caret {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  vertical-align: middle;
-  border-top: 4px solid #000;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
 }

@@ -17,7 +17,7 @@ Watch video demo (ADD LINK HERE).
 Interact with demo (ADD LINK HERE).
 
 ## General Info
-I have named this MERN CRUD Blog because it will later serve as scaffolding for a psychology-oriented blog site.
+This is a fullstack CRUD react app that runs via authentication. As an unauthorized user, you can read all published articles to the site. And when you sign in or register, you can additionally create articles, and manage (update and delete) your existing articles.
 
 ## Technologies
 * MongoDB
@@ -29,15 +29,19 @@ I have named this MERN CRUD Blog because it will later serve as scaffolding for 
 * Redux
 * NodeJS
 * JestJS
+* Axios
+* BcryptJS
 * Git and Git Bash
 * Tailwind CSS 1.0.4
 
 ## Features
-* Data management via Redux
-* Page transitions on route change
-* Responsive images and webp support
+* Authorized and unauthorized user experience
+* Password encryption for account in database
+* Searchbox where user can enter a query to filter the posts
+* Flip-card animation when toggling between Login and Register
+* Error/Success notifications alerting user the status of backend requests
+* Custom UI for React Router Prompt
 * Aria-supported
-* Pagination and custom InfiniteScroller
 
 ## Setup
 This project has backend scripts, frontend scripts, and joint scripts that harness concurrently. This particular setup was heavily influenced by [Brad Traversy's Learn the MERN Stack series](https://www.youtube.com/playlist?list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE). Within that framework, I'm using [create-react-app](https://github.com/facebook/create-react-app) and my custom CRA template, [cra-template-jcm-redux](https://www.npmjs.com/package/cra-template-jcm-redux/v/1.0.3). PostCSS CLI is used to configure TailwindCSS with React. This ReactJS and TailwindCSS implementation is outlined in [this Medium post by Johannes Opper](https://medium.com/@xijo/create-react-app-with-tailwind-via-postcss-plus-purgecss-5c36b4c33ba7).
@@ -99,4 +103,5 @@ Runs nodemon for a dynamic server, and runs hot reloaded React with TailwindCSS 
 ## Acknowledgements
 * The Spinner gif was generated with [loading.io]https://loading.io/.
 * The favicon was generated with [favicon.io](https://favicon.io/).
-* [Google Fonts](https://fonts.google.com/) was used for additional fonts.
+* [Body-scroll-lock](https://www.npmjs.com/package/body-scroll-lock) was used to lock the body from scrolling when the modal is open.
+* [React-focus-lock](https://www.npmjs.com/package/react-focus-lock) was used to trap focus in my modal.

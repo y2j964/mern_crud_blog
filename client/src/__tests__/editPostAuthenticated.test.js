@@ -5,7 +5,7 @@ import axiosMock from 'axios';
 import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import renderWithRedux from './utils/renderWithRedux';
-import EditPostAuthenticated from '../pages/EditPostAuthenticated';
+import EditPostAuthenticated from '../components/EditPostAuthenticated';
 
 jest.mock('axios');
 

@@ -2,33 +2,37 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Prompt } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addPost } from '../actions/postActions';
-import { getName, getAuthorSlug } from '../selectors/sessionSelector';
-import { generateSlug } from '../utilityFunctions/generateSlug';
-import { InputText } from '../components/Input';
-import TextArea from '../components/TextArea';
-import WithErrorNotification from '../components/WithErrorNotification';
-import { AccentButton } from '../components/Button/Button';
+import { getPost } from '../selectors/postSelectors';
+import { updatePost } from '../actions/postActions';
+import { generateSlug } from '../utils/generateSlug';
+import { InputText } from './Input';
+import TextArea from './TextArea';
+import { postType } from './Card/types';
+import WithErrorNotification from './WithErrorNotification';
+import { AccentButton } from './Button/Button';
 
-function AddPostAuthenticated({
+function EditPostAuthenticated({
   history,
+  post,
   // eslint-disable-next-line no-shadow
-  addPost,
-  name,
-  authorSlug,
-  errorMessage,
+  updatePost,
+  // eslint-disable-next-line no-shadow
   postSuccess,
+  errorMessage,
 }) {
-  const [postTitleValue, setPostTitleValue] = useState('');
-  const [postDescriptionValue, setPostDescriptionValue] = useState('');
-  const [postBodyValue, setPostBodyValue] = useState('');
+  const { title, description, body, _id } = post || '';
+  // need to use || so that it doesn't throw an error after submission is successful
+
+  const [postTitleValue, setPostTitleValue] = useState(title);
+  const [postDescriptionValue, setPostDescriptionValue] = useState(description);
+  const [postBodyValue, setPostBodyValue] = useState(body);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // redirect back to home if post succeeded
   useEffect(() => {
     const timeoutID = setTimeout(() => {
       if (postSuccess) {
-        history.push('/');
+        history.push('/edit-posts');
+        // redirect to main edit page if successful submission
       }
     }, 1000);
 
@@ -41,31 +45,26 @@ function AddPostAuthenticated({
   }, [errorMessage]);
 
   const handleSubmit = e => {
-    // name will come from redux auth
     e.preventDefault();
-    setIsSubmitting(true);
 
-    const post = {
+    setIsSubmitting(true);
+    const updatedPost = {
+      // ...post,
+      // don't need to copy old post here because patch request
+      _id,
       title: postTitleValue,
       description: postDescriptionValue,
       body: postBodyValue,
-      author: name,
-      authorSlug,
       postSlug: generateSlug(postTitleValue),
     };
 
-    addPost(post);
+    updatePost(updatedPost);
   };
-
-  // if fails, reset button to default state
-  useEffect(() => {
-    setIsSubmitting(false);
-  }, [errorMessage]);
 
   if (postSuccess) {
     return (
       <p className="text-center" aria-live="assertive">
-        Post Added! Navigating back to posts . . .{' '}
+        Post Edited! Navigating back to posts . . .{' '}
       </p>
     );
   }
@@ -73,10 +72,11 @@ function AddPostAuthenticated({
   return (
     <React.Fragment>
       <Prompt
+        // launch when values are diff from initial values
         when={
-          postTitleValue !== '' ||
-          postDescriptionValue !== '' ||
-          postBodyValue !== ''
+          postTitleValue !== title ||
+          postDescriptionValue !== description ||
+          postBodyValue !== body
         }
         message={'Changes have not been saved. Are you sure you want to exit?'}
       />
@@ -116,22 +116,25 @@ function AddPostAuthenticated({
   );
 }
 
-AddPostAuthenticated.propTypes = {
-  addPost: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  authorSlug: PropTypes.string.isRequired,
+EditPostAuthenticated.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      postSlug: PropTypes.string,
+    }),
+  }),
   history: PropTypes.object.isRequired,
+  post: postType,
+  updatePost: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
   postSuccess: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
-  name: getName(state),
-  authorSlug: getAuthorSlug(state),
-  errorMessage: state.communication.posts.errorMessage,
+const mapStateToProps = (state, props) => ({
+  post: getPost(state, props.match.params),
   postSuccess: state.communication.posts.success,
+  errorMessage: state.communication.posts.errorMessage,
 });
 
 export default withRouter(
-  connect(mapStateToProps, { addPost })(AddPostAuthenticated)
+  connect(mapStateToProps, { updatePost })(EditPostAuthenticated)
 );

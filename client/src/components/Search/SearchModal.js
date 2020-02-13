@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { getPosts } from '../actions/postActions';
-import { postsType } from './Card/types';
-import Modal from './Modal/Modal';
-import Dialog from './Modal/Dialog';
-import SearchBoxInput from './SearchBox/SearchBoxInput';
-import SearchGlass from '../icons/SearchGlass';
+import { getPosts } from '../../actions/postActions';
+import { postsType } from '../Card/types';
+import Modal from '../Modal/Modal';
+import Dialog from '../Modal/Dialog';
+import SearchBoxInput from './SearchBoxInput';
+import SearchGlass from '../../icons/SearchGlass';
 import SearchResultsRenderer from './SearchResultsRender';
 import SearchResults from './SearchResults';
-import useDebounce from '../utilityFunctions/useDebounce';
+import useDebounce from '../../utils/useDebounce';
 
 const delay = 500;
 
@@ -35,11 +35,8 @@ export const getFilteredPosts = (dataSource, searchQuery) => {
   return updatedFilteredPosts;
 };
 
-// eslint-disable-next-line no-shadow
 function SearchModal({
-  // eslint-disable-next-line react/prop-types
   isOpen,
-  // eslint-disable-next-line react/prop-types
   handleClose,
   posts,
   isInitiallyFetched,
@@ -126,6 +123,8 @@ function SearchModal({
 
 SearchModal.propTypes = {
   posts: postsType,
+  isOpen: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
   isInitiallyFetched: PropTypes.bool.isRequired,
   getPosts: PropTypes.func.isRequired,
 };

@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function User({ width, height, fill }) {
+function User({ width, height, fill, additionalClasses }) {
   return (
     <svg
       viewBox="0 0 32 32"
       width={width || '24'}
       height={height || '24'}
       fill={fill || 'black'}
+      className={additionalClasses || ''}
       aria-hidden="true"
       style={{ transition: 'fill 500ms cubic-bezier(0.6, -0.28, 0.74, 0.05)' }}
     >
@@ -20,6 +21,7 @@ User.propTypes = {
   width: PropTypes.string,
   height: PropTypes.string,
   fill: PropTypes.string,
+  additionalClasses: PropTypes.string,
 };
 
 export default User;

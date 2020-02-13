@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import AddPostAuthenticated from './AddPostAuthenticated';
+import AddPostAuthenticated from '../components/AddPostAuthenticated';
 import LockScreen from '../components/LockScreen';
 
 // eslint-disable-next-line no-shadow

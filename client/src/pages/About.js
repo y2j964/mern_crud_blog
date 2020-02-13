@@ -22,7 +22,7 @@ function About() {
         not. You don&apos;t <span className="italic">have</span> to read it. In
         fact, Justin&apos;s role isn&apos;t really as exclusive as we made it to
         be, because you, too, reader, can contribute your own posts that people
-        can optionally read. I&apos;m Justin by the way. I&apos;m writing this.
+        can optionally read. I&apos;m Justin, by the way. I&apos;m writing this.
       </p>
       <p>
         But yeah, if you create a free account, you can write your own blog

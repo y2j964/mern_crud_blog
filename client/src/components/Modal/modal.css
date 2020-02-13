@@ -3,7 +3,6 @@
 
   &__dialog {
     @apply max-w-sm w-full px-12 pb-12 rounded bg-white m-auto;
-    /* @apply max-w-sm sm:max-w-md md:max-w-lg w-full px-12 pt-6 pb-12 rounded bg-white;*/
     @media (--sm) {
       @apply max-w-md;
     }

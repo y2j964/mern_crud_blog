@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import WithSearchInputPrompt from './WithInputPrompt';
-import WithLoadingIndicator from './WithLoadingIndicator';
-import WithEmpty from './WithEmpty';
+import WithSearchInputPrompt from '../WithInputPrompt';
+import WithLoadingIndicator from '../WithLoadingIndicator';
+import WithEmpty from '../WithEmpty';
 
 function SearchResultsNone() {
   return (

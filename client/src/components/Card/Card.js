@@ -1,6 +1,3 @@
-/* eslint-disable react/display-name */
-// this is for confirmAlert; I follow the implementation laid out by the docs
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CardGroup from './Card/CardGroup';
-import { postsType } from './Card/types';
+import CardGroup from '../Card/CardGroup';
+import { postsType } from '../Card/types';
 
 function SearchResults({ posts, totalResults }) {
   return (

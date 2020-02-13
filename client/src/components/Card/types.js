@@ -11,5 +11,4 @@ export const postType = PropTypes.shape({
   postSlug: PropTypes.string.isRequired,
 });
 
-// eslint-disable-next-line import/prefer-default-export
 export const postsType = PropTypes.arrayOf(postType);

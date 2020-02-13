@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -13,7 +12,9 @@ function Login({
   setAuthModalPosition,
   handleClose,
   tabIndex,
+  // eslint-disable-next-line no-shadow
   loginUser,
+  // eslint-disable-next-line no-shadow
   clearSessionStatuses,
   errorMessage,
   submissionSuccess,

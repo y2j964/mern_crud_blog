@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { fireEvent, waitForDomChange } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -164,7 +163,7 @@ test('launch search modal in mobile view, unsuccessfully search for posts, and c
 
 test('launch search modal in desktop view, and close modal', () => {
   const history = createMemoryHistory();
-  const { getByLabelText, queryByText, getByTestId } = renderWithRedux(
+  const { getByLabelText, getByTestId } = renderWithRedux(
     <React.Fragment>
       <Router history={history}>
         <Navbar

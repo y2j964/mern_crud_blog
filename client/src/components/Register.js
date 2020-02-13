@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -13,7 +12,9 @@ function Register({
   handleClose,
   setAuthModalPosition,
   tabIndex,
+  // eslint-disable-next-line no-shadow
   registerUser,
+  // eslint-disable-next-line no-shadow
   clearSessionStatuses,
   errorMessage,
   submissionSuccess,

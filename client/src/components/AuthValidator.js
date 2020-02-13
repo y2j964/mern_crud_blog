@@ -4,8 +4,8 @@ import { CSSTransition } from 'react-transition-group';
 import Register from './Register';
 import Login from './Login';
 import Dialog from './Modal/Dialog';
-import useWindowWidth from '../utilityFunctions/useWindowWidth';
-import usePrevious from '../utilityFunctions/usePrevious';
+import useWindowWidth from '../utils/useWindowWidth';
+import usePrevious from '../utils/usePrevious';
 
 const getIsFlippedStyle = (loginHeight, registerHeight) => ({
   transform: `rotateX(180deg) translateY(calc((${loginHeight} - ${registerHeight}) / -2))`,

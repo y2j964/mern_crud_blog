@@ -2,7 +2,7 @@ import React from 'react';
 import uuid from 'uuid';
 import PropTypes from 'prop-types';
 import CollapsibleGroupItem from './CollapsibleGroupItem';
-import ButtonLink from '../ButtonLink';
+import ButtonLink from '../Button/ButtonLink';
 
 const collapsibleGroupItemsData = [
   {

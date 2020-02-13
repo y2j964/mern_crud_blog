@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -20,6 +19,7 @@ function EmptyMyPosts() {
   );
 }
 
+// eslint-disable-next-line no-shadow
 function MyPosts({ isInitiallyFetched, myPosts, getPosts, children }) {
   // if haven't fetched posts yet, fetch them b/c we need the posts in
   // store so that our getPostsByAuthor selector works
