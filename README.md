@@ -12,7 +12,7 @@ ADD GIF HERE
 * [Acknowledgements](#acknowledgements)
 
 ## Demo
-Watch video demo (ADD LINK HERE).
+Watch silent video demo (ADD LINK HERE).
 
 Interact with demo (ADD LINK HERE).
 
@@ -22,17 +22,22 @@ This is a fullstack CRUD react app that runs via authentication. As an unauthori
 ## Technologies
 * MongoDB
 * ExpressJS
+* Mongoose
 * React 16.8.6
 * React Router 5.0.1
 * React Hooks
 * React-Transition-Group 4.2.2
 * Redux
+* [Quill](https://quilljs.com/)
 * NodeJS
 * JestJS
+* Cypress
 * Axios
 * BcryptJS
+* JSONWebTokens
 * Git and Git Bash
 * Tailwind CSS 1.0.4
+* PostCSS
 
 ## Features
 * Authorized and unauthorized user experience
@@ -73,6 +78,12 @@ Watches TailwindCSS files and outputs in specified location.
 #### `npm run test`
 Runs default CRA test watcher in an interactive mode.
 
+#### `npm run cypress:run`
+Runs Cypress tests headlessly in the Electron browser..
+
+#### `npm run cypress:open`
+Runs Cypress in interactive mode.
+
 #### `npm run eject`
 Runs default CRA eject for a more customizable Webpack config.
 
@@ -101,7 +112,7 @@ Runs nodemon for a dynamic server, and runs hot reloaded React with TailwindCSS 
 Runs nodemon for a dynamic server, and runs hot reloaded React with TailwindCSS configuration. If you push to Heroku, this will run automatically.
 
 ## Acknowledgements
-* The Spinner gif was generated with [loading.io]https://loading.io/.
+* The Spinner gif was generated with [loading.io](https://loading.io/).
 * The favicon was generated with [favicon.io](https://favicon.io/).
 * [Body-scroll-lock](https://www.npmjs.com/package/body-scroll-lock) was used to lock the body from scrolling when the modal is open.
 * [React-focus-lock](https://www.npmjs.com/package/react-focus-lock) was used to trap focus in my modal.

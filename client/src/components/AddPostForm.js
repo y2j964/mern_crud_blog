@@ -1,13 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Prompt } from 'react-router-dom';
+import ReactQuill, { Quill } from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { connect } from 'react-redux';
+import ImageAlt from '../ImageAlt';
 import { addPost } from '../actions/postActions';
 import { getName, getAuthorSlug } from '../selectors/sessionSelector';
 import { InputText } from './Input';
-import TextArea from './TextArea';
 import WithErrorNotification from './WithErrorNotification';
 import { AccentButton } from './Button/Button';
+
+Quill.register(ImageAlt);
+const toolbarOptions = [
+  [{ header: [1, 2, false] }],
+  ['bold', 'italic', 'underline', 'strike'],
+  ['blockquote', 'code-block'],
+  [{ list: 'ordered' }, { list: 'bullet' }],
+  ['link', 'image'],
+];
 
 function AddPostForm({
   history,
@@ -21,7 +32,42 @@ function AddPostForm({
   const [postTitleValue, setPostTitleValue] = useState('');
   const [postDescriptionValue, setPostDescriptionValue] = useState('');
   const [postBodyValue, setPostBodyValue] = useState('');
+  const [quillError, setQuillError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const quillRef = useRef();
+  const editor = useRef();
+  const unprivilegedEditor = useRef();
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: toolbarOptions,
+        handlers: {
+          image: () => {
+            const range = unprivilegedEditor.current.getSelection(true);
+            const value = prompt('What is the image URL');
+            if (value) {
+              editor.current.insertEmbed(
+                range.index,
+                'imageAlt',
+                value,
+                Quill.sources.USER
+              );
+            }
+          },
+        },
+      },
+    }),
+    []
+  );
+
+  useEffect(() => {
+    editor.current = quillRef.current.getEditor();
+    unprivilegedEditor.current = quillRef.current.makeUnprivilegedEditor(
+      editor.current
+    );
+  }, []);
 
   // redirect back to home if post succeeded
   useEffect(() => {
@@ -44,10 +90,21 @@ function AddPostForm({
     e.preventDefault();
     setIsSubmitting(true);
 
+    // make sure body has textContent
+    if (unprivilegedEditor.current.getText().length <= 1) {
+      setQuillError("Please enter a value to the post's body");
+      setIsSubmitting(false);
+      return;
+    }
+
+    // reset error if present
+    setQuillError('');
+    const body = JSON.stringify(unprivilegedEditor.current.getContents());
+
     const post = {
       title: postTitleValue,
       description: postDescriptionValue,
-      body: postBodyValue,
+      body,
       author: name,
       authorSlug,
     };
@@ -94,13 +151,15 @@ function AddPostForm({
           value={postDescriptionValue}
           handleChange={e => setPostDescriptionValue(e.target.value)}
         />
-        <TextArea
-          labelText={'Body: '}
-          name="postBody"
-          isRequired={true}
-          rows={5}
+        <WithErrorNotification error={quillError} />
+        <ReactQuill
+          ref={quillRef}
+          onChange={html => setPostBodyValue(html)}
+          modules={modules}
           value={postBodyValue}
-          handleChange={e => setPostBodyValue(e.target.value)}
+          placeholder={
+            'Enter full post here. This represents what the user will see.'
+          }
         />
         <AccentButton
           type="submit"

@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "title": "Selected Post 1",
+      "description": "Some line from Bob Dylan's 'Mr. Tambourine Man'",
+      "body": "Evening's empire has returned into sand",
+      "author": "Bob Dylan",
+      "date": "2020-02-20T05:34:48.517Z",
+      "_id": "0978oygulhdljhJJHGG",
+      "authorSlug": "bob-dylan",
+      "postSlug": "selected-post-1"
+    },
+    {
+      "title": "Selected Post 2",
+      "description": "Some line from Bob Dylan's 'Ballad of a Thin Man'",
+      "body": "You have many contacts among the lumberjacks to get you facts when someone attacks your imagination",
+      "author": "Bob Dylan",
+      "date": "2020-02-19T05:34:48.517Z",
+      "_id": "sdf89yphtjrwfk4toijJ",
+      "authorSlug": "bob-dylan",
+      "postSlug": "selected-post-2"
+    },
+    {
+      "title": "Ignored Post",
+      "description": "This will be ignored by the regex",
+      "body": "Nothing to see here.",
+      "author": "George Harrison",
+      "date": "2020-02-20T05:34:48.517Z",
+      "_id": "123asd345yui",
+      "authorSlug": "george-harrison",
+      "postSlug": "ignored-post"
+    }
+  ]
+}

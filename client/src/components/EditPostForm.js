@@ -1,14 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Prompt } from 'react-router-dom';
 import { connect } from 'react-redux';
+import ReactQuill, { Quill } from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { getPost } from '../selectors/postSelectors';
 import { updatePost } from '../actions/postActions';
 import { InputText } from './Input';
-import TextArea from './TextArea';
 import { postType } from './Card/types';
 import WithErrorNotification from './WithErrorNotification';
 import { AccentButton } from './Button/Button';
+
+const toolbarOptions = [
+  [{ header: [1, 2, false] }],
+  ['bold', 'italic', 'underline', 'strike'],
+  ['blockquote', 'code-block'],
+  [{ list: 'ordered' }, { list: 'bullet' }],
+  ['link', 'image'],
+];
 
 function EditPostForm({
   history,
@@ -19,12 +28,47 @@ function EditPostForm({
   postSuccess,
   errorMessage,
 }) {
+  const quillRef = useRef();
+  const editor = useRef();
+  const unprivilegedEditor = useRef();
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: toolbarOptions,
+        handlers: {
+          image: () => {
+            const range = unprivilegedEditor.current.getSelection(true);
+            const value = prompt('What is the image URL');
+            if (value) {
+              editor.current.insertEmbed(
+                range.index,
+                'imageCustom',
+                value,
+                Quill.sources.USER
+              );
+            }
+          },
+        },
+      },
+    }),
+    []
+  );
+
+  useEffect(() => {
+    editor.current = quillRef.current.getEditor();
+    unprivilegedEditor.current = quillRef.current.makeUnprivilegedEditor(
+      editor.current
+    );
+  }, []);
+
   const { title, description, body, _id } = post || '';
   // need to use || so that it doesn't throw an error after submission is successful
 
   const [postTitleValue, setPostTitleValue] = useState(title);
   const [postDescriptionValue, setPostDescriptionValue] = useState(description);
-  const [postBodyValue, setPostBodyValue] = useState(body);
+  const [postBodyValue, setPostBodyValue] = useState(JSON.parse(body).ops);
+  const [quillError, setQuillError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -46,6 +90,20 @@ function EditPostForm({
   const handleSubmit = e => {
     e.preventDefault();
 
+    // make sure body has textContent
+    if (unprivilegedEditor.current.getText().length <= 1) {
+      setQuillError("Please enter a value to the post's body");
+      setIsSubmitting(false);
+      return;
+    }
+
+    // reset error if present
+    setQuillError('');
+
+    const updatedBody = JSON.stringify(
+      unprivilegedEditor.current.getContents()
+    );
+
     setIsSubmitting(true);
     const updatedPost = {
       // ...post,
@@ -53,7 +111,7 @@ function EditPostForm({
       _id,
       title: postTitleValue,
       description: postDescriptionValue,
-      body: postBodyValue,
+      body: updatedBody,
     };
 
     updatePost(updatedPost);
@@ -94,13 +152,15 @@ function EditPostForm({
           value={postDescriptionValue}
           handleChange={e => setPostDescriptionValue(e.target.value)}
         />
-        <TextArea
-          labelText={'Body: '}
-          name="postBody"
-          isRequired={true}
-          rows={5}
+        <WithErrorNotification error={quillError} />
+        <ReactQuill
+          ref={quillRef}
+          onChange={html => setPostBodyValue(html)}
+          modules={modules}
           value={postBodyValue}
-          handleChange={e => setPostBodyValue(e.target.value)}
+          placeholder={
+            'Enter full post here. This represents what the user will see.'
+          }
         />
         <AccentButton
           type="submit"

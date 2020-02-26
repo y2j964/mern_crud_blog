@@ -17,6 +17,7 @@
     "plugin:jsx-a11y/recommended",
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended",
+    "plugin:cypress/recommended",
     "prettier",
     "prettier/react"
   ],

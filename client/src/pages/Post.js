@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
 import { getPost } from '../selectors/postSelectors';
 import { postType } from '../components/Card/types';
 
@@ -46,7 +48,12 @@ function Post({ post }) {
         <div className="w-full h-64 mt-3 bg-gray-200"></div>
       </header>
       <article>
-        <p className="mb-4">{body}</p>
+        {/* {new QuillDeltaToHtmlConverter(JSON.parse(body).ops).convert()} */}
+        <ReactQuill
+          value={JSON.parse(body).ops}
+          theme="bubble"
+          readOnly={true}
+        />
         <p className="mb-4">
           A iaculis at erat pellentesque adipiscing commodo elit at. Imperdiet
           nulla malesuada pellentesque elit eget gravida cum. Eu lobortis
