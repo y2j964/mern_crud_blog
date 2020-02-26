@@ -43,7 +43,7 @@ function EditPostForm({
             if (value) {
               editor.current.insertEmbed(
                 range.index,
-                'imageCustom',
+                'imageAlt',
                 value,
                 Quill.sources.USER
               );
