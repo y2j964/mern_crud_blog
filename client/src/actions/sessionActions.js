@@ -37,9 +37,7 @@ export const getUser = () => (dispatch, getState) => {
         payload: res.data,
       });
     })
-    .catch(err => {
-      dispatch(requestFailure(scope, err.response.data.message));
-    });
+    .catch(err => dispatch(requestFailure(scope, err.response.data.message)));
 };
 
 // Register User
