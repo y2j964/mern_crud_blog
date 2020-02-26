@@ -1,3 +1,5 @@
+import uuid from 'uuid';
+
 const initialPosts = [
   {
     title: 'Selected Post 1',
@@ -5,7 +7,7 @@ const initialPosts = [
     body: "Evening's empire has returned into sand",
     author: 'Bob Dylan',
     date: '2020-01-06T06:29:24.245+00:00',
-    _id: '123asd345yui',
+    _id: uuid.v4(),
     authorSlug: 'bob-dylan',
     postSlug: 'selected-post-1',
   },
@@ -16,7 +18,7 @@ const initialPosts = [
       'You have many contacts among the lumberjacks to get you facts when someone attacks your imagination',
     author: 'Bob Dylan',
     date: '2020-01-07T06:29:24.245+00:00',
-    _id: 'sdf89yphtjrwfk4toijJ',
+    _id: uuid.v4(),
     authorSlug: 'bob-dylan',
     postSlug: 'selected-post-2',
   },
@@ -26,7 +28,7 @@ const initialPosts = [
     body: 'Nothing to see here.',
     author: 'George Harrison',
     date: '2020-01-06T06:29:24.245+00:00',
-    _id: '87yuljHHKJB6r7dfgb',
+    _id: uuid.v4(),
     authorSlug: 'george-harrison',
     postSlug: 'ignored-post',
   },
@@ -45,7 +47,7 @@ const addedPost = {
   body: 'Nothing to see here.',
   author: 'Justin Mooney',
   date: '2020-01-06T06:29:24.245+00:00',
-  _id: '123asd345yui',
+  _id: uuid.v4(),
   authorSlug: 'justin-mooney',
   postSlug: 'selected-post',
 };

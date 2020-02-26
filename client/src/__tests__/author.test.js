@@ -2,6 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import uuid from 'uuid';
 import renderWithRedux from './utils/renderWithRedux';
 import Author from '../pages/Author';
 
@@ -15,7 +16,7 @@ test('loads and displays posts by same author', async () => {
           body: 'Nothing to see here.',
           author: 'Justin Mooney',
           date: '2020-01-06T06:29:24.245+00:00',
-          _id: '123asd345yui',
+          _id: uuid.v4(),
           authorSlug: 'justin-mooney',
           postSlug: 'selected-post-1',
         },
@@ -25,7 +26,7 @@ test('loads and displays posts by same author', async () => {
           body: 'Nothing to see here.',
           author: 'Justin Mooney',
           date: '2020-01-07T06:29:24.245+00:00',
-          _id: 'sdf89yphtjrwfk4toijJ',
+          _id: uuid.v4(),
           authorSlug: 'justin-mooney',
           postSlug: 'selected-post-2',
         },
@@ -35,7 +36,7 @@ test('loads and displays posts by same author', async () => {
           body: 'Nothing to see here.',
           author: 'George Harrison',
           date: '2020-01-06T06:29:24.245+00:00',
-          _id: '123asd345yui',
+          _id: uuid.v4(),
           authorSlug: 'george-harrison',
           postSlug: 'ignored-post',
         },

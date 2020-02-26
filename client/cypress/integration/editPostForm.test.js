@@ -1,3 +1,5 @@
+const uuid = require('uuid');
+
 const initialPosts = [
   {
     title: 'Selected Post 1',
@@ -22,7 +24,7 @@ const initialPosts = [
     }),
     author: 'Justin Mooney',
     date: '2020-01-06T06:29:24.245+00:00',
-    _id: '93kjfjlsJJHKJH43jG',
+    _id: uuid.v4(),
     authorSlug: 'justin-mooney',
     postSlug: 'selected-post-2',
   },
@@ -34,7 +36,7 @@ const initialPosts = [
     }),
     author: 'George Harrison',
     date: '2020-01-06T06:29:24.245+00:00',
-    _id: '248JJflvcb2KJ',
+    _id: uuid.v4(),
     authorSlug: 'george-harrison',
     postSlug: 'ignored-post',
   },
@@ -44,10 +46,6 @@ const updatedPost = {
   title: 'Selected Post 1',
   description: 'This is updated',
   body: ' This is also updated.',
-  author: 'Justin Mooney',
-  date: '2020-01-06T06:29:24.245+00:00',
-  _id: '123asd345yui',
-  authorSlug: 'justin-mooney',
   postSlug: 'selected-post-1',
 };
 

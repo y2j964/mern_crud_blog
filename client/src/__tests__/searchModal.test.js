@@ -3,6 +3,7 @@ import { fireEvent, waitForDomChange } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import uuid from 'uuid';
 import Navbar from '../components/Navbar/Navbar';
 import renderWithRedux from './utils/renderWithRedux';
 
@@ -16,7 +17,7 @@ const initialState = {
         body: "Evening's empire has returned into sand",
         author: 'Bob Dylan',
         date: '2020-01-06T06:29:24.245+00:00',
-        _id: '123asd345yui',
+        _id: uuid.v4(),
         authorSlug: 'bob-dylan',
         postSlug: 'selected-post-1',
       },
@@ -27,7 +28,7 @@ const initialState = {
           'You have many contacts among the lumberjacks to get you facts when someone attacks your imagination',
         author: 'Bob Dylan',
         date: '2020-01-07T06:29:24.245+00:00',
-        _id: 'sdf89yphtjrwfk4toijJ',
+        _id: uuid.v4(),
         authorSlug: 'bob-dylan',
         postSlug: 'selected-post-2',
       },
@@ -37,7 +38,7 @@ const initialState = {
         body: 'Nothing to see here.',
         author: 'George Harrison',
         date: '2020-01-06T06:29:24.245+00:00',
-        _id: '123asd345yui',
+        _id: uuid.v4(),
         authorSlug: 'george-harrison',
         postSlug: 'ignored-post',
       },
