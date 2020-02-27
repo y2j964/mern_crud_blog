@@ -1,8 +1,8 @@
 .card {
-  @apply mb-5 w-full h-full max-w-sm border border-gray-300 rounded relative;
+  @apply mb-5 w-full h-full border border-gray-300 rounded relative;
 
   @media (--sm) {
-    @apply flex flex-row max-w-xl;
+    @apply flex flex-row;
   }
 
   &__img-container {
