@@ -16,27 +16,27 @@ const formatter = new Intl.DateTimeFormat('en-us', {
 });
 
 function Post({ post }) {
+  const { title, description, author, date, body, authorSlug } = post;
+  const dateFull = new Date(date);
+
   const ref = useRef();
   useEffect(() => {
-    document.title = 'Blog Post - MERN Crud Blog';
+    document.title = `${title} - MERN Crud Blog`;
     // focus h1 on route change to let screen reader know we changed route
     ref.current.focus();
   }, []);
-
-  const { title, description, author, date, body, authorSlug } = post;
-  const dateFull = new Date(date);
 
   return (
     <main className="max-w-3xl mx-auto">
       <header className="text-center pb-4">
         <h1
-          className="font-bold text-4xl pt-8 pb-6 capitalize"
+          className="font-bold text-4xl pt-8 pb-3 capitalize"
           tabIndex="-1"
           ref={ref}
         >
           {title}
         </h1>
-        <p className="mb-2">{description}</p>
+        <p className="mb-2 text-lg">{description}</p>
         <Link to={`/authors/${authorSlug}`} className="text-sm text-accent">
           {author}
         </Link>
@@ -44,7 +44,6 @@ function Post({ post }) {
         <time className="text-sm" dateTime={date}>
           {formatter.format(dateFull)}
         </time>
-        {/* <div className="w-full h-64 mt-3 bg-gray-200"></div> */}
       </header>
       <ReactQuill value={JSON.parse(body).ops} theme="bubble" readOnly={true} />
     </main>
