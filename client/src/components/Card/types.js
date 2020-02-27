@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 export const postType = PropTypes.shape({
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  thumbnailImage: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,

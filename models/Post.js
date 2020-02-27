@@ -8,6 +8,11 @@ const PostSchema = new Schema({
   },
   description: {
     type: String,
+    required: true,
+  },
+  thumbnailImage: {
+    type: String,
+    required: true,
   },
   body: {
     type: String,

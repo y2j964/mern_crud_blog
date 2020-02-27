@@ -6,7 +6,7 @@ import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { getPost } from '../selectors/postSelectors';
 import { updatePost } from '../actions/postActions';
-import { InputText } from './Input';
+import Input, { InputText } from './Input';
 import { postType } from './Card/types';
 import WithErrorNotification from './WithErrorNotification';
 import { AccentButton } from './Button/Button';
@@ -62,11 +62,12 @@ function EditPostForm({
     );
   }, []);
 
-  const { title, description, body, _id } = post || '';
+  const { title, description, thumbnailImage, body, _id } = post || '';
   // need to use || so that it doesn't throw an error after submission is successful
 
   const [postTitleValue, setPostTitleValue] = useState(title);
   const [postDescriptionValue, setPostDescriptionValue] = useState(description);
+  const [thumbnailImageUrl, setThumbnailImageUrl] = useState(thumbnailImage);
   const [postBodyValue, setPostBodyValue] = useState(JSON.parse(body).ops);
   const [quillError, setQuillError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -111,6 +112,7 @@ function EditPostForm({
       _id,
       title: postTitleValue,
       description: postDescriptionValue,
+      thumbnailImage: thumbnailImageUrl,
       body: updatedBody,
     };
 
@@ -152,6 +154,25 @@ function EditPostForm({
           value={postDescriptionValue}
           handleChange={e => setPostDescriptionValue(e.target.value)}
         />
+        <Input
+          labelText={'Thumbnail Image: '}
+          name="thumbnailImageUrl"
+          isRequired={true}
+          type="url"
+          placeholder="https://images.unsplash.com/photo-11"
+          value={thumbnailImageUrl}
+          describedBy="imageThumbnailDetails"
+          handleChange={e => setThumbnailImageUrl(e.target.value)}
+        >
+          <small className="sr-only" id="imageThumbnailDetails">
+            Image must be a url (e.g., https://images.unsplash.com/photo-11)
+          </small>
+        </Input>
+        <div className="w-1/3">
+          <div className="ratio-16-9 bg-gray-200 mb-4">
+            <img src={thumbnailImageUrl} alt="" />
+          </div>
+        </div>
         <WithErrorNotification error={quillError} />
         <ReactQuill
           ref={quillRef}

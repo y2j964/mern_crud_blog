@@ -6,11 +6,21 @@ import { postsType } from './types';
 
 function CardGroup({ isEditable, posts }) {
   const postFrags = posts.map(
-    ({ title, author, description, date, _id, authorSlug, postSlug }) => (
+    ({
+      title,
+      author,
+      description,
+      thumbnailImage,
+      date,
+      _id,
+      authorSlug,
+      postSlug,
+    }) => (
       <CSSTransition key={_id} timeout={300} classNames="fade-away">
         <Card
           title={title}
           description={description}
+          thumbnailImage={thumbnailImage}
           author={author}
           date={date}
           _id={_id}

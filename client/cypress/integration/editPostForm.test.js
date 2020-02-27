@@ -4,6 +4,8 @@ const initialPosts = [
   {
     title: 'Selected Post 1',
     description: 'This is a selected post',
+    thumbnailImage:
+      'https://images.unsplash.com/photo-1582685800784-8421bb0a71b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80',
     // the body will be a JSON object. This is done via Quill, but
     // in the test, we have to mock this out. If you don't do this,
     // there will be a cross-origin error
@@ -19,6 +21,8 @@ const initialPosts = [
   {
     title: 'Selected Post 2',
     description: 'This is a second selected post',
+    thumbnailImage:
+      'https://images.unsplash.com/photo-1582685800784-8421bb0a71b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80',
     body: JSON.stringify({
       ops: [{ insert: 'Nothing to see here.' }],
     }),
@@ -31,6 +35,8 @@ const initialPosts = [
   {
     title: 'Ignored Post',
     description: 'This is testing the posts by author getter',
+    thumbnailImage:
+      'https://images.unsplash.com/photo-1582685800784-8421bb0a71b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80',
     body: JSON.stringify({
       ops: [{ insert: "Don't bother me." }],
     }),
@@ -52,6 +58,8 @@ const updatedPost = {
 const updatedPostResponse = {
   title: 'Selected Post 1',
   description: 'This is updated',
+  thumbnailImage:
+    'https://images.unsplash.com/photo-1582685800784-8421bb0a71b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80',
   body: JSON.stringify({
     ops: [{ insert: "A state of confusion I'm in. This is also updated." }],
   }),
@@ -104,6 +112,10 @@ describe('edit post submission', () => {
       .should('be.empty')
       .type(updatedPost.description)
       .should('have.value', updatedPost.description);
+    cy.findByLabelText('Thumbnail Image:').should(
+      'have.value',
+      initialPosts[0].thumbnailImage
+    );
     cy.get('.ql-editor')
       .should('contain', "A state of confusion I'm in.")
       .type(updatedPost.body)
@@ -146,6 +158,10 @@ describe('edit post submission', () => {
       .should('be.empty')
       .type(updatedPost.description)
       .should('have.value', updatedPost.description);
+    cy.findByLabelText('Thumbnail Image:').should(
+      'have.value',
+      initialPosts[0].thumbnailImage
+    );
     cy.get('.ql-editor')
       .should('contain', "A state of confusion I'm in.")
       .type(updatedPost.body)

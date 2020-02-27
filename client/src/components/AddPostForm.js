@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import ImageAlt from '../ImageAlt';
 import { addPost } from '../actions/postActions';
 import { getName, getAuthorSlug } from '../selectors/sessionSelector';
-import { InputText } from './Input';
+import Input, { InputText } from './Input';
 import WithErrorNotification from './WithErrorNotification';
 import { AccentButton } from './Button/Button';
 
@@ -31,6 +31,7 @@ function AddPostForm({
 }) {
   const [postTitleValue, setPostTitleValue] = useState('');
   const [postDescriptionValue, setPostDescriptionValue] = useState('');
+  const [thumbnailImageUrl, setThumbnailImageUrl] = useState('');
   const [postBodyValue, setPostBodyValue] = useState('');
   const [quillError, setQuillError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -104,6 +105,7 @@ function AddPostForm({
     const post = {
       title: postTitleValue,
       description: postDescriptionValue,
+      thumbnailImage: thumbnailImageUrl,
       body,
       author: name,
       authorSlug,
@@ -151,6 +153,25 @@ function AddPostForm({
           value={postDescriptionValue}
           handleChange={e => setPostDescriptionValue(e.target.value)}
         />
+        <Input
+          labelText={'Thumbnail Image: '}
+          name="thumbnailImageUrl"
+          isRequired={true}
+          type="url"
+          placeholder="https://images.unsplash.com/photo-11"
+          value={thumbnailImageUrl}
+          describedBy="imageThumbnailDetails"
+          handleChange={e => setThumbnailImageUrl(e.target.value)}
+        >
+          <small className="sr-only" id="imageThumbnailDetails">
+            Image must be a url (e.g., https://images.unsplash.com/photo-11)
+          </small>
+        </Input>
+        <div className="w-1/3">
+          <div className="ratio-16-9 bg-gray-200 mb-4">
+            <img src={thumbnailImageUrl} alt="" />
+          </div>
+        </div>
         <WithErrorNotification error={quillError} />
         <ReactQuill
           ref={quillRef}
@@ -158,7 +179,7 @@ function AddPostForm({
           modules={modules}
           value={postBodyValue}
           placeholder={
-            'Enter full post here. This represents what the user will see.'
+            'Enter full post here. We recommend starting with an image, possibly the thumbnail image.'
           }
         />
         <AccentButton

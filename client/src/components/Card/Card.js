@@ -15,6 +15,7 @@ const formatter = new Intl.DateTimeFormat('en-us', {
 function Card({
   title,
   description,
+  thumbnailImage,
   author,
   date,
   _id,
@@ -32,7 +33,7 @@ function Card({
     <React.Fragment>
       <article className="card">
         <div className="card__img-container">
-          <img className="card__img" src="" alt="" />
+          <img className="card__img" src={thumbnailImage} alt="" />
         </div>
         <div className="card__body">
           <h2 className="card__title">
@@ -90,6 +91,7 @@ function Card({
 Card.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  thumbnailImage: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   _id: PropTypes.string,

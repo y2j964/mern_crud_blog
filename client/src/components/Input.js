@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 function Input({
   labelText,
+  placeholder,
   type,
   name,
   isRequired,
@@ -31,6 +32,7 @@ function Input({
         minLength={minLength}
         className="form-input"
         tabIndex={tabIndex}
+        placeholder={placeholder}
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
@@ -62,6 +64,7 @@ Input.propTypes = {
   describedBy: PropTypes.string,
   autoComplete: PropTypes.string,
   minLength: PropTypes.number,
+  placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   tabIndex: PropTypes.string,
