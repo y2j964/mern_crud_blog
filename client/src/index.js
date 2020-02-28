@@ -7,7 +7,6 @@ import UserConfirmation from './components/UserConfirmation';
 
 ReactDOM.render(
   <Router
-    basename="/mernCrudBlog"
     // custom ui for Prompt
     getUserConfirmation={(message, callback) => {
       ReactDOM.render(
