@@ -24,7 +24,7 @@ function Post({ post }) {
     document.title = `${title} - MERN Crud Blog`;
     // focus h1 on route change to let screen reader know we changed route
     ref.current.focus();
-  }, []);
+  }, [title]);
 
   return (
     <main className="max-w-3xl mx-auto">
