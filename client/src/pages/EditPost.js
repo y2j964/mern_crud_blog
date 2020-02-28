@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postType } from '../components/Card/types';
 import LockScreen from '../components/LockScreen';
@@ -19,7 +20,7 @@ function EditPost({ isAuthenticated, openLogin }) {
       <h1
         tabIndex="-1"
         ref={ref}
-        className="text-4xl py-8 text-center font-bold"
+        className="text-4xl pt-8 pb-2 text-center font-bold"
       >
         Edit Post
       </h1>

@@ -10,6 +10,7 @@ import AuthValidator from './components/AuthValidator';
 import AddPostOverlay from './components/AddPostOverlay';
 import Home from './pages/Home';
 import Post from './pages/Post';
+import PostPreview from './pages/PostPreview';
 import Author from './pages/Author';
 import About from './pages/About';
 import AddPost from './pages/AddPost';
@@ -37,6 +38,7 @@ function App({ location }) {
       <Switch location={location}>
         <Route exact path="/" component={Home} />
         <Route path="/posts/:postSlug" component={Post} />
+        <Route path="/post-preview" component={PostPreview} />
         <Route path="/authors/:authorSlug" component={Author} />
         <Route
           exact

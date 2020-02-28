@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Prompt } from 'react-router-dom';
+import { withRouter, Prompt, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -138,6 +138,13 @@ function EditPostForm({
         }
         message={'Changes have not been saved. Are you sure you want to exit?'}
       />
+      <Link
+        to="/post-preview"
+        target="_blank"
+        className="underline text-blue-500 block mb-4"
+      >
+        Default Post Preview
+      </Link>
       <form action="" onSubmit={handleSubmit}>
         <WithErrorNotification error={errorMessage} />
         <InputText
@@ -180,7 +187,7 @@ function EditPostForm({
           modules={modules}
           value={postBodyValue}
           placeholder={
-            'Enter full post here. This represents what the user will see.'
+            'Enter post body here. We recommend starting with an image, possibly the thumbnail image.'
           }
         />
         <AccentButton

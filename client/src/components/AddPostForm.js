@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Prompt } from 'react-router-dom';
+import { withRouter, Prompt, Link } from 'react-router-dom';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { connect } from 'react-redux';
@@ -87,7 +87,6 @@ function AddPostForm({
   }, [errorMessage]);
 
   const handleSubmit = e => {
-    // name will come from redux auth
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -137,6 +136,13 @@ function AddPostForm({
         }
         message={'Changes have not been saved. Are you sure you want to exit?'}
       />
+      <Link
+        to="/post-preview"
+        target="_blank"
+        className="underline text-blue-500 block mb-4"
+      >
+        Default Post Preview
+      </Link>
       <form action="" onSubmit={handleSubmit}>
         <WithErrorNotification error={errorMessage} />
         <InputText
@@ -167,8 +173,8 @@ function AddPostForm({
             Image must be a url (e.g., https://images.unsplash.com/photo-11)
           </small>
         </Input>
-        <div className="w-1/3">
-          <div className="ratio-16-9 bg-gray-200 mb-4">
+        <div className="w-1/3 mb-4">
+          <div className="ratio-16-9 bg-gray-200">
             <img src={thumbnailImageUrl} alt="" />
           </div>
         </div>
@@ -179,7 +185,7 @@ function AddPostForm({
           modules={modules}
           value={postBodyValue}
           placeholder={
-            'Enter full post here. We recommend starting with an image, possibly the thumbnail image.'
+            'Enter post body here. We recommend starting with an image, possibly the thumbnail image.'
           }
         />
         <AccentButton
