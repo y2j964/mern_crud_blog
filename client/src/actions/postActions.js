@@ -50,5 +50,8 @@ export const updatePost = post => (dispatch, getState) => {
       dispatch({ type: UPDATE_POST, payload: res.data });
       dispatch(requestSuccess(scope));
     })
-    .catch(err => dispatch(requestFailure(scope, err.response.data.message)));
+    .catch(err => {
+      console.log(err);
+      dispatch(requestFailure(scope, err.response.data.message));
+    });
 };

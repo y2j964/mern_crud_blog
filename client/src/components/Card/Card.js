@@ -45,7 +45,7 @@ function Card({
           {isEditable ? (
             <div className="flex justify-around">
               <Link
-                to={`/edit-posts/${postSlug}`}
+                to={`/edit-posts/${_id}`}
                 className="p-2 relative z-10"
                 aria-label="edit post"
               >

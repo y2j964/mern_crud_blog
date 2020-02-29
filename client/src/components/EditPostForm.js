@@ -4,7 +4,7 @@ import { withRouter, Prompt, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { getPost } from '../selectors/postSelectors';
+import { getPostById } from '../selectors/postSelectors';
 import { updatePost } from '../actions/postActions';
 import Input, { InputText } from './Input';
 import { postType } from './Card/types';
@@ -72,11 +72,11 @@ function EditPostForm({
   const [quillError, setQuillError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // redirect back to home if post succeeded
   useEffect(() => {
     const timeoutID = setTimeout(() => {
       if (postSuccess) {
         history.push('/edit-posts');
-        // redirect to main edit page if successful submission
       }
     }, 1000);
 
@@ -218,7 +218,7 @@ EditPostForm.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
-  post: getPost(state, props.match.params),
+  post: getPostById(state, props.match.params),
   postSuccess: state.communication.posts.success,
   errorMessage: state.communication.posts.errorMessage,
 });

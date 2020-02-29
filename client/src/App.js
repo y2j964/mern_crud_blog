@@ -62,7 +62,7 @@ function App({ location }) {
         />
         <Route
           exact
-          path="/edit-posts/:postSlug"
+          path="/edit-posts/:id"
           render={props => (
             <EditPost
               {...props}

@@ -103,7 +103,7 @@ describe('edit post submission', () => {
       });
     cy.url().should(
       'eq',
-      `${Cypress.config().baseUrl}/edit-posts/selected-post-1`
+      `${Cypress.config().baseUrl}/edit-posts/123asd345yui`
     );
     cy.findByLabelText('Title:').should('have.value', initialPosts[0].title);
     cy.findByLabelText('Description:')
@@ -149,7 +149,7 @@ describe('edit post submission', () => {
       });
     cy.url().should(
       'eq',
-      `${Cypress.config().baseUrl}/edit-posts/selected-post-1`
+      `${Cypress.config().baseUrl}/edit-posts/123asd345yui`
     );
     cy.findByLabelText('Title:').should('have.value', initialPosts[0].title);
     cy.findByLabelText('Description:')

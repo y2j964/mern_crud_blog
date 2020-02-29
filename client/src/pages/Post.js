@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
-import { getPost } from '../selectors/postSelectors';
+import { getPostBySlug } from '../selectors/postSelectors';
 import { postType } from '../components/Card/types';
 
 const formatter = new Intl.DateTimeFormat('en-us', {
@@ -55,7 +55,7 @@ Post.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
-  post: getPost(state, props.match.params),
+  post: getPostBySlug(state, props.match.params),
 });
 
 export default connect(mapStateToProps)(Post);

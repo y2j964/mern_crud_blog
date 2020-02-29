@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postType } from '../components/Card/types';
 import LockScreen from '../components/LockScreen';
