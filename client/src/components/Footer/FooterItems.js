@@ -4,18 +4,15 @@ import FooterItem from './FooterItem';
 
 const footerItemsData = [
   {
-    text: 'Link 1',
-    href: 'https://www.google.com/',
+    text: 'Item 1',
     id: uuid.v4(),
   },
   {
-    text: 'Link 2',
-    href: 'https://www.google.com/',
+    text: 'Item 2',
     id: uuid.v4(),
   },
   {
-    text: 'Link 3',
-    href: 'https://www.google.com/',
+    text: 'Item 3',
     id: uuid.v4(),
   },
 ];
@@ -26,6 +23,5 @@ function FooterItems() {
   });
   return <React.Fragment>{footerItemFrags}</React.Fragment>;
 }
-
 
 export default FooterItems;
