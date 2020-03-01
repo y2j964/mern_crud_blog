@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/sessionActions';
 import AuthDropdownTrigger from './AuthDropdownTrigger';
 
-function AuthDropdown({ isAuthenticated, setAuthModalPosition }) {
+function AuthDropdown({ isAuthenticated, setAuthModalPosition, logoutUser }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
@@ -22,7 +22,10 @@ function AuthDropdown({ isAuthenticated, setAuthModalPosition }) {
       >
         {isAuthenticated ? (
           <li>
-            <button className="auth-dropdown__item" onClick={logoutUser}>
+            <button
+              className="auth-dropdown__item"
+              onClick={() => logoutUser()}
+            >
               Log Out
             </button>
           </li>
@@ -56,6 +59,7 @@ function AuthDropdown({ isAuthenticated, setAuthModalPosition }) {
 AuthDropdown.propTypes = {
   isAuthenticated: PropTypes.bool,
   setAuthModalPosition: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
