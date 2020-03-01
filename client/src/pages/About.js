@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 function About() {
   const ref = useRef();
   useEffect(() => {
-    document.title = 'About - MERN Crud Blog';
+    document.title = 'About - MERN CRUD Blog';
     // focus h1 on route change to let screen reader know we changed route
     ref.current.focus();
   }, []);

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Error404() {
   const ref = useRef();
   useEffect(() => {
-    document.title = '404 Error - MERN Crud Blog';
+    document.title = '404 Error - MERN CRUD Blog';
     // focus h1 on route change to let screen reader know we changed route
     ref.current.focus();
   }, []);

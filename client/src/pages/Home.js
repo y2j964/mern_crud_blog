@@ -11,7 +11,7 @@ function Home({ posts, isInitiallyFetched, isLoading, getPosts }) {
   const ref = useRef();
 
   useEffect(() => {
-    document.title = 'MERN Crud Blog';
+    document.title = 'MERN CRUD Blog';
     // focus h1 on route change to let screen reader know we changed route
     ref.current.focus();
   }, []);

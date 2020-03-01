@@ -21,7 +21,7 @@ function Post({ post }) {
 
   const ref = useRef();
   useEffect(() => {
-    document.title = `${title} - MERN Crud Blog`;
+    document.title = `${title} - MERN CRUD Blog`;
     // focus h1 on route change to let screen reader know we changed route
     ref.current.focus();
   }, [title]);

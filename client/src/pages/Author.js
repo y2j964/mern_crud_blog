@@ -12,7 +12,7 @@ function Author({ match, posts }) {
   const { author } = posts[0];
 
   useEffect(() => {
-    document.title = `${author} - MERN Crud Blog`;
+    document.title = `${author} - MERN CRUD Blog`;
     // focus h1 on route change to let screen reader know we changed route
     ref.current.focus();
   }, [author]);

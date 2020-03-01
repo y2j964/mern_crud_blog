@@ -8,7 +8,7 @@ import LockScreen from '../components/LockScreen';
 function EditPosts({ isAuthenticated, openLogin }) {
   const ref = useRef();
   useEffect(() => {
-    document.title = 'My Posts - MERN Crud Blog';
+    document.title = 'My Posts - MERN CRUD Blog';
     // focus h1 on route change to let screen reader know we changed route
     ref.current.focus();
   }, []);
