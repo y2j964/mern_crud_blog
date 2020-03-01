@@ -1,7 +1,7 @@
 # MERN CRUD Blog
 A MERN application where authenticated users can create, edit, and delete blog posts.
 
-ADD GIF HERE
+![MERN CRUD Blog animated demo](demo/demo.gif)
 
 ## Table of contents
 * [Demo](#Demo)
@@ -12,12 +12,12 @@ ADD GIF HERE
 * [Acknowledgements](#acknowledgements)
 
 ## Demo
-Watch silent video demo (ADD LINK HERE).
+[Watch silent video demo](https://www.youtube.com/watch?v=w016dXAVU0w&feature=youtu.be).
 
-Interact with demo (ADD LINK HERE).
+[Interact with demo](https://pure-peak-10557.herokuapp.com/).
 
 ## General Info
-This is a fullstack CRUD react app that runs via authentication. As an unauthorized user, you can read all published articles to the site. And when you sign in or register, you can additionally create articles, and manage (update and delete) your existing articles.
+This is a fullstack CRUD react app that runs via authentication. As an unauthorized user, you can read all published articles to the site; when you sign in or register, you can additionally create articles, and manage (update and delete) your existing articles. I decided to use a Rich Text Editor to give the user more freedom regarding the layout of their post.
 
 ## Technologies
 * MongoDB
@@ -44,7 +44,9 @@ This is a fullstack CRUD react app that runs via authentication. As an unauthori
 * Password encryption for account in database
 * Searchbox where user can enter a query to filter the posts
 * Flip-card animation when toggling between Login and Register
+* Confirmation dialog for delete requests
 * Error/Success notifications alerting user the status of backend requests
+* Rich Text Editor for post submissions
 * Custom UI for React Router Prompt
 * Aria-supported
 
@@ -79,7 +81,7 @@ Watches TailwindCSS files and outputs in specified location.
 Runs default CRA test watcher in an interactive mode.
 
 #### `npm run cypress:run`
-Runs Cypress tests headlessly in the Electron browser..
+Runs Cypress tests headlessly in the Electron browser.
 
 #### `npm run cypress:open`
 Runs Cypress in interactive mode.
@@ -96,23 +98,19 @@ Runs default CRA build.
 #### `npm run build:css`
 Builds TailwindCSS and purges unused classes as per postcss.config.js.
 
-### Deployment
-After running npm run build, you can deploy the app with this script:
-
-#### `npm run deploy`
-Deploys app to gh-pages.
-
 ### Full Stack
 Here are the full stack scripts:
 
 #### `npm run dev`
 Runs nodemon for a dynamic server, and runs hot reloaded React with TailwindCSS configuration.
 
-#### `npm run postbuild`
-Runs nodemon for a dynamic server, and runs hot reloaded React with TailwindCSS configuration. If you push to Heroku, this will run automatically.
+#### `npm run heroku-postbuild`
+Builds assets automatically as the final stage of a heroku push.
 
 ## Acknowledgements
 * The Spinner gif was generated with [loading.io](https://loading.io/).
 * The favicon was generated with [favicon.io](https://favicon.io/).
 * [Body-scroll-lock](https://www.npmjs.com/package/body-scroll-lock) was used to lock the body from scrolling when the modal is open.
 * [React-focus-lock](https://www.npmjs.com/package/react-focus-lock) was used to trap focus in my modal.
+* All images have been pulled from [Unsplash](https://unsplash.com/)
+* The names of the featured authors are character names from Twin Peaks: The Return. The post titles and descriptions are also mostly Twin Peaks references.
