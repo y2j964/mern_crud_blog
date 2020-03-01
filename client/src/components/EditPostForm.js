@@ -91,13 +91,25 @@ function EditPostForm({
   const handleSubmit = e => {
     e.preventDefault();
 
-    // make sure body has textContent
     if (unprivilegedEditor.current.getText().length <= 1) {
-      setQuillError("Please enter a value to the post's body");
+      setQuillError("Please add text to the post's body");
+
+      const scrolledDestination =
+        document.querySelector('[role="alert"]') ||
+        document.querySelector('.quill');
+      // these querySelectors equate to the same thing; when the role isn't visible
+      // (it's instantiation),  it will get instantiated in the very spot that quill is
+
+      // when the error is present and it isn't visible on the screen, scroll to that error . . .
+      window.scrollTo({
+        top: window.scrollY + scrolledDestination.getBoundingClientRect().top,
+        left: 0,
+        behavior: 'smooth',
+      });
+
       setIsSubmitting(false);
       return;
     }
-
     // reset error if present
     setQuillError('');
 
