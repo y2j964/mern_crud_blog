@@ -187,9 +187,9 @@ function EditPostForm({
             Image must be a url (e.g., https://images.unsplash.com/photo-11)
           </small>
         </Input>
-        <div className="flex max-w-sm sm:max-w-2xl xl:max-w-3xl">
-          <div className="w-1/3 mb-4">
-            <div className="ratio-16-9 bg-gray-200" style={{ height: '148px' }}>
+        <div className="max-w-sm sm:max-w-2xl xl:max-w-3xl">
+          <div className="w-full sm:w-1/3 mb-4">
+            <div className="ratio-16-9 bg-gray-200" style={{ height: '160px' }}>
               <img src={thumbnailImageUrl} alt="" />
             </div>
           </div>
