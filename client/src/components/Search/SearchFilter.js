@@ -45,13 +45,15 @@ function SearchFilter({ isOpen, handleClose, posts }) {
     if (debouncedInputValue) {
       // mimic loading
       setIsLoading(true);
-      setTimeout(() => {
+      const timeoutID = setTimeout(() => {
         const updatedFilteredPosts = getFilteredPosts(
           posts,
           debouncedInputValue
         );
         setFilteredPosts(updatedFilteredPosts);
         setIsLoading(false);
+
+        return () => clearTimeout(timeoutID);
       }, 500);
     } else {
       setFilteredPosts([]);
