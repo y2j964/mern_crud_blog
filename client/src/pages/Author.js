@@ -4,19 +4,30 @@ import { connect } from 'react-redux';
 import { getPostsByAuthor } from '../selectors/postSelectors';
 import { postsType } from '../components/Card/types';
 import CardGroup from '../components/Card/CardGroup';
+import Spinner from '../icons/Spinner';
 
 // eslint-disable-next-line no-unused-vars
 function Author({ match, posts }) {
   const ref = useRef();
 
-  const { author } = posts[0];
-
   useEffect(() => {
-    document.title = `${author} - MERN CRUD Blog`;
-    // focus h1 on route change to let screen reader know we changed route
-    ref.current.focus();
-  }, [author]);
+    if (posts.length > 0) {
+      document.title = `${posts[0].author} - MERN CRUD Blog`;
+      // focus h1 on route change to let screen reader know we changed route
+      ref.current.focus();
+    }
+  }, [posts]);
 
+  // this will run on reloads/new tabs while the initial data is fetching
+  if (posts.length === 0) {
+    return (
+      <main className="flex flex-col justify-center">
+        <Spinner />
+      </main>
+    );
+  }
+
+  const { author } = posts[0];
   return (
     <main>
       <h1

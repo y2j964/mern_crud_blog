@@ -19,6 +19,7 @@ import EditPost from './pages/EditPost';
 import Error404 from './pages/Error404';
 import store from './store';
 import { getUser } from './actions/sessionActions';
+import { getPosts } from './actions/postActions';
 import AuthDropdown from './components/AuthDropdown/AuthDropdown';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -27,6 +28,7 @@ function App({ location }) {
 
   useEffect(() => {
     store.dispatch(getUser());
+    store.dispatch(getPosts());
   }, []);
 
   return (

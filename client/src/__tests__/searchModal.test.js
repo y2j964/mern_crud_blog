@@ -14,6 +14,8 @@ const initialState = {
       {
         title: 'Selected Post 1',
         description: "Some line from Bob Dylan's 'Mr. Tambourine Man'",
+        thumbnailImage:
+          'https://images.unsplash.com/photo-1582685800784-8421bb0a71b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80',
         body: "Evening's empire has returned into sand",
         author: 'Bob Dylan',
         date: '2020-01-06T06:29:24.245+00:00',
@@ -24,6 +26,8 @@ const initialState = {
       {
         title: 'Selected Post 2',
         description: "Some line from Bob Dylan's 'Ballad of a Thin Man'",
+        thumbnailImage:
+          'https://images.unsplash.com/photo-1582685800784-8421bb0a71b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80',
         body:
           'You have many contacts among the lumberjacks to get you facts when someone attacks your imagination',
         author: 'Bob Dylan',
@@ -35,6 +39,8 @@ const initialState = {
       {
         title: 'Ignored Post',
         description: 'This will be ignored by the regex',
+        thumbnailImage:
+          'https://images.unsplash.com/photo-1582685800784-8421bb0a71b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80',
         body: 'Nothing to see here.',
         author: 'George Harrison',
         date: '2020-01-06T06:29:24.245+00:00',

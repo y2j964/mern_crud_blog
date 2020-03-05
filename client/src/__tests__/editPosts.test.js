@@ -4,8 +4,8 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { fireEvent, wait } from '@testing-library/react';
 import axiosMock from 'axios';
-import renderWithRedux from './utils/renderWithRedux';
 import uuid from 'uuid';
+import renderWithRedux from './utils/renderWithRedux';
 import EditPosts from '../pages/EditPosts';
 
 jest.mock('axios');
@@ -17,6 +17,8 @@ const initialState = {
       {
         title: 'Selected Post 1',
         description: 'This is testing the posts by author getter',
+        thumbnailImage:
+          'https://images.unsplash.com/photo-1582685800784-8421bb0a71b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80',
         body: 'Nothing to see here.',
         author: 'Justin Mooney',
         date: '2020-01-06T06:29:24.245+00:00',
@@ -27,6 +29,8 @@ const initialState = {
       {
         title: 'Selected Post 2',
         description: 'This post will be deleted',
+        thumbnailImage:
+          'https://images.unsplash.com/photo-1582685800784-8421bb0a71b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80',
         body: 'Nothing to see here.',
         author: 'Justin Mooney',
         date: '2020-01-07T06:29:24.245+00:00',
@@ -37,6 +41,8 @@ const initialState = {
       {
         title: 'Ignored Post',
         description: 'This is testing the posts by author getter',
+        thumbnailImage:
+          'https://images.unsplash.com/photo-1582685800784-8421bb0a71b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80',
         body: 'Nothing to see here.',
         author: 'George Harrison',
         date: '2020-01-06T06:29:24.245+00:00',

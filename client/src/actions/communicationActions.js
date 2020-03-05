@@ -13,10 +13,10 @@ export const requestPending = scope => {
   };
 };
 
-export const requestSuccess = scope => {
+export const requestSuccess = (scope, successMessage) => {
   return {
     type: REQUEST_SUCCESS,
-    payload: { scope },
+    payload: { scope, successMessage },
   };
 };
 

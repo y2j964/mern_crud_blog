@@ -6,6 +6,7 @@ import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { getPostById } from '../selectors/postSelectors';
 import { updatePost } from '../actions/postActions';
+import { UPDATE_POST } from '../actions/types';
 import Input, { InputText } from './Input';
 import { postType } from './Card/types';
 import WithErrorNotification from './WithErrorNotification';
@@ -75,7 +76,7 @@ function EditPostForm({
   // redirect back to home if post succeeded
   useEffect(() => {
     const timeoutID = setTimeout(() => {
-      if (postSuccess) {
+      if (postSuccess === UPDATE_POST) {
         history.push('/edit-posts');
       }
     }, 1000);
@@ -131,7 +132,7 @@ function EditPostForm({
     updatePost(updatedPost);
   };
 
-  if (postSuccess) {
+  if (postSuccess === UPDATE_POST) {
     return (
       <p className="text-center" aria-live="assertive">
         Post Edited! Navigating back to posts . . .{' '}
@@ -226,7 +227,7 @@ EditPostForm.propTypes = {
   post: postType,
   updatePost: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
-  postSuccess: PropTypes.bool,
+  postSuccess: PropTypes.string,
 };
 
 const mapStateToProps = (state, props) => ({

@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postsType } from './Card/types';
 import WithEmpty from './WithEmpty';
 import { getPostsByAuthor } from '../selectors/postSelectors';
-import { getPosts } from '../actions/postActions';
 
 function EmptyMyPosts() {
   return (
@@ -20,15 +19,7 @@ function EmptyMyPosts() {
 }
 
 // eslint-disable-next-line no-shadow
-function MyPosts({ isInitiallyFetched, myPosts, getPosts, children }) {
-  // if haven't fetched posts yet, fetch them b/c we need the posts in
-  // store so that our getPostsByAuthor selector works
-  useEffect(() => {
-    if (!isInitiallyFetched) {
-      getPosts();
-    }
-  }, [isInitiallyFetched, getPosts]);
-
+function MyPosts({ myPosts, children }) {
   return (
     <WithEmpty
       length={myPosts.length}
@@ -39,15 +30,12 @@ function MyPosts({ isInitiallyFetched, myPosts, getPosts, children }) {
 }
 
 MyPosts.propTypes = {
-  isInitiallyFetched: PropTypes.bool.isRequired,
   myPosts: postsType,
-  getPosts: PropTypes.func.isRequired,
   children: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
-  isInitiallyFetched: state.posts.isInitiallyFetched,
   myPosts: getPostsByAuthor(state, state.session.user),
 });
 
-export default connect(mapStateToProps, { getPosts })(MyPosts);
+export default connect(mapStateToProps)(MyPosts);

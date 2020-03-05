@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { InputText, InputEmail, InputPassword } from './Input';
 import { registerUser } from '../actions/sessionActions';
+import { REGISTER_USER } from '../actions/types';
 import { clearSessionStatuses } from '../actions/communicationActions';
 import WithErrorNotification from './WithErrorNotification';
 import WithSuccessNotification from './WithSuccessNotification';
@@ -17,7 +18,7 @@ function Register({
   // eslint-disable-next-line no-shadow
   clearSessionStatuses,
   errorMessage,
-  submissionSuccess,
+  sessionSuccess,
 }) {
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
@@ -36,13 +37,13 @@ function Register({
 
   // if succeeds, close it
   useEffect(() => {
-    if (!submissionSuccess) {
+    if (sessionSuccess !== REGISTER_USER) {
       return;
     }
     const timeoutID = setTimeout(() => handleClose(), 1200);
     // eslint-disable-next-line consistent-return
     return () => clearTimeout(timeoutID);
-  }, [submissionSuccess, handleClose]);
+  }, [sessionSuccess, handleClose]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -80,7 +81,7 @@ function Register({
         </h2>
       </header>
       <form action="" onSubmit={handleSubmit}>
-        <WithSuccessNotification success={submissionSuccess} />
+        <WithSuccessNotification success={sessionSuccess === REGISTER_USER} />
         <WithErrorNotification error={errorMessage} />
         <InputText
           labelText={'Name: '}
@@ -116,11 +117,13 @@ function Register({
         <AccentButton
           type="submit"
           additionalClasses="w-full mt-2"
-          disabled={isSubmitting || submissionSuccess}
+          disabled={isSubmitting || sessionSuccess === REGISTER_USER}
           tabIndex={tabIndex}
           dataTestId="submitRegister"
         >
-          {!isSubmitting || submissionSuccess ? 'Register' : 'Pending . . .'}
+          {!isSubmitting || sessionSuccess === REGISTER_USER
+            ? 'Register'
+            : 'Pending . . .'}
         </AccentButton>
       </form>
       <button
@@ -143,12 +146,12 @@ Register.propTypes = {
   clearSessionStatuses: PropTypes.func.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
-  submissionSuccess: PropTypes.bool,
+  sessionSuccess: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
   errorMessage: state.communication.session.errorMessage,
-  submissionSuccess: state.communication.session.success,
+  sessionSuccess: state.communication.session.success,
 });
 
 export default connect(mapStateToProps, { registerUser, clearSessionStatuses })(

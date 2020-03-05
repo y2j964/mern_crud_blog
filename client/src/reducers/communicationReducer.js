@@ -35,7 +35,7 @@ export default function(state = initialState, action) {
         ...state,
         [action.payload.scope]: {
           isLoading: false,
-          success: true,
+          success: action.payload.successMessage,
           errorMessage: null,
         },
       };
@@ -45,7 +45,7 @@ export default function(state = initialState, action) {
         ...state,
         [action.payload.scope]: {
           isLoading: false,
-          success: false,
+          success: null,
           errorMessage: action.payload.errorMessage,
         },
       };

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { InputEmail, InputPassword } from './Input';
 import { loginUser } from '../actions/sessionActions';
+import { LOGIN_USER } from '../actions/types';
 import { clearSessionStatuses } from '../actions/communicationActions';
 import WithErrorNotification from './WithErrorNotification';
 import WithSuccessNotification from './WithSuccessNotification';
@@ -17,7 +18,7 @@ function Login({
   // eslint-disable-next-line no-shadow
   clearSessionStatuses,
   errorMessage,
-  submissionSuccess,
+  sessionSuccess,
 }) {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
@@ -35,13 +36,13 @@ function Login({
 
   // if succeeds, close it
   useEffect(() => {
-    if (!submissionSuccess) {
+    if (sessionSuccess !== LOGIN_USER) {
       return;
     }
     const timeoutID = setTimeout(() => handleClose(), 1200);
     // eslint-disable-next-line consistent-return
     return () => clearTimeout(timeoutID);
-  }, [submissionSuccess, handleClose]);
+  }, [sessionSuccess, handleClose]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -81,7 +82,7 @@ function Login({
         </h2>
       </header>
       <form action="" onSubmit={handleSubmit}>
-        <WithSuccessNotification success={submissionSuccess} />
+        <WithSuccessNotification success={sessionSuccess === LOGIN_USER} />
         <WithErrorNotification error={errorMessage} />
         <InputEmail
           labelText={'Email: '}
@@ -111,10 +112,12 @@ function Login({
           type="submit"
           additionalClasses="w-full mt-2"
           tabIndex={tabIndex}
-          disabled={isSubmitting || submissionSuccess}
+          disabled={isSubmitting || sessionSuccess === LOGIN_USER}
           dataTestId="submitLogin"
         >
-          {!isSubmitting || submissionSuccess ? 'Log In' : 'Pending . . .'}
+          {!isSubmitting || sessionSuccess === LOGIN_USER
+            ? 'Log In'
+            : 'Pending . . .'}
         </AccentButton>
       </form>
       <button
@@ -136,12 +139,12 @@ Login.propTypes = {
   clearSessionStatuses: PropTypes.func.isRequired,
   setAuthModalPosition: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
-  submissionSuccess: PropTypes.bool,
+  sessionSuccess: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
   errorMessage: state.communication.session.errorMessage,
-  submissionSuccess: state.communication.session.success,
+  sessionSuccess: state.communication.session.success,
 });
 
 export default connect(mapStateToProps, { loginUser, clearSessionStatuses })(

@@ -15,7 +15,7 @@ export const getPosts = () => dispatch => {
     .get('/api/posts')
     .then(res => {
       dispatch({ type: GET_POSTS, payload: res.data });
-      dispatch(requestSuccess(scope));
+      dispatch(requestSuccess(scope, GET_POSTS));
     })
     .catch(err => dispatch(requestFailure(scope, err.response.data.message)));
 };
@@ -26,7 +26,7 @@ export const addPost = post => (dispatch, getState) => {
     .post('/api/posts', post, tokenConfig(getState))
     .then(res => {
       dispatch({ type: ADD_POST, payload: res.data });
-      dispatch(requestSuccess(scope));
+      dispatch(requestSuccess(scope, ADD_POST));
     })
     .catch(err => dispatch(requestFailure(scope, err.response.data.message)));
 };
@@ -37,7 +37,7 @@ export const deletePost = id => (dispatch, getState) => {
     .delete(`/api/posts/${id}`, tokenConfig(getState))
     .then(() => {
       dispatch({ type: DELETE_POST, payload: id });
-      dispatch(requestSuccess(scope));
+      dispatch(requestSuccess(scope, DELETE_POST));
     })
     .catch(err => dispatch(requestFailure(scope, err.response.data.message)));
 };
@@ -48,10 +48,7 @@ export const updatePost = post => (dispatch, getState) => {
     .patch(`/api/posts/${post._id}`, post, tokenConfig(getState))
     .then(res => {
       dispatch({ type: UPDATE_POST, payload: res.data });
-      dispatch(requestSuccess(scope));
+      dispatch(requestSuccess(scope, UPDATE_POST));
     })
-    .catch(err => {
-      console.log(err);
-      dispatch(requestFailure(scope, err.response.data.message));
-    });
+    .catch(err => dispatch(requestFailure(scope, err.response.data.message)));
 };

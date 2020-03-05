@@ -36,6 +36,7 @@ export const getUser = () => (dispatch, getState) => {
         type: GET_USER,
         payload: res.data,
       });
+      dispatch(requestSuccess(scope, GET_USER));
     })
     .catch(err => dispatch(requestFailure(scope, err.response.data.message)));
 };
@@ -60,7 +61,7 @@ export const registerUser = ({ name, email, password }) => dispatch => {
         type: REGISTER_USER,
         payload: res.data,
       });
-      dispatch(requestSuccess(scope));
+      dispatch(requestSuccess(scope, REGISTER_USER));
     })
     .catch(err => dispatch(requestFailure(scope, err.response.data.message)));
 };
@@ -85,7 +86,7 @@ export const loginUser = ({ email, password }) => dispatch => {
         type: LOGIN_USER,
         payload: res.data,
       });
-      dispatch(requestSuccess(scope));
+      dispatch(requestSuccess(scope, LOGIN_USER));
     })
     .catch(err => dispatch(requestFailure(scope, err.response.data.message)));
 };

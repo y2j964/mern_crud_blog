@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/sessionActions';
 import AuthDropdownTrigger from './AuthDropdownTrigger';
 
+// eslint-disable-next-line no-shadow
 function AuthDropdown({ isAuthenticated, setAuthModalPosition, logoutUser }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 

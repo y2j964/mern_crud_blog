@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { getPosts } from '../../actions/postActions';
 import { postsType } from '../Card/types';
 import Modal from '../Modal/Modal';
 import Dialog from '../Modal/Dialog';
@@ -35,24 +34,10 @@ export const getFilteredPosts = (dataSource, searchQuery) => {
   return updatedFilteredPosts;
 };
 
-function SearchFilter({
-  isOpen,
-  handleClose,
-  posts,
-  isInitiallyFetched,
-  // eslint-disable-next-line no-shadow
-  getPosts,
-}) {
+function SearchFilter({ isOpen, handleClose, posts }) {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [filteredPosts, setFilteredPosts] = useState([]);
-
-  useEffect(() => {
-    if (!isInitiallyFetched) {
-      getPosts();
-    }
-  }, [isInitiallyFetched, getPosts]);
-
   const debouncedInputValue = useDebounce(inputValue, delay);
 
   // when user stops typing for debounced timeout
@@ -125,14 +110,11 @@ SearchFilter.propTypes = {
   posts: postsType,
   isOpen: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  isInitiallyFetched: PropTypes.bool.isRequired,
-  getPosts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  isInitiallyFetched: state.posts.isInitiallyFetched,
   posts: state.posts.items,
   isLoading: state.communication.posts.isLoading,
 });
 
-export default connect(mapStateToProps, { getPosts })(SearchFilter);
+export default connect(mapStateToProps)(SearchFilter);

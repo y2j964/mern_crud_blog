@@ -64,6 +64,7 @@ describe('add post submission', () => {
   it('displays success messages and behavior', () => {
     cy.server();
     cy.route('GET', '/api/auth', authResponse);
+    cy.route('GET', '/api/posts', initialPosts);
     cy.visit('/add-post');
     cy.findByLabelText('Title:')
       .should('to.be.empty')
@@ -91,12 +92,12 @@ describe('add post submission', () => {
       .should('contain', 'Pending . . .')
       .should('be.disabled');
     cy.findByText(/navigating back to posts/i);
-    cy.route('GET', '/api/posts', initialPosts);
     cy.url().should('eq', `${Cypress.config().baseUrl}/`);
   });
 
   it('displays error messages and behavior', () => {
     cy.server();
+    cy.route('GET', '/api/auth', authResponse);
     cy.route('GET', '/api/auth', authResponse);
     cy.visit('/add-post');
     cy.findByLabelText('Title:')

@@ -5,6 +5,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 import { getPostBySlug } from '../selectors/postSelectors';
 import { postType } from '../components/Card/types';
+import Spinner from '../icons/Spinner';
 
 const formatter = new Intl.DateTimeFormat('en-us', {
   year: 'numeric',
@@ -16,15 +17,25 @@ const formatter = new Intl.DateTimeFormat('en-us', {
 });
 
 function Post({ post }) {
-  const { title, description, author, date, body, authorSlug } = post;
-  const dateFull = new Date(date);
-
   const ref = useRef();
   useEffect(() => {
-    document.title = `${title} - MERN CRUD Blog`;
-    // focus h1 on route change to let screen reader know we changed route
-    ref.current.focus();
-  }, [title]);
+    if (post) {
+      document.title = `${post.title} - MERN CRUD Blog`;
+      // focus h1 on route change to let screen reader know we changed route
+      ref.current.focus();
+    }
+  }, [post]);
+
+  // this will run on reloads/new tabs while the initial data is fetching
+  if (!post) {
+    return (
+      <main className="flex flex-col justify-center">
+        <Spinner />
+      </main>
+    );
+  }
+  const { title, description, author, date, body, authorSlug } = post;
+  const dateFull = new Date(date);
 
   return (
     <main className="max-w-3xl mx-auto">

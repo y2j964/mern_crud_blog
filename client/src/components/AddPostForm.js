@@ -6,6 +6,7 @@ import 'react-quill/dist/quill.snow.css';
 import { connect } from 'react-redux';
 import ImageAlt from '../ImageAlt';
 import { addPost } from '../actions/postActions';
+import { ADD_POST } from '../actions/types';
 import { getName, getAuthorSlug } from '../selectors/sessionSelector';
 import Input, { InputText } from './Input';
 import WithErrorNotification from './WithErrorNotification';
@@ -73,7 +74,7 @@ function AddPostForm({
   // redirect back to home if post succeeded
   useEffect(() => {
     const timeoutID = setTimeout(() => {
-      if (postSuccess) {
+      if (postSuccess === ADD_POST) {
         history.push('/');
       }
     }, 1000);
@@ -127,7 +128,7 @@ function AddPostForm({
     addPost(post);
   };
 
-  if (postSuccess) {
+  if (postSuccess === ADD_POST) {
     return (
       <p className="text-center" aria-live="assertive">
         Post Added! Navigating back to posts . . .{' '}
@@ -217,7 +218,7 @@ AddPostForm.propTypes = {
   authorSlug: PropTypes.string.isRequired,
   history: PropTypes.object.isRequired,
   errorMessage: PropTypes.string,
-  postSuccess: PropTypes.bool,
+  postSuccess: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
