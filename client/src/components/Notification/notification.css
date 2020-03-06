@@ -18,6 +18,6 @@
   }
 
   &__text {
-    @apply text-sm font-bold;
+    @apply text-sm font-bold outline-none;
   }
 }

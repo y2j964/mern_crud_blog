@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 function Spinner() {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current.focus();
+  }, [ref]);
+
   return (
     <div className="flex justify-center items-center" role="status">
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only" tabIndex="-1" ref={ref}>
+        Loading...
+      </span>
       <svg
         className="lds-spinner"
         aria-label="loading"

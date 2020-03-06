@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 function Notification({ message, styleType }) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current.focus();
+  }, [ref]);
+
   return (
     <div className={`notification ${styleType}`} role="alert">
-      <p className="notification__text">{message}</p>
+      <p className="notification__text" tabIndex="-1" ref={ref}>
+        {message}
+      </p>
     </div>
   );
 }
