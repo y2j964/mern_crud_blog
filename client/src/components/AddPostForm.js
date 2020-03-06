@@ -88,14 +88,6 @@ function AddPostForm({
   // if fails, reset button to default state and scroll to error
   useEffect(() => {
     setIsSubmitting(false);
-    const scrolledDestination = document.querySelector('[role="alert"]');
-    if (scrolledDestination) {
-      window.scrollTo({
-        top: window.scrollY + scrolledDestination.getBoundingClientRect().top,
-        left: 0,
-        behavior: 'smooth',
-      });
-    }
   }, [errorMessage]);
 
   const handleSubmit = e => {
@@ -110,18 +102,16 @@ function AddPostForm({
     if (unprivilegedEditor.current.getText().length <= 1) {
       setQuillError("Please add text to the post's body");
 
-      const scrolledDestination =
-        document.querySelector('[role="alert"]') ||
-        document.querySelector('.quill');
-      // these querySelectors equate to the same thing; when the role isn't visible
-      // (it's instantiation),  it will get instantiated in the very spot that quill is
-
-      // when the error is present and it isn't visible on the screen, scroll to that error . . .
-      window.scrollTo({
-        top: window.scrollY + scrolledDestination.getBoundingClientRect().top,
-        left: 0,
-        behavior: 'smooth',
-      });
+      const scrolledDestination = document.querySelector('[role="alert"]');
+      // on error's initial render the window will focus it, if user ignores error
+      // and resubmits, we will scroll up to error
+      if (scrolledDestination) {
+        window.scrollTo({
+          top: window.scrollY + scrolledDestination.getBoundingClientRect().top,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }
 
       setIsSubmitting(false);
       return;
