@@ -23,23 +23,24 @@ function SearchResultsRenderer({
   children,
 }) {
   return (
-    // order is important
-    <WithSearchInputPrompt
-      inputValue={debouncedInputValue}
-      render={() => (
-        <WithLoadingIndicator
-          isLoading={isLoading}
-          Component={LoadingText}
-          render={() => (
-            <WithEmpty
-              length={totalResults}
-              Component={SearchResultsNone}
-              render={() => children}
-            />
-          )}
-        />
-      )}
-    />
+    <section role="status">
+      <WithSearchInputPrompt
+        inputValue={debouncedInputValue}
+        render={() => (
+          <WithLoadingIndicator
+            isLoading={isLoading}
+            Component={LoadingText}
+            render={() => (
+              <WithEmpty
+                length={totalResults}
+                Component={SearchResultsNone}
+                render={() => children}
+              />
+            )}
+          />
+        )}
+      />
+    </section>
   );
 }
 
