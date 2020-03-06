@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import ImageAlt from '../ImageAlt';
 import { addPost } from '../actions/postActions';
 import { ADD_POST } from '../actions/types';
+import { clearPostStatuses } from '../actions/communicationActions';
 import { getName, getAuthorSlug } from '../selectors/sessionSelector';
 import Input, { InputText } from './Input';
 import WithErrorNotification from './WithErrorNotification';
@@ -25,6 +26,8 @@ function AddPostForm({
   history,
   // eslint-disable-next-line no-shadow
   addPost,
+  // eslint-disable-next-line no-shadow
+  clearPostStatuses,
   name,
   authorSlug,
   errorMessage,
@@ -82,14 +85,26 @@ function AddPostForm({
     return () => clearTimeout(timeoutID);
   }, [postSuccess, history]);
 
-  // if fails, reset button to default state
+  // if fails, reset button to default state and scroll to error
   useEffect(() => {
     setIsSubmitting(false);
+    const scrolledDestination = document.querySelector('[role="alert"]');
+    if (scrolledDestination) {
+      window.scrollTo({
+        top: window.scrollY + scrolledDestination.getBoundingClientRect().top,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
   }, [errorMessage]);
 
   const handleSubmit = e => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    // need to clear errors in event that subsequent error prevents fixed error
+    // from reflecting fixed state
+    clearPostStatuses();
 
     // make sure body has textContent
     if (unprivilegedEditor.current.getText().length <= 1) {
@@ -214,6 +229,7 @@ function AddPostForm({
 
 AddPostForm.propTypes = {
   addPost: PropTypes.func.isRequired,
+  clearPostStatuses: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   authorSlug: PropTypes.string.isRequired,
   history: PropTypes.object.isRequired,
@@ -228,4 +244,6 @@ const mapStateToProps = state => ({
   postSuccess: state.communication.posts.success,
 });
 
-export default withRouter(connect(mapStateToProps, { addPost })(AddPostForm));
+export default withRouter(
+  connect(mapStateToProps, { addPost, clearPostStatuses })(AddPostForm)
+);

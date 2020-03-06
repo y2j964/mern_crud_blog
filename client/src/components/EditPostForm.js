@@ -7,6 +7,7 @@ import 'react-quill/dist/quill.snow.css';
 import { getPostById } from '../selectors/postSelectors';
 import { updatePost } from '../actions/postActions';
 import { UPDATE_POST } from '../actions/types';
+import { clearPostStatuses } from '../actions/communicationActions';
 import Input, { InputText } from './Input';
 import { postType } from './Card/types';
 import WithErrorNotification from './WithErrorNotification';
@@ -25,6 +26,8 @@ function EditPostForm({
   post,
   // eslint-disable-next-line no-shadow
   updatePost,
+  // eslint-disable-next-line no-shadow
+  clearPostStatuses,
   // eslint-disable-next-line no-shadow
   postSuccess,
   errorMessage,
@@ -84,13 +87,25 @@ function EditPostForm({
     return () => clearTimeout(timeoutID);
   }, [postSuccess, history]);
 
-  // if fails, reset button to default state
+  // if fails, reset button to default state and scroll to error
   useEffect(() => {
     setIsSubmitting(false);
+    const scrolledDestination = document.querySelector('[role="alert"]');
+    if (scrolledDestination) {
+      window.scrollTo({
+        top: window.scrollY + scrolledDestination.getBoundingClientRect().top,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
   }, [errorMessage]);
 
   const handleSubmit = e => {
     e.preventDefault();
+
+    // need to clear errors in event that subsequent error prevents fixed error
+    // from reflecting fixed state
+    clearPostStatuses();
 
     if (unprivilegedEditor.current.getText().length <= 1) {
       setQuillError("Please add text to the post's body");
@@ -237,5 +252,5 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, { updatePost })(EditPostForm)
+  connect(mapStateToProps, { updatePost, clearPostStatuses })(EditPostForm)
 );
