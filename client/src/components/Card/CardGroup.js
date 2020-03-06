@@ -32,7 +32,10 @@ function CardGroup({ isEditable, posts }) {
     )
   );
   return (
-    <TransitionGroup className="flex flex-col items-center mx-auto max-w-sm sm:max-w-2xl xl:max-w-3xl">
+    <TransitionGroup
+      className="flex flex-col items-center mx-auto max-w-sm sm:max-w-2xl xl:max-w-3xl"
+      component="ol"
+    >
       {postFrags}
     </TransitionGroup>
   );

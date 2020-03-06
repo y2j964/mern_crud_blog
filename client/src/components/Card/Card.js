@@ -31,53 +31,55 @@ function Card({
 
   return (
     <React.Fragment>
-      <article className="card">
-        <div className="card__img-container">
-          <img className="card__img" src={thumbnailImage} alt="" />
-        </div>
-        <div className="card__body">
-          <h2 className="card__title">
-            <Link to={`/posts/${postSlug}`} className="a-pseudo-wrap">
-              {title}
-            </Link>
-          </h2>
-          <p className="mb-4">{description}</p>
-          {isEditable ? (
-            <div className="flex justify-around">
-              <Link
-                to={`/edit-posts/${_id}`}
-                className="p-2 relative z-10"
-                aria-label="edit post"
-              >
-                <Edit />
+      <li className="w-full">
+        <article className="card">
+          <div className="card__img-container">
+            <img className="card__img" src={thumbnailImage} alt="" />
+          </div>
+          <div className="card__body">
+            <h2 className="card__title">
+              <Link to={`/posts/${postSlug}`} className="a-pseudo-wrap">
+                {title}
               </Link>
-              <button
-                className="p-2 relative z-10"
-                aria-label="delete post"
-                onClick={() => setIsConfirmationOpen(true)}
-              >
-                <Close fill="#e60000" />
-              </button>
-            </div>
-          ) : (
-            <React.Fragment>
-              <span className="card__small-print">
-                Written by:{' '}
+            </h2>
+            <p className="mb-4">{description}</p>
+            {isEditable ? (
+              <div className="flex justify-around">
                 <Link
-                  to={`/authors/${authorSlug}`}
-                  // to={{ pathname: `/authors/${authorSlug}`, author }}
-                  className="text-accent relative z-10"
+                  to={`/edit-posts/${_id}`}
+                  className="p-2 relative z-10"
+                  aria-label="edit post"
                 >
-                  {author}
+                  <Edit />
                 </Link>
-              </span>
-              <time className="card__small-print" dateTime={date}>
-                {formatter.format(dateFull)}
-              </time>
-            </React.Fragment>
-          )}
-        </div>
-      </article>
+                <button
+                  className="p-2 relative z-10"
+                  aria-label="delete post"
+                  onClick={() => setIsConfirmationOpen(true)}
+                >
+                  <Close fill="#e60000" />
+                </button>
+              </div>
+            ) : (
+              <React.Fragment>
+                <span className="card__small-print">
+                  Written by:{' '}
+                  <Link
+                    to={`/authors/${authorSlug}`}
+                    // to={{ pathname: `/authors/${authorSlug}`, author }}
+                    className="text-accent relative z-10"
+                  >
+                    {author}
+                  </Link>
+                </span>
+                <time className="card__small-print" dateTime={date}>
+                  {formatter.format(dateFull)}
+                </time>
+              </React.Fragment>
+            )}
+          </div>
+        </article>
+      </li>
       {isConfirmationOpen && (
         <DeleteConfirmation
           handleClose={() => setIsConfirmationOpen(false)}
