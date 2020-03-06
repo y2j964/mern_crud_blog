@@ -27,10 +27,9 @@ export const requestFailure = (scope, errorMessage) => {
   };
 };
 
-export const clearStatuses = scope => {
+export const clearStatuses = () => {
   return {
     type: CLEAR_STATUSES,
-    payload: { scope },
   };
 };
 
