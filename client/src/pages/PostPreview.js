@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
+import ImageAlt from '../ImageAlt';
 import 'react-quill/dist/quill.bubble.css';
 
 const formatter = new Intl.DateTimeFormat('en-us', {
@@ -10,6 +11,8 @@ const formatter = new Intl.DateTimeFormat('en-us', {
   minute: 'numeric',
   timeZoneName: 'short',
 });
+
+Quill.register(ImageAlt, true);
 
 function PostPreview() {
   const defaultTitle = 'This is where your title will go';

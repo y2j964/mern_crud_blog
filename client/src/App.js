@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,9 +8,8 @@ import Footer from './components/Footer/Footer';
 import Modal from './components/Modal/Modal';
 import AuthValidator from './components/AuthValidator';
 import AddPostOverlay from './components/AddPostOverlay';
+import Spinner from './icons/Spinner';
 import Home from './pages/Home';
-import Post from './pages/Post';
-import PostPreview from './pages/PostPreview';
 import Author from './pages/Author';
 import About from './pages/About';
 import AddPost from './pages/AddPost';
@@ -22,6 +21,9 @@ import { getUser } from './actions/sessionActions';
 import { getPosts } from './actions/postActions';
 import AuthDropdown from './components/AuthDropdown/AuthDropdown';
 import ScrollToTop from './components/ScrollToTop';
+
+const Post = lazy(() => import('./pages/Post'));
+const PostPreview = lazy(() => import('./pages/PostPreview'));
 
 function App({ location }) {
   const [authModalPosition, setAuthModalPosition] = useState();
@@ -39,8 +41,34 @@ function App({ location }) {
       </Navbar>
       <Switch location={location}>
         <Route exact path="/" component={Home} />
-        <Route path="/posts/:postSlug" component={Post} />
-        <Route path="/post-preview" component={PostPreview} />
+        <Route
+          path="/posts/:postSlug"
+          render={props => (
+            <Suspense
+              fallback={
+                <main>
+                  <Spinner />
+                </main>
+              }
+            >
+              <Post {...props} />
+            </Suspense>
+          )}
+        />
+        <Route
+          path="/post-preview"
+          render={props => (
+            <Suspense
+              fallback={
+                <main>
+                  <Spinner />
+                </main>
+              }
+            >
+              <PostPreview {...props} />
+            </Suspense>
+          )}
+        />
         <Route path="/authors/:authorSlug" component={Author} />
         <Route
           exact

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
+import ImageAlt from '../ImageAlt';
 import 'react-quill/dist/quill.bubble.css';
 import { getPostBySlug } from '../selectors/postSelectors';
 import { postType } from '../components/Card/types';
@@ -15,6 +16,8 @@ const formatter = new Intl.DateTimeFormat('en-us', {
   minute: 'numeric',
   timeZoneName: 'short',
 });
+
+Quill.register(ImageAlt, true);
 
 function Post({ post }) {
   const ref = useRef();

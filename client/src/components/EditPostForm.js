@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter, Prompt, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactQuill, { Quill } from 'react-quill';
+import ImageAlt from '../ImageAlt';
 import 'react-quill/dist/quill.snow.css';
 import { getPostById } from '../selectors/postSelectors';
 import { updatePost } from '../actions/postActions';
@@ -20,6 +21,8 @@ const toolbarOptions = [
   [{ list: 'ordered' }, { list: 'bullet' }],
   ['link', 'image'],
 ];
+
+Quill.register(ImageAlt, true);
 
 function EditPostForm({
   history,
@@ -94,7 +97,6 @@ function EditPostForm({
 
   const handleSubmit = e => {
     e.preventDefault();
-
     // need to clear errors in event that subsequent error prevents fixed error
     // from reflecting fixed state
     clearPostStatuses();
@@ -231,6 +233,7 @@ EditPostForm.propTypes = {
   history: PropTypes.object.isRequired,
   post: postType,
   updatePost: PropTypes.func.isRequired,
+  clearPostStatuses: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
   postSuccess: PropTypes.string,
 };

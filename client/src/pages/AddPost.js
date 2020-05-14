@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import AddPostForm from '../components/AddPostForm';
 import LockScreen from '../components/LockScreen';
+import Spinner from '../icons/Spinner';
+
+const AddPostForm = lazy(() => import('../components/AddPostForm'));
 
 // eslint-disable-next-line no-shadow
 function AddPost({ isAuthenticated, openLogin }) {
@@ -28,7 +30,9 @@ function AddPost({ isAuthenticated, openLogin }) {
           openLogin={openLogin}
         />
       ) : (
-        <AddPostForm />
+        <Suspense fallback={<Spinner />}>
+          <AddPostForm />
+        </Suspense>
       )}
     </main>
   );

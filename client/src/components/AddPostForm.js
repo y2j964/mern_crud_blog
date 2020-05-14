@@ -13,7 +13,6 @@ import Input, { InputText } from './Input';
 import WithErrorNotification from './WithErrorNotification';
 import { AccentButton } from './Button/Button';
 
-Quill.register(ImageAlt);
 const toolbarOptions = [
   [{ header: [1, 2, false] }],
   ['bold', 'italic', 'underline', 'strike'],
@@ -21,6 +20,8 @@ const toolbarOptions = [
   [{ list: 'ordered' }, { list: 'bullet' }],
   ['link', 'image'],
 ];
+
+Quill.register(ImageAlt, true);
 
 function AddPostForm({
   history,

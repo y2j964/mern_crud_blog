@@ -66,7 +66,8 @@ describe('add post submission', () => {
     cy.route('GET', '/api/auth', authResponse);
     cy.route('GET', '/api/posts', initialPosts);
     cy.visit('/add-post');
-    cy.findByLabelText('Title:')
+    cy.findByText(/loading.../i).should('exist');
+    cy.findByLabelText('Title:', { timeout: 20000 })
       .should('to.be.empty')
       .type(addedPost.title)
       .should('have.value', addedPost.title);
@@ -98,9 +99,10 @@ describe('add post submission', () => {
   it('displays error messages and behavior', () => {
     cy.server();
     cy.route('GET', '/api/auth', authResponse);
-    cy.route('GET', '/api/auth', authResponse);
+    cy.route('GET', '/api/posts', initialPosts);
     cy.visit('/add-post');
-    cy.findByLabelText('Title:')
+    cy.findByText(/loading.../i).should('exist');
+    cy.findByLabelText('Title:', { timeout: 20000 })
       .should('to.be.empty')
       .type(addedPost.title)
       .should('have.value', addedPost.title);
