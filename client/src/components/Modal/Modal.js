@@ -7,19 +7,16 @@ import FocusLock from 'react-focus-lock';
 import PropTypes from 'prop-types';
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
-function Modal({
-  isOpen,
-  handleClose,
-  additionalClasses,
-  children,
-}) {
+const options = { reserveScrollBarGap: true };
+
+function Modal({ isOpen, handleClose, additionalClasses, children }) {
   const modalRef = useRef();
 
   useEffect(() => {
     if (!isOpen) {
       return;
     }
-    disableBodyScroll(modalRef.current);
+    disableBodyScroll(modalRef.current, options);
     // eslint-disable-next-line consistent-return
     return () => {
       clearAllBodyScrollLocks();
