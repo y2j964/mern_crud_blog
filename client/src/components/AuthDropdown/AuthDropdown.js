@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/sessionActions';
@@ -7,9 +7,18 @@ import AuthDropdownTrigger from './AuthDropdownTrigger';
 // eslint-disable-next-line no-shadow
 function AuthDropdown({ isAuthenticated, setAuthModalPosition, logoutUser }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const timeoutRef = useRef(null);
+
+  // close dropdown on outside click/focus
+  const handleBlur = () => {
+    timeoutRef.current = setTimeout(() => setIsDropdownOpen(false));
+  };
+  const handleFocus = () => {
+    clearTimeout(timeoutRef.current);
+  };
 
   return (
-    <span className="relative">
+    <span className="relative" onBlur={handleBlur} onFocus={handleFocus}>
       <AuthDropdownTrigger
         isDropdownOpen={isDropdownOpen}
         toggleIsDropdownOpen={() => setIsDropdownOpen(!isDropdownOpen)}
