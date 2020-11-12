@@ -105,7 +105,7 @@ Here are the full stack scripts:
 Runs nodemon for a dynamic server, and runs hot reloaded React with TailwindCSS configuration.
 
 #### `npm run heroku-postbuild`
-Builds assets automatically as the final stage of a heroku push.
+Builds assets as the final stage of a heroku push. When you run `git push heroku master`, this script will run automatically.
 
 ## Acknowledgements
 * The Spinner gif was generated with [loading.io](https://loading.io/).
