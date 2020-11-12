@@ -21,7 +21,9 @@ function EditPost({ isAuthenticated, openLogin }) {
       <h1
         tabIndex="-1"
         ref={ref}
-        className="text-4xl pt-8 pb-2 text-center font-bold"
+        className={`text-4xl pt-8 text-center font-bold ${
+          !isAuthenticated ? 'pb-8' : 'pb-2'
+        }`}
       >
         Edit Post
       </h1>
