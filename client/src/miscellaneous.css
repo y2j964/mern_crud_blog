@@ -252,6 +252,18 @@ h1:focus {
   background: rgba(37, 37, 37, 0.6);
 }
 
+.page-heading {
+  @apply text-4xl pt-8 text-center font-bold;
+
+  &--is-lax {
+    @apply pb-8;
+  }
+
+  &--is-tight {
+    @apply pb-2;
+  }
+}
+
 .form-input {
   @apply py-2 px-3 border border-gray-400 w-full appearance-none leading-tight;
   transition: border-color 150ms ease-in-out;

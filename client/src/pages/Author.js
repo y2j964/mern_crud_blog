@@ -30,11 +30,7 @@ function Author({ match, posts }) {
   const { author } = posts[0];
   return (
     <main>
-      <h1
-        tabIndex="-1"
-        ref={ref}
-        className="text-4xl py-8 text-center font-bold"
-      >
+      <h1 tabIndex="-1" ref={ref} className="page-heading page-heading--is-lax">
         Posts by {author}
       </h1>
       <CardGroup posts={posts} />

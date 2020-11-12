@@ -20,8 +20,8 @@ function AddPost({ isAuthenticated, openLogin }) {
       <h1
         tabIndex="-1"
         ref={ref}
-        className={`text-4xl pt-8 text-center font-bold ${
-          !isAuthenticated ? 'pb-8' : 'pb-2'
+        className={`page-heading ${
+          !isAuthenticated ? 'page-heading--is-lax' : 'page-heading--is-tight'
         }`}
       >
         Add Post

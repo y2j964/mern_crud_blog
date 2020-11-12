@@ -10,11 +10,7 @@ function Error404() {
   }, []);
   return (
     <main>
-      <h1
-        tabIndex="-1"
-        ref={ref}
-        className="text-4xl py-8 text-center font-bold"
-      >
+      <h1 tabIndex="-1" ref={ref} className="page-heading page-heading--is-lax">
         404 Error: Page Not Found
       </h1>
       <p className="mb-6">

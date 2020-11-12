@@ -17,11 +17,9 @@ function Home({ posts, isLoading }) {
 
   return (
     <main>
-      <header className="py-8">
-        <h1 tabIndex="-1" ref={ref} className="text-4xl text-center font-bold">
-          Blog Posts
-        </h1>
-      </header>
+      <h1 tabIndex="-1" ref={ref} className="page-heading page-heading--is-lax">
+        Blog Posts
+      </h1>
       <WithLoadingIndicator
         isLoading={isLoading}
         render={() => <CardGroup posts={posts} />}

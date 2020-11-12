@@ -15,11 +15,7 @@ function EditPosts({ isAuthenticated, openLogin }) {
 
   return (
     <main>
-      <h1
-        tabIndex="-1"
-        ref={ref}
-        className="text-4xl py-8 text-center font-bold"
-      >
+      <h1 tabIndex="-1" ref={ref} className="page-heading page-heading--is-lax">
         My Posts
       </h1>
       {!isAuthenticated ? (
